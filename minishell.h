@@ -1,0 +1,136 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
+/*   Updated: 2022/05/19 17:47:05 by jpizarro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+// C Program to design a shell in Linux
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <readline/readline.h>
+#include <termios.h>
+#include <readline/history.h>
+#include "pipex/pipex.h"
+#include "libft/libft.h"
+
+# include <fcntl.h>
+# include <errno.h>
+# include <signal.h>
+# include <sys/stat.h>
+
+
+int			g_exit_status;
+
+
+// Clearing the shell using escape sequences
+#define clear() printf("\033[H\033[J")	// ???
+
+#define MAX_PATH 1024	//	1024 is the max path length for MacOS, 4096 for Linux
+#define MAX_NAME 255	//
+#define MAX_LINE 4096	/*	In canonical mode:
+						**	The maximum line length is 4096 chars (including the
+						**	terminating newline character); lines longer than 4096 chars
+						**	are truncated.  After 4095 characters, input processing (e.g.,
+						**	ISIG and ECHO* processing) continues, but any input data after
+						**	4095 characters up to (but not including) any terminating
+						**	newline is discarded.  This ensures that the terminal can
+						**	always receive more input until at least one line can be read.
+						*/
+
+#define PIPE |
+#define	IN <
+#define OUT >
+#define	HERE < + 1
+#define APOUT > + 1
+
+typedef struct s_env
+{
+	char			**var;
+	struct s_env	*next;
+}				t_env;
+
+typedef struct s_cmds
+{
+	char			type;
+	char			**cmd;
+	struct s_cmds	*next;
+}				t_cmds;
+
+
+//typedef struct s_built_in
+//{
+//	int				cmd_num;
+//	char			**cmd;
+//	int				infile;
+//	int				outfile;
+//	int				in_pipe[2];
+//	int				out_pipe[2];
+//	pid_t			pid;
+//}				t_built_in;
+
+//typedef struct s_parsing
+//{
+//	int				cmd_num;
+//	char			**cmd;
+//	int				infile;
+//	int				outfile;
+//	int				in_pipe[2];
+//	int				out_pipe[2];
+//	pid_t			pid;
+//}				t_parsing;
+
+//typedef struct s_signals
+//{
+//	int				cmd_num;
+//	char			**cmd;
+//	int				infile;
+//	int				outfile;
+//	int				in_pipe[2];
+//	int				out_pipe[2];
+//	pid_t			pid;
+//}				t_signals;
+
+typedef struct s_mini_data
+{
+//	t_pipex_data	*pip;
+//	t_parsing		*par;
+//	t_signals		*sig;
+//	t_built_in		*bin;
+	char			*shell_name;
+	char			*prompt;
+//	char			**cmd;
+	t_env			*env;
+	char			**envp;
+	char			*line;
+	t_cmds			*cmd;
+}				t_mini_data;
+
+t_env	*add_env_link(char **env_var, int definition);
+int		builtiner(t_mini_data *data, char **cmd);
+int		env(char **envp);
+int		executer(t_mini_data *data);
+//void	*exit_shell(t_mini_data *data);
+void	exit_shell(t_mini_data *data);
+int		expand_env_var(char **line, int *i, t_env **env);
+int		export(char **cmd, t_mini_data *data);
+int		export_env(char *env_var, t_env **env);
+void 	init_mini_data(t_mini_data *data);
+void	parser(t_mini_data *data);
+int		pwd(void);
+void	reset_envp(t_mini_data *data);
+t_env	**search_env(char *env_name, t_env **env);
+void	set_env_list(char *envp[], t_mini_data *data);
+t_env	*set_env_value(char **var, int def, t_env *env);
+// void	signal_handler(t_mini_data *data);
+void	signal_handler(void);
+int		unset(t_mini_data *data);

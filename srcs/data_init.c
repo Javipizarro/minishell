@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 13:19:31 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/05/19 16:15:17 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/05/25 03:07:07 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void 	init_mini_data(t_mini_data *data)
 	//data->bin = NULL;
 	data->shell_name = ft_strdup("JaviShell");
 	data->prompt = ft_strdup("JaviShell> ");
-	data->cmd = NULL;
-	data->envp = NULL;
 	data->env = NULL;
-	data->cmd = NULL;
+	data->envp = NULL;
 	data->line = NULL;
+	data->cmds = NULL;
+//	data->err = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:49:33 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/05/18 10:37:28 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:23:42 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**ft_splitonce(const char *s, char c)
 	char	**mem;
 	size_t	var[4];
 
-	var[0] = 2;
+	var[0] = 1 + (ft_charpos(s, c) > 0);
 	mem = malloc(sizeof(char *) * (var[0] + 1));
 	var[1] = 0;
 	var[3] = 0;

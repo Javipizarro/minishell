@@ -1,16 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   .parser_old.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:56:11 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/05/25 03:03:27 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/05/25 00:10:13 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+/*
+**	Checks whether we are opening or closing quotes and erase them
+**	from the "line" string.
+*/
+
+int	parse_quotes(char *line, char *quo, int *i)
+{
+	if ((line[*i] == '"' || line[*i] == '\'') && (!*quo || line[*i] == *quo))
+	{
+		if (!*quo)
+			*quo = line[*i];
+		else
+			*quo = 0;
+		ft_memcpy(&line[*i], &line[*i + 1], ft_strlen(&line[*i]));
+		return(1);
+	}
+	if ((*quo == '\'') || (*quo == '"' && line[*i] != '$'))
+	{
+		(*i)++;
+		return(1);
+	}
+	return (0);
+}
 
 /*
 **	Receives the line where the environment variable name must be repaced,
@@ -74,72 +98,79 @@ int	expand_env_var(char **line, int *i, t_env **env)
 }
 
 /*
-**	Trims all the unnecessary spaces from the line for parsing it, and
-**	replaces the necessary ones by unit separators (ascii char 31)
+**	Checks whether there are open quotes that invalidate the entry.
 */
 
-void	manage_spaces(char *line)
+int	arrange_cmd(t_mini_data *data)
 {
-	int i;
+	int		i;
+	int		j;
 	char	quo;
+	int		err;
 
 	i = 0;
+	j = 0;
 	quo = 0;
-	while (line[i])
-	{
-		quotes_status(line[i], &quo);
-		if (!quo && line[i] == ' ' && (i == 0 || line[i + 1] == ' '))
-		{
-			ft_memcpy(&line[i], &line[i + 1], ft_strlen(&line[i]));
-			continue;
-		}
-		if (!quo && line[i] == ' ')
-			line[i] = 31;
-		i++;
-	}
-}
-
-
-/*
-**	Expands the environment variables that are outside '' and erase the
-**	quotes so the line can be later managed to store it into the cmds list.
-*/
-
-void	expand_line(t_mini_data *data)
-{
-	int	i;
-	char	quo;
-
-	i = 0;
-	quo = 0;
+	err = 0;
 	while (data->line[i])
 	{
+		while (!quo && data->line[j] == ' ')
+			ft_memcpy(&data->line[j], &data->line[j + 1],
+			ft_strlen(&data->line[j]));
 		if (parse_quotes(data->line, &quo, &i))
 			continue;
 		if (expand_env_var(&data->line, &i, &data->env))
 			continue;
+//		err = line_to_cmds(data);
+		err = line_to_cmds(data, &data->cmds, data->line, i, &j);
+
+
 		i++;
 	}
+	if (quo)
+//		printf("%s: open quotes are not suported by %s\n",
+//		data->shell_name, data->shell_name);
+	if (err)
+		printf("%s: syntax error\n", data->shell_name);
+	return ((int)quo + err);
 }
 
+// int	arrange_cmd(t_mini_data *data)
+// {
+// 	int 	i;
+// 	char	quo;
+// 	int		err;
+//
+// 	i = 0;
+// 	quo = 0;
+// 	err = 0;
+// 	while (data->line[i])
+// 	{
+// 		if (parse_quotes(data->line, &quo, &i))
+// 			continue;
+// 		if (expand_env_var(&data->line, &i, &data->env))
+// 			continue;
+// 		i++;
+// 	}
+// 	if (quo)
+// 		printf("%s: open quotes are not suported by %s\n",
+// 		data->shell_name, data->shell_name);
+// 	else
+// 		err = line_to_cmds(data);
+// 	if (err)
+// 		printf("%s: syntax error\n", data->shell_name);
+// 	return ((int)quo + err);
+// }
+
+
 /*
-**	From the info in 'data->line', it arranges the commands in it
-**	and stores them in the 'data->cmds' t_cmds structure to
-**	execute them later.
-**	Returns 0 if the commands can be passed or a value related with
-**	the issue found if there is any.
+**	
 */
 
 int	parser(t_mini_data *data)
 {
 	if (!data->line || !data->line[0])
-		return (CONTINUE);
+		return (1);
 	add_history(data->line);
-	if (check_open_quotes(data->line))
-		return (QUOTERR);
-	manage_spaces(data->line);
-	expand_line(data);
-	if (line_to_cmds(data))
-		return (SYNTERR);
-	return (0);
+	return (arrange_cmd(data));
 }

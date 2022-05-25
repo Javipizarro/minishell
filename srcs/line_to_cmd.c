@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:53:09 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/05/19 17:38:42 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/05/25 03:31:59 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ char	parse_type(char *line, int i, t_cmds *cmds)
 		cmds->type = APOUT;
 	else if (line[i] == '>')
 		cmds->type = OUT;
-	if (cmds->tipe == HERE || cmds->type == APOUT)
+	if (cmds->type == HERE || cmds->type == APOUT)
 		return (2);
-	else if (cmds->tipe == PIPE || cmds->tipe == IN || cmds->tipe == OUT)
+	else if (cmds->type == PIPE || cmds->type == IN || cmds->type == OUT)
 		return (1);
-	pritnf("parse_type() error: Error reading the type on %s\n", &line[i]);
+	printf("parse_type() error: Error reading the type on %s\n", &line[i]);
 	return (0);
 }
 
@@ -49,13 +49,13 @@ char	parse_type(char *line, int i, t_cmds *cmds)
 
 t_cmds	*new_cmds()
 {
-	t_cmds	new;
+	t_cmds	*new;
 
 	new = malloc(sizeof(t_cmds));
-	new.type = 0;
-	new.cmd = NULL;
-	new.next = NULL;
-	return (&new);
+	new->type = 0;
+	new->cmd = NULL;
+	new->next = NULL;
+	return (new);
 }
 
 
@@ -72,24 +72,28 @@ int	line_to_cmds(t_mini_data *data)
 	t_cmds	**cmds;
 
 	j = 0;
-	cmds = &data->cmd;
+	i = 0;
+	cmds = &data->cmds;
 	while (data->line[j])
 	{
-		i = j;
 		cmds[0] = new_cmds();
-		while (data->line[j] && data->line[j] != "|"
-		&& data->line[j] != "<" && data->line[j] != ">")
+		while (data->line[j] && data->line[j] != '|'
+		&& data->line[j] != '<' && data->line[j] != '>')
 			j++;
 		i += parse_type(data->line, i, cmds[0]);
 		cmd = ft_calloc(sizeof(char), j - i + 1);
 		ft_memcpy(cmd, &data->line[i], j - i);
-		cmds[0]->cmd = ft_split(cmd, ' ');
+		cmds[0]->cmd = ft_split(cmd, 31);
 		free(cmd);
 		cmd = NULL;
+		if (!cmds[0]->cmd[0])
+			return (1);
 		cmds = &cmds[0]->next;
+		i = j;
 		if (data->line[j] == data->line[j + 1] && (data->line[j] == '<'
 		|| data->line[j] == '>'))
 			j++;
 		j++;
 	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/05/19 17:47:05 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/05/25 03:32:58 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,15 @@ int			g_exit_status;
 						**	always receive more input until at least one line can be read.
 						*/
 
-#define PIPE |
-#define	IN <
-#define OUT >
-#define	HERE < + 1
-#define APOUT > + 1
+#define PIPE '|'
+#define	IN '<'
+#define OUT '>'
+#define	HERE '<' + 1
+#define APOUT '>' + 1
+
+#define CONTINUE 1
+#define QUOTERR 2
+#define SYNTERR 3
 
 typedef struct s_env
 {
@@ -66,71 +70,37 @@ typedef struct s_cmds
 	struct s_cmds	*next;
 }				t_cmds;
 
-
-//typedef struct s_built_in
-//{
-//	int				cmd_num;
-//	char			**cmd;
-//	int				infile;
-//	int				outfile;
-//	int				in_pipe[2];
-//	int				out_pipe[2];
-//	pid_t			pid;
-//}				t_built_in;
-
-//typedef struct s_parsing
-//{
-//	int				cmd_num;
-//	char			**cmd;
-//	int				infile;
-//	int				outfile;
-//	int				in_pipe[2];
-//	int				out_pipe[2];
-//	pid_t			pid;
-//}				t_parsing;
-
-//typedef struct s_signals
-//{
-//	int				cmd_num;
-//	char			**cmd;
-//	int				infile;
-//	int				outfile;
-//	int				in_pipe[2];
-//	int				out_pipe[2];
-//	pid_t			pid;
-//}				t_signals;
-
 typedef struct s_mini_data
 {
-//	t_pipex_data	*pip;
-//	t_parsing		*par;
-//	t_signals		*sig;
-//	t_built_in		*bin;
 	char			*shell_name;
 	char			*prompt;
-//	char			**cmd;
 	t_env			*env;
 	char			**envp;
 	char			*line;
-	t_cmds			*cmd;
+	t_cmds			*cmds;
+	int				err;
 }				t_mini_data;
 
 t_env	*add_env_link(char **env_var, int definition);
-int		builtiner(t_mini_data *data, char **cmd);
+int		builtiner(char **cmd, t_mini_data *data);
+int		check_open_quotes(char *line);
 int		env(char **envp);
-int		executer(t_mini_data *data);
+int		executer(t_mini_data *data, t_cmds	**cmds);
 //void	*exit_shell(t_mini_data *data);
 void	exit_shell(t_mini_data *data);
 int		expand_env_var(char **line, int *i, t_env **env);
 int		export(char **cmd, t_mini_data *data);
 int		export_env(char *env_var, t_env **env);
+void	free_cmds(t_cmds **cmds);
 void 	init_mini_data(t_mini_data *data);
-void	parser(t_mini_data *data);
+int		line_to_cmds(t_mini_data *data);
+int		parse_quotes(char *line, char *quo, int *i);
+int		parser(t_mini_data *data);
 int		pwd(void);
+void	quotes_status(char c, char *quo);
 void	reset_envp(t_mini_data *data);
 t_env	**search_env(char *env_name, t_env **env);
 void	set_env_list(char *envp[], t_mini_data *data);
 t_env	*set_env_value(char **var, int def, t_env *env);
-// void	signal_handler(t_mini_data *data);
 void	signal_handler(void);
-int		unset(t_mini_data *data);
+int		unset(char **cmd, t_mini_data *data);

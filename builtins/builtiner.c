@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 12:10:43 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/05/19 17:03:03 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/05/20 13:42:05 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 //		return (unset(data));
 //	return (0);
 //}
-int	builtiner(t_mini_data *data, char **cmd) //Habrá que modificarlos para que lean de fds!!!!
+int	builtiner(char **cmd, t_mini_data *data) //Habrá que modificarlos para que lean de fds!!!!
 {
 	if (!ft_strcmp(cmd[0], "cd"))
 		printf("%s command is a work in progress right now\n", cmd[0]);
@@ -50,13 +50,17 @@ int	builtiner(t_mini_data *data, char **cmd) //Habrá que modificarlos para que 
 	else if (!ft_strcmp(cmd[0], "pwd"))
 		return(!pwd());
 	else if (!ft_strcmp(cmd[0], "unset"))
-		return (unset(data));
+		return (unset(cmd, data));
 	return (0);
 }
 
-int	executer(t_mini_data *data)
+int	executer(t_mini_data *data, t_cmds	**cmds)
 {
-//	builtiner(data); // Valorar el pasar struct cmd y envp en vez de data para trabajar con el comando que estemos en ese momento.
-	builtiner(data, data->cmd->cmd); // Valorar el pasar struct cmd y envp en vez de data para trabajar con el comando que estemos en ese momento.
-	
+	while (cmds[0])
+	{
+//		builtiner(data); // Valorar el pasar struct cmd y envp en vez de data para trabajar con el comando que estemos en ese momento.
+		builtiner(cmds[0]->cmd, data); // Valorar el pasar struct cmd y envp en vez de data para trabajar con el comando que estemos en ese momento.
+		cmds = &cmds[0]->next;
+	}
+	return (0);
 }

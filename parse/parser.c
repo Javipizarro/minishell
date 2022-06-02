@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:56:11 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/05/25 03:03:27 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/02 14:00:14 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,33 +74,6 @@ int	expand_env_var(char **line, int *i, t_env **env)
 }
 
 /*
-**	Trims all the unnecessary spaces from the line for parsing it, and
-**	replaces the necessary ones by unit separators (ascii char 31)
-*/
-
-void	manage_spaces(char *line)
-{
-	int i;
-	char	quo;
-
-	i = 0;
-	quo = 0;
-	while (line[i])
-	{
-		quotes_status(line[i], &quo);
-		if (!quo && line[i] == ' ' && (i == 0 || line[i + 1] == ' '))
-		{
-			ft_memcpy(&line[i], &line[i + 1], ft_strlen(&line[i]));
-			continue;
-		}
-		if (!quo && line[i] == ' ')
-			line[i] = 31;
-		i++;
-	}
-}
-
-
-/*
 **	Expands the environment variables that are outside '' and erase the
 **	quotes so the line can be later managed to store it into the cmds list.
 */
@@ -123,6 +96,73 @@ void	expand_line(t_mini_data *data)
 }
 
 /*
+**	Checks whether there are any wrong place token.
+*/
+
+int	check_tokens(char *line)
+{
+	int	i;
+	char quo;
+	char token;
+
+	i = ft_strlen(line);
+	if (line[0] == '|' || line[i] == '|' || line[i] == '>' || line[i] == '<')
+		return (1);
+	i = -1;
+	quo = 0;
+	token = 0;
+	while (line[++i])
+	{
+		quotes_status(line[i], &quo);
+		if (quo || (line[i] != '|' && line[i] != '<' && line[i] != '>'))
+		{
+			if (token && line[i] != ' ')
+				token = 0;
+			continue;
+		}
+		if ((line[i] == '<' || line[i] == '>') && line[i] == line[i + 1])
+			i++;
+		if (token && line[i] == '|' || token != '|')
+			return (1);
+		else
+			token == line[i];
+	}
+	return (0);
+}
+
+
+/*
+**	Trims all the unnecessary spaces from the line for parsing it.
+*/
+
+void	trim_spaces(char *line)
+{
+	int i;
+	char	quo;
+
+	i = 0;
+	while (line[0] = ' ')
+		i++;
+	if (i)
+		ft_memcpy(&line[0], &line[i], ft_strlen(&line[i]) + 1);
+	i = 0;
+	quo = 0;
+	while (line[i])
+	{
+		quotes_status(line[i], &quo);
+		if (!quo && line[i] == ' ' && line[i + 1] == ' ')
+		{
+			ft_memcpy(&line[i], &line[i + 1], ft_strlen(&line[i]));
+			continue;
+		}
+		i++;
+	}
+	if (line[--i] == ' ')
+		line[i] == 0;
+}
+
+
+/*
 **	From the info in 'data->line', it arranges the commands in it
 **	and stores them in the 'data->cmds' t_cmds structure to
 **	execute them later.
@@ -135,11 +175,16 @@ int	parser(t_mini_data *data)
 	if (!data->line || !data->line[0])
 		return (CONTINUE);
 	add_history(data->line);
+	trim_spaces(data->line);
+	if (!data->line[0])
+		return (CONTINUE);
 	if (check_open_quotes(data->line))
 		return (QUOTERR);
-	manage_spaces(data->line);
-	expand_line(data);
-	if (line_to_cmds(data))
+	if (check_tokens(data->line))
+		return (TOKERR);
+	if (line_to_cmds(data, &data->cmds))
 		return (SYNTERR);
+
+//	expand_line(data);
 	return (0);
 }

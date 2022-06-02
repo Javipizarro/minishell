@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/05/25 03:32:58 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/02 13:56:15 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int			g_exit_status;
 #define CONTINUE 1
 #define QUOTERR 2
 #define SYNTERR 3
+#define TOKERR 4
 
 typedef struct s_env
 {
@@ -65,7 +66,10 @@ typedef struct s_env
 
 typedef struct s_cmds
 {
-	char			type;
+	char			tok_in;
+	char			tok_out;
+	int				fd_in;
+	int				fd_out;
 	char			**cmd;
 	struct s_cmds	*next;
 }				t_cmds;
@@ -93,8 +97,9 @@ int		export(char **cmd, t_mini_data *data);
 int		export_env(char *env_var, t_env **env);
 void	free_cmds(t_cmds **cmds);
 void 	init_mini_data(t_mini_data *data);
-int		line_to_cmds(t_mini_data *data);
+int		line_to_cmds(t_mini_data *data, t_cmds	**cmds);
 int		parse_quotes(char *line, char *quo, int *i);
+int		parse_files(char *line, t_cmds *cmd);
 int		parser(t_mini_data *data);
 int		pwd(void);
 void	quotes_status(char c, char *quo);
@@ -103,4 +108,5 @@ t_env	**search_env(char *env_name, t_env **env);
 void	set_env_list(char *envp[], t_mini_data *data);
 t_env	*set_env_value(char **var, int def, t_env *env);
 void	signal_handler(void);
+void	trim_spaces(char *line);
 int		unset(char **cmd, t_mini_data *data);

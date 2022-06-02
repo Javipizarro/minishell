@@ -25,6 +25,8 @@ void	print_err(t_mini_data *data)
 		data->shell_name, data->shell_name);
 	else if (data->err == SYNTERR)
 		printf("%s: syntax error\n", data->shell_name);
+	else if (data->err == TOKERR)
+		printf("%s: syntax error near unexpected token\n", data->shell_name);
 }
 
 

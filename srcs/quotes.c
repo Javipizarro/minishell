@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 23:53:20 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/05/25 00:44:05 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/03 12:12:00 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,24 @@
 **	from the "line" string.
 */
 
-int	parse_quotes(char *line, char *quo, int *i)
+void	erase_quotes(char *line)
 {
-	if ((line[*i] == '"' || line[*i] == '\'') && (!*quo || line[*i] == *quo))
+	int i;
+	char	quo;
+
+	i = -1;
+	quo = 0;
+	while (line[++i])
 	{
-		if (!*quo)
-			*quo = line[*i];
-		else
-			*quo = 0;
-		ft_memcpy(&line[*i], &line[*i + 1], ft_strlen(&line[*i]));
-		return(1);
+		if ((line[i] == '"' || line[i] == '\'') && (!quo || line[i] == quo))
+		{
+			if (!quo)
+				quo = line[i];
+			else
+				quo = 0;
+			ft_memcpy(line[i], line[i + 1], ft_strlen(&line[i]));
+		}
 	}
-	if ((*quo == '\'') || (*quo == '"' && line[*i] != '$'))
-	{
-		(*i)++;
-		return(1);
-	}
-	return (0);
 }
 
 /*

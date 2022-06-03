@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:53:09 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/02 14:00:14 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/03 10:03:38 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	line_to_cmds(t_mini_data *data, t_cmds	**cmd)
 	while (cmds[++i])
 	{
 		cmd = &new_cmd();
-		parse_files(cmds[i], *cmd); // <- in progress
+		parse_files(cmds[i], *cmd, data); // <- in progress
 
 		trim_spaces(cmds[i]);
 

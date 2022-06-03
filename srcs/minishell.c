@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/05/25 03:07:34 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/03 12:05:25 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ void	print_err(t_mini_data *data)
 		printf("%s: syntax error\n", data->shell_name);
 	else if (data->err == TOKERR)
 		printf("%s: syntax error near unexpected token\n", data->shell_name);
+	else if (data->err == AMBRED)
+		printf("%s: ambiguous redirect\n", data->shell_name);
+	else if (data->err == NOTFILE)
+		printf("%s: No such file or directory\n", data->shell_name);
 }
 
 

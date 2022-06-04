@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/03 12:12:13 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/04 11:25:52 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,15 @@ int		executer(t_mini_data *data, t_cmds	**cmds);
 //void	*exit_shell(t_mini_data *data);
 void	exit_shell(t_mini_data *data);
 int		expand_env_var(char **line, int *i, t_env **env);
+void	expand_var(char **line, int *pos, t_env *env);
 int		export(char **cmd, t_mini_data *data);
 int		export_env(char *env_var, t_env **env);
+char	*file_path(char *line, t_mini_data *data);
 void	free_cmds(t_cmds **cmds);
 void 	init_mini_data(t_mini_data *data);
-int		line_to_cmds(t_mini_data *data, t_cmds	**cmds);
-int		parse_files(char *line, t_cmds *cmd, t_mini_data *data);
+void	line_to_cmds(t_mini_data *data, t_cmds	**cmd);
+void	parse_files(char *line, t_cmds *cmd, t_mini_data *data);
+void	parse_cmd(char **line, t_cmds *cmd, t_mini_data *data);
 int		parser(t_mini_data *data);
 int		pwd(void);
 void	quotes_status(char c, char *quo);

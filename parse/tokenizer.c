@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:36:05 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/02 17:52:23 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/04 13:48:48 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,18 @@ char	tokenizer(char *line, t_cmds *cmd)
 	i = 1;
 	if (line[0] == '<')
 	{
-		token = get_in_token(line[i]);
+		token = get_in_token(&line[0]);
 		cmd->tok_in = token;
 	}
 	if (line[0] == '>')
 	{
-		token = get_out_token(line[i]);
+		token = get_out_token(&line[0]);
 		cmd->tok_out = token;
 	}
 	if (line[1] == line[0])
 		i++;
 	while (line[i] == ' ')
 		i++;
-	ft_memcpy(line, &line[i], ft_strlen(&line[i] + 1));
+	ft_memcpy(line, &line[i], ft_strlen(&line[i]) + 1);
 	return (token);
 }

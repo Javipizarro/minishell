@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 23:53:20 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/03 12:12:00 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/04 15:11:47 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	erase_quotes(char *line)
 				quo = line[i];
 			else
 				quo = 0;
-			ft_memcpy(line[i], line[i + 1], ft_strlen(&line[i]));
+			ft_memcpy(&line[i], &line[i + 1], ft_strlen(&line[i]));
+			i--;
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:56:11 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/03 12:05:25 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/04 14:34:44 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,10 +122,10 @@ int	check_tokens(char *line)
 		}
 		if ((line[i] == '<' || line[i] == '>') && line[i] == line[i + 1])
 			i++;
-		if (token && line[i] == '|' || token != '|')
+		if (token && (line[i] == '|' || token != '|'))
 			return (1);
 		else
-			token == line[i];
+			token = line[i];
 	}
 	return (0);
 }
@@ -141,7 +141,7 @@ void	trim_spaces(char *line)
 	char	quo;
 
 	i = 0;
-	while (line[0] = ' ')
+	while (line[i] == ' ')
 		i++;
 	if (i)
 		ft_memcpy(&line[0], &line[i], ft_strlen(&line[i]) + 1);
@@ -157,8 +157,8 @@ void	trim_spaces(char *line)
 		}
 		i++;
 	}
-	if (line[--i] == ' ')
-		line[i] == 0;
+	while (line[--i] == ' ')
+		line[i] = 0;
 }
 
 
@@ -182,9 +182,8 @@ int	parser(t_mini_data *data)
 		return (QUOTERR);
 	if (check_tokens(data->line))
 		return (TOKERR);
-	if (line_to_cmds(data, &data->cmds))
-		return (SYNTERR);
-
-//	expand_line(data);
+	line_to_cmds(data, &data->cmds); // Repasar por qué extrae mal los nombres de comando
+	if (data->err)
+		return (data->err);
 	return (0);
 }

@@ -6,21 +6,22 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:27:22 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/05/20 08:08:20 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/04 13:59:29 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 /*
-**	Liberates the env chain.
+**	Liberates the cmds chain.
 */
 
 void	free_cmds(t_cmds **cmds)
 {
 	if (cmds[0]->next)
 		free_cmds(&cmds[0]->next);
-	ft_free_split(cmds[0]->cmd);
+	if (cmds[0]->cmd)
+		ft_free_split(cmds[0]->cmd);
 	free(cmds[0]);
 	cmds[0] = NULL;
 }

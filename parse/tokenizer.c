@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:36:05 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/04 13:48:48 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/04 20:53:58 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ char	get_out_token(char *line)
 	if (line[0] == '>')
 	{
 		if (line[1] == line[0])
-			token = APOUT;
+			token = TOKAPPN;
 		else
-		token = OUT;
+		token = TOKOUT;
 	}
 	return (token);
 }
@@ -45,9 +45,9 @@ char	get_in_token(char *line)
 	if (line[0] == '<')
 	{
 		if (line[1] == line[0])
-			token = HERE;
+			token = TOKHERE;
 		else
-		token = IN;
+		token = TOKIN;
 	}
 	return (token);
 }

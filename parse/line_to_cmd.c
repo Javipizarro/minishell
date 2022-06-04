@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:53:09 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/04 11:33:47 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/05 00:23:57 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ t_cmds	*new_cmd()
 	new = malloc(sizeof(t_cmds));
 	new->tok_in = 0;
 	new->tok_out = 0;
-	new->fd_in = -1;
-	new->fd_out = -1;
+	new->fd_in = NOSET;
+	new->fd_out = NOSET;
 	new->cmd = NULL;
 	new->next = NULL;
+	new->pipe[IN] = 0;
+	new->pipe[OUT] = 0;
 	return (new);
 }
 

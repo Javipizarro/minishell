@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/03 12:05:25 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/04 21:30:02 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ void	print_err(t_mini_data *data)
 		printf("%s: ambiguous redirect\n", data->shell_name);
 	else if (data->err == NOTFILE)
 		printf("%s: No such file or directory\n", data->shell_name);
+	else if (data->err == PIPING)
+		printf("%s: Error whlie piping\n", data->shell_name);
+	else if (data->err == DUPING)
+		printf("%s: Error whlie dupping\n", data->shell_name);
 }
 
 

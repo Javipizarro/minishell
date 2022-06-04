@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:36:05 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/04 14:21:39 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/04 20:53:57 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,21 @@
 void	open_file(char token, char *path, t_cmds *cmd, t_mini_data *data)
 {
 	//	TODO: Verificar permisos de usuarios?
-	if ((token == IN || token == HERE) && cmd->fd_in >= 0)
+	if ((token == TOKIN || token == TOKHERE) && cmd->fd_in >= 0)
 		close(cmd->fd_in);
-	if ((token == OUT || token == APOUT) && cmd->fd_out >= 0)
+	if ((token == TOKOUT || token == TOKAPPN) && cmd->fd_out >= 0)
 		close(cmd->fd_out);
-	if (token == IN)
+	if (token == TOKIN)
 	{
 		cmd->fd_in = open(path, O_RDONLY);
 		if (cmd->fd_in < 0)
 			data->err = NOTFILE;
 	}
-	else if (token == OUT)
+	else if (token == TOKOUT)
 		cmd->fd_out = open(path, O_WRONLY | O_CREAT | O_TRUNC);
-	else if (token == HERE)
-	{ printf("working on <<.\nSorry for the inconvenieces\n");}	//	TODO: Write a function to manage HERE
-	else if (token == APOUT)
+	else if (token == TOKHERE)
+	{ printf("working on <<.\nSorry for the inconvenieces\n");}	//	TODO: Write a function to manage TOKHERE
+	else if (token == TOKAPPN)
 		cmd->fd_out = open(path, O_WRONLY | O_CREAT | O_APPEND);
 }
 

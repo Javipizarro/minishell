@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:45:46 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/05/12 09:18:59 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/04 19:56:43 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ int	pwd(void)
 
 	buff = getcwd(NULL, 0);
 	printf("%s\n", buff);
-	return (0);
+	return (CONTINUE);
 }

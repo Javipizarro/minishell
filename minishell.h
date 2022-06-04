@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/04 11:25:52 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/05 00:08:53 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,13 @@ int			g_exit_status;
 						**	always receive more input until at least one line can be read.
 						*/
 
-#define PIPE '|'
-#define	IN '<'
-#define OUT '>'
-#define	HERE '<' + 1
-#define APOUT '>' + 1
+
+
+//#define PIPE '|'
+#define	TOKIN '<'
+#define TOKOUT '>'
+#define	TOKHERE '<' + 1
+#define TOKAPPN '>' + 1
 
 #define CONTINUE 1
 #define QUOTERR 2
@@ -59,6 +61,15 @@ int			g_exit_status;
 #define TOKERR 4
 #define	AMBRED 5
 #define NOTFILE 6
+#define	PIPING 7
+#define	DUPING 8
+#define	FORKING 9
+
+#define	IN 1
+#define	OUT 0
+
+#define NOSET -1
+#define PIPED -2
 
 typedef struct s_env
 {
@@ -72,6 +83,9 @@ typedef struct s_cmds
 	char			tok_out;
 	int				fd_in;
 	int				fd_out;
+	int				pipe[2];
+//	int				entry_pipe[2];
+//	int				exit_pipe[2];
 	char			**cmd;
 	struct s_cmds	*next;
 }				t_cmds;
@@ -99,6 +113,7 @@ int		expand_env_var(char **line, int *i, t_env **env);
 void	expand_var(char **line, int *pos, t_env *env);
 int		export(char **cmd, t_mini_data *data);
 int		export_env(char *env_var, t_env **env);
+int		external(t_cmds *cmd, t_mini_data *data);
 char	*file_path(char *line, t_mini_data *data);
 void	free_cmds(t_cmds **cmds);
 void 	init_mini_data(t_mini_data *data);

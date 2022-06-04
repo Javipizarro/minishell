@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:56:11 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/04 14:34:44 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/04 23:46:44 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ int	parser(t_mini_data *data)
 		return (QUOTERR);
 	if (check_tokens(data->line))
 		return (TOKERR);
-	line_to_cmds(data, &data->cmds); // Repasar por qué extrae mal los nombres de comando
+	line_to_cmds(data, &data->cmds);
 	if (data->err)
 		return (data->err);
 	return (0);

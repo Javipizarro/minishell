@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 12:10:43 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/05/20 13:42:05 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/04 15:24:34 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,6 @@
 **	Returns one on possitive result, and 0 on negative.
 */
 
-//int	builtiner(t_mini_data *data) //Habrá que modificarlos para que lean de fds!!!!
-//{
-//	if (!ft_strcmp(data->cmd[0], "cd"))
-//		printf("%s command is a work in progress right now\n", data->cmd[0]);
-//	else if (!ft_strcmp(data->cmd[0], "echo"))
-//		printf("%s command is a work in progress right now\n", data->cmd[0]);
-//	else if (!ft_strcmp(data->cmd[0], "env"))
-//		return(!env(data->envp));
-//	else if (!ft_strcmp(data->cmd[0], "exit"))
-//		exit_shell(data);
-//	else if (!ft_strcmp(data->cmd[0], "export"))
-//		return (export(data->cmd, data));
-//	else if (!ft_strcmp(data->cmd[0], "pwd"))
-//		return(!pwd());
-//	else if (!ft_strcmp(data->cmd[0], "unset"))
-//		return (unset(data));
-//	return (0);
-//}
 int	builtiner(char **cmd, t_mini_data *data) //Habrá que modificarlos para que lean de fds!!!!
 {
 	if (!ft_strcmp(cmd[0], "cd"))
@@ -54,13 +36,4 @@ int	builtiner(char **cmd, t_mini_data *data) //Habrá que modificarlos para que 
 	return (0);
 }
 
-int	executer(t_mini_data *data, t_cmds	**cmds)
-{
-	while (cmds[0])
-	{
-//		builtiner(data); // Valorar el pasar struct cmd y envp en vez de data para trabajar con el comando que estemos en ese momento.
-		builtiner(cmds[0]->cmd, data); // Valorar el pasar struct cmd y envp en vez de data para trabajar con el comando que estemos en ese momento.
-		cmds = &cmds[0]->next;
-	}
-	return (0);
-}
+

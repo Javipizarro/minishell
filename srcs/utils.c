@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 19:03:23 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/04 13:25:48 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/04 19:48:17 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	expand_var(char **line, int *pos, t_env *env)
 		j++;
 	tmp = ft_calloc(j - i, sizeof(char));
 	ft_memcpy(tmp, &line[0][i + 1], j - i - 1);
-	while (env && ft_strcmp(tmp, env->var[0]))
+	while (env && ft_strcmp(tmp, env->var[0])) // Sustituir por search_env()
 		env = env->next;
 	free(tmp);
 	if (!env)

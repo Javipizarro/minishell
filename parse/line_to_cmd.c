@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:53:09 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/05 00:23:57 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/05 13:02:04 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,30 +80,3 @@ void	line_to_cmds(t_mini_data *data, t_cmds	**cmd)
 	ft_free_split(cmds);
 }
 
-/////////////////////// OLD FUNCTION ->
-//	j = 0;
-//	i = 0;
-//	cmds = &data->cmds;
-//	while (data->line[j])
-//	{
-//		cmds[0] = new_cmds();
-//		while (data->line[j] && data->line[j] != '|'
-//		&& data->line[j] != '<' && data->line[j] != '>')
-//			j++;
-//		i += parse_type(data->line, i, cmds[0]);
-//		cmd = ft_calloc(sizeof(char), j - i + 1);
-//		ft_memcpy(cmd, &data->line[i], j - i);
-//		cmds[0]->cmd = ft_split(cmd, 31);
-//		free(cmd);
-//		cmd = NULL;
-//		if (!cmds[0]->cmd[0])
-//			return (1);
-//		cmds = &cmds[0]->next;
-//		i = j;
-//		if (data->line[j] == data->line[j + 1] && (data->line[j] == '<'
-//		|| data->line[j] == '>'))
-//			j++;
-//		j++;
-//	}
-//	return (0);
-//}

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/04 21:30:02 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/06 13:47:51 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	reset_data(t_mini_data *data)
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_mini_data	data;
-
+	
 	(void)argc;
 	(void)argv;
 	init_mini_data(&data);
@@ -75,9 +75,10 @@ int	main(int argc, char *argv[], char *envp[])
 		if (!data.line)
 			exit_shell(&data);
 		data.err = parser(&data);
-		if (!data.err)
-			executer(&data, &data.cmds);
+//	if (!data.err)
+//			executer(&data, &data.cmds);
 	}
+	return(0);
 }
 
 //	Buscar TODOs y // antes de dar por finalizada!!

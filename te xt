@@ -1,0 +1,19 @@
+total 2664
+drwxr-xr-x   18 jpizarro  staff      576  5 Jun 13:13 .
+drwxr-xr-x    6 jpizarro  staff      192  1 Jun 20:04 ..
+drwxr-xr-x   13 jpizarro  staff      416  5 Jun 00:28 .git
+drwxr-xr-x    7 jpizarro  staff      224  3 Jun 12:39 .vscode
+-rw-r--r--    1 jpizarro  staff     2099  2 Jun 13:58 Makefile
+-rw-r--r--    1 jpizarro  staff       42  1 Jun 19:40 README.md
+drwxr-xr-x   12 jpizarro  staff      384  5 Jun 12:43 builtins
+drwxr-xr-x  111 jpizarro  staff     3552  5 Jun 12:43 libft
+-rwxr-xr-x    1 jpizarro  staff    61606  5 Jun 12:43 minishell
+-rw-r--r--    1 jpizarro  staff     4070  5 Jun 00:08 minishell.h
+-rw-r--r--    1 jpizarro  staff  1273901  1 Jun 19:40 minishell.pdf
+drwxr-xr-x   14 jpizarro  staff      448  5 Jun 12:43 parse
+drwxr-xr-x    6 jpizarro  staff      192  5 Jun 12:43 pipex
+drwxr-xr-x   22 jpizarro  staff      704  5 Jun 12:43 srcs
+-rw-r--r--    1 jpizarro  staff        0  5 Jun 13:13 te xt
+-rw-r--r--    1 jpizarro  staff       92  5 Jun 11:33 text
+-rw-r--r--    1 jpizarro  staff        0  5 Jun 12:00 text1
+-rw-r--r--    1 jpizarro  staff      817  5 Jun 12:00 text2

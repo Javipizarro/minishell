@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 17:24:49 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/05/17 01:22:30 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/06 13:59:45 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	shlvl_up(t_env **env)
 		return;
 	lvl = ft_atoi(env[0]->var[1]);
 	lvl++;
+	free(env[0]->var[1]);
 	env[0]->var[1] = ft_itoa(lvl);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:27:22 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/05 00:04:44 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/06 14:23:43 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	free_env(t_env **env)
 **	Manages how the mini-shell is abandoned.
 */
 
-//void	*exit_shell(t_mini_data *data)
 void	exit_shell(t_mini_data *data)
 {
 	if (data->line)
@@ -76,12 +75,13 @@ void	exit_shell(t_mini_data *data)
 //	}
 	if (data->cmds)
 		free_cmds(&data->cmds);
+	ft_free_split(data->envp);
 	data->envp = NULL;
-	free(data->envp);
 	free(data->shell_name);
 	free(data->prompt);
 	rl_clear_history();
 	free_env(&data->env);
 	printf("exit\n");			//TODO: valorar usar echo
+	sleep(5);	//TODO: erase this line;
 	exit(g_exit_status);
 }

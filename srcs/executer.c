@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:23:54 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/05 00:16:55 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/07 12:29:00 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,10 @@ int	executer(t_mini_data *data, t_cmds	**cmds)
 		data->err = piper(cmds[0]);
 		if(data->err)
 			break;
-		if(!builtiner(cmds[0]->cmd, data))
+		data->err = builtiner(cmds[0]->cmd, data);
+		if (!data->err)
 			data->err = external(cmds[0], data);
-		if (data->err)
+		if (data->err && data->err != CONTINUE)
 			break;
 		cmds = &cmds[0]->next;
 	}

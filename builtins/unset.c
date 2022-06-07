@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:47:45 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/04 19:57:24 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/06 16:23:54 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,19 @@ int	unset(char **cmd, t_mini_data *data)
 {
 	t_env *dump;
 	t_env **env;
+	int	i;
 
-	env = search_env(cmd[1], &data->env);
-	if (!*env)
-		return (CONTINUE);
-	dump = *env;
-	env[0] = env[0]->next;
-	free(dump);
-	dump = NULL;
+	i = 0;
+	while (cmd[++i])
+	{
+		env = search_env(cmd[i], &data->env);
+		if (!*env)
+			return (CONTINUE);
+		dump = *env;
+		env[0] = env[0]->next;
+		free(dump);
+		dump = NULL;
+	}
 	reset_envp(data);
 	return (CONTINUE);
 }

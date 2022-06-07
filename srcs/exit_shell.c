@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:27:22 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/06 14:23:43 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/07 12:28:35 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,11 @@ void	exit_shell(t_mini_data *data)
 	rl_clear_history();
 	free_env(&data->env);
 	printf("exit\n");			//TODO: valorar usar echo
+
+	//TODO: erase these lines;
+	printf("sleeping for 5 sec. to ease leaks shearching\n");
 	sleep(5);	//TODO: erase this line;
+	////////////////////////
+
 	exit(g_exit_status);
 }

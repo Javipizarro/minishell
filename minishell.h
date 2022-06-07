@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/06 13:34:57 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/07 12:11:56 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int		builtiner(char **cmd, t_mini_data *data);
 int		check_open_quotes(char *line);
 int		env(char **envp);
 void	erase_quotes(char *line);
-int		executer(t_mini_data *data, t_cmds	**cmds);
+int		executer(t_mini_data *data, t_cmds **cmds);
 //void	*exit_shell(t_mini_data *data);
 void	exit_shell(t_mini_data *data);
 int		expand_env_var(char **line, int *i, t_env **env);

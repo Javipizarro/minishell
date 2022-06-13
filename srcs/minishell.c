@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/07 12:07:02 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/10 17:00:46 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	reset_data(t_mini_data *data)
 	if (data->cmds)
 		free_cmds(&data->cmds);
 	data->cmds = NULL;
+	data->cmd_num = 0;
 	data->err = 0;
 
 //	if (data->cmd)
@@ -75,6 +76,7 @@ int	main(int argc, char *argv[], char *envp[])
 		if (!data.line)
 			exit_shell(&data);
 		data.err = parser(&data);
+	//	printf("salgo de parseo con err = %d\n", parser(&data));
 	if (!data.err)
 			executer(&data, &data.cmds);
 	}

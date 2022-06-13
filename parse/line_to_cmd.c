@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:53:09 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/05 13:02:04 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/10 16:30:02 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ t_cmds	*new_cmd()
 	new->tok_out = 0;
 	new->fd_in = NOSET;
 	new->fd_out = NOSET;
-	new->cmd = NULL;
-	new->next = NULL;
 	new->pipe[IN] = 0;
 	new->pipe[OUT] = 0;
+	new->cmd = NULL;
+	new->next = NULL;
 	return (new);
 }
 
@@ -69,6 +69,7 @@ void	line_to_cmds(t_mini_data *data, t_cmds	**cmd)
 	i = -1;
 	while (cmds[++i])
 	{
+		data->cmd_num++;
 		*cmd = new_cmd();
 		parse_files(cmds[i], *cmd, data);
 		if (data->err)
@@ -79,4 +80,3 @@ void	line_to_cmds(t_mini_data *data, t_cmds	**cmd)
 	}
 	ft_free_split(cmds);
 }
-

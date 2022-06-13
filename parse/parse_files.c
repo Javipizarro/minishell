@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:36:05 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/04 20:53:57 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/10 17:07:38 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@
 
 void	open_file(char token, char *path, t_cmds *cmd, t_mini_data *data)
 {
+	(void)path;
+	(void)data;
+
+
 	//	TODO: Verificar permisos de usuarios?
 	if ((token == TOKIN || token == TOKHERE) && cmd->fd_in >= 0)
 		close(cmd->fd_in);
@@ -26,16 +30,28 @@ void	open_file(char token, char *path, t_cmds *cmd, t_mini_data *data)
 		close(cmd->fd_out);
 	if (token == TOKIN)
 	{
+//		printf("token detectado TOKIN\n");
 		cmd->fd_in = open(path, O_RDONLY);
 		if (cmd->fd_in < 0)
 			data->err = NOTFILE;
 	}
 	else if (token == TOKOUT)
-		cmd->fd_out = open(path, O_WRONLY | O_CREAT | O_TRUNC);
+		{
+//			printf("token detectado TOKOUT\n");
+//			cmd->fd_out = open(path, O_WRONLY | O_CREAT | O_TRUNC);
+			cmd->fd_out = open(path, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
+//			write(cmd->fd_out, "prueba de escritura\n", 20);
+//			close(cmd->fd_out);
+		}
 	else if (token == TOKHERE)
-	{ printf("working on <<.\nSorry for the inconvenieces\n");}	//	TODO: Write a function to manage TOKHERE
+	{
+//		printf("token detectado TOKHERE\n");
+		printf("working on <<.\nSorry for the inconvenieces\n");}	//	TODO: Write a function to manage TOKHERE
 	else if (token == TOKAPPN)
-		cmd->fd_out = open(path, O_WRONLY | O_CREAT | O_APPEND);
+	{
+//		printf("token detectado TOKAPPN\n");
+		cmd->fd_out = open(path, O_WRONLY | O_CREAT | O_APPEND, S_IRWXU);
+	}
 }
 
 /*
@@ -66,16 +82,19 @@ void	parse_files(char *line, t_cmds *cmd, t_mini_data *data)
 		if (!token)
 			continue;
 		path = file_path(&line[i], data);
+//		path = ft_strdup(&line[i]);
+//		int pos = ft_charindex(path, ' ');
+//		path[pos] = 0;
+/////
+//printf("path is: %s\n", path);
+/////
 		if (data->err)
 			break;
 		open_file(token, path, cmd, data);
+		free(path);
+		path = NULL;
 		if (data->err)
 			break;
-		free(path);
-		path = NULL;
 		i--;
 	}
-	if (path)
-		free(path);
-		path = NULL;
 }

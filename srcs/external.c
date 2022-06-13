@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:37:10 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/07 12:29:00 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/09 19:08:36 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,18 @@ void	get_cmd_path(char *cmd, char *environ[], char **path)
 **	Executes the cmd when it is not a built-in.
 */
 
+//int	external(t_cmds *cmd, t_mini_data *data)
 int	external(t_cmds *cmd, t_mini_data *data)
 {
 	char	*path;
-	int	pid;
 
-	pid = fork();
-	if (pid < 0)
-		return(FORKING);
-	if (pid == 0)
-	{
+		if (cmd->fd_out >= 0)
+			if (dup2(cmd->fd_out, STDOUT_FILENO) < 0)
+				return (DUPING);
+		if (cmd->next && cmd->next->fd_in == PIPED)
+			close(cmd->next->pipe[OUT]);
 		get_cmd_path(cmd->cmd[0], data->envp, &path);
 		execve(path, cmd->cmd, data->envp);
-	}
+
 	return (0);
 }

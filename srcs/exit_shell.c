@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:27:22 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/07 12:28:35 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/10 09:40:48 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,16 @@ void	free_env(t_env **env)
 **	Manages how the mini-shell is abandoned.
 */
 
-void	exit_shell(t_mini_data *data)
+int	exit_shell(t_mini_data *data)
 {
+	if (data->cmd_num > 1)
+		return (CONTINUE);
+	data->cmd_num = 0;
 	if (data->line)
 	{
 		free(data->line);
 		data->line = NULL;
 	}
-//	if (data->cmd)
-//	{
-//		ft_free_split(data->cmd);
-//		data->cmd = NULL;
-//	}
 	if (data->cmds)
 		free_cmds(&data->cmds);
 	ft_free_split(data->envp);
@@ -81,12 +79,11 @@ void	exit_shell(t_mini_data *data)
 	free(data->prompt);
 	rl_clear_history();
 	free_env(&data->env);
-	printf("exit\n");			//TODO: valorar usar echo
+	write(1, "exit\n", 5);
 
-	//TODO: erase these lines;
-	printf("sleeping for 5 sec. to ease leaks shearching\n");
-	sleep(5);	//TODO: erase this line;
-	////////////////////////
-
+	////TODO: erase these lines;
+	//printf("sleeping for 5 sec. to ease leaks shearching\n");
+	//sleep(5);	//TODO: erase this line;
+	//////////////////////////
 	exit(g_exit_status);
 }

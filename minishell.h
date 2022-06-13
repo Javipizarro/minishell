@@ -6,11 +6,12 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/07 12:11:56 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/10 16:30:01 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // C Program to design a shell in Linux
+#include <sys/stat.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -26,7 +27,6 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <signal.h>
-# include <sys/stat.h>
 
 
 int			g_exit_status;
@@ -98,6 +98,7 @@ typedef struct s_mini_data
 	char			**envp;
 	char			*line;
 	t_cmds			*cmds;
+	int				cmd_num;
 	int				err;
 }				t_mini_data;
 
@@ -106,9 +107,9 @@ int		builtiner(char **cmd, t_mini_data *data);
 int		check_open_quotes(char *line);
 int		env(char **envp);
 void	erase_quotes(char *line);
-int		executer(t_mini_data *data, t_cmds **cmds);
+void		executer(t_mini_data *data, t_cmds **cmds);
 //void	*exit_shell(t_mini_data *data);
-void	exit_shell(t_mini_data *data);
+int		exit_shell(t_mini_data *data);
 int		expand_env_var(char **line, int *i, t_env **env);
 void	expand_var(char **line, int *pos, t_env *env);
 int		export(char **cmd, t_mini_data *data);

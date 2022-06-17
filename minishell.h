@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/10 16:30:01 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/16 17:12:08 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int		env(char **envp);
 void	erase_quotes(char *line);
 void		executer(t_mini_data *data, t_cmds **cmds);
 //void	*exit_shell(t_mini_data *data);
-int		exit_shell(t_mini_data *data);
+int		exit_shell(t_mini_data *data, int pid);
 int		expand_env_var(char **line, int *i, t_env **env);
 void	expand_var(char **line, int *pos, t_env *env);
 int		export(char **cmd, t_mini_data *data);
@@ -132,3 +132,5 @@ void	signal_handler(void);
 void	trim_spaces(char *line);
 char	tokenizer(char *line, t_cmds *cmd);
 int		unset(char **cmd, t_mini_data *data);
+
+void	print_cmd(t_cmds *cmd, char *msg);

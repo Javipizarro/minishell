@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:23:54 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/10 17:18:25 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/16 19:40:25 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	close_fds(t_cmds *cmd)	// Some parts must be done by the father
 		close(cmd->pipe[OUT]);
 	else if (cmd->fd_in >= 0)
 		close(cmd->fd_in);
-	if (cmd->next && cmd->next->fd_in == PIPED)
+	if (cmd->fd_out == PIPED)
 		close(cmd->next->pipe[IN]);
 	else if (cmd->fd_out >= 0)
 		close(cmd->fd_out);
@@ -49,8 +49,7 @@ int	piper(t_cmds *cmd)
 	{
 		if (pipe(cmd->next->pipe))
 			return (PIPING);
-		if (dup2(cmd->next->pipe[IN], STDOUT_FILENO) < 0)
-			return (DUPING);
+		cmd->fd_out = PIPED;
 		cmd->next->fd_in = PIPED;
 	}
 	return (0);
@@ -63,15 +62,32 @@ int	piper(t_cmds *cmd)
 
 int	set_inoutputs(t_cmds *cmd)
 {
-	if (cmd->fd_in >= 0)
-		if (dup2(cmd->fd_in, STDIN_FILENO) < 0)
-			return (DUPING);
 	if (cmd->fd_in == PIPED)
+	{
 		if (dup2(cmd->pipe[OUT], STDIN_FILENO) < 0)
 			return (DUPING);
-	if (cmd->fd_out != NOSET)
+		close(cmd->pipe[OUT]);
+	}
+	else if (cmd->fd_in >= 0)
+	{
+		if (dup2(cmd->fd_in, STDIN_FILENO) < 0)
+			return (DUPING);
+		close(cmd->fd_in);
+	}
+	if (cmd->fd_out == PIPED)
+	{
+		close(cmd->next->pipe[OUT]);
+		cmd->next->pipe[OUT] = NOSET;
+		if (dup2(cmd->next->pipe[IN], STDOUT_FILENO) < 0)
+			return (DUPING);
+		close(cmd->next->pipe[IN]);
+	}
+	else if (cmd->fd_out >= 0)
+	{
 		if (dup2(cmd->fd_out, STDOUT_FILENO) < 0)
 			return (DUPING);
+//		close(cmd->fd_out);
+	}
 	return (0);
 }
 
@@ -86,7 +102,8 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 
 	while (cmds[0])
 	{
-		if (!ft_strcmp(cmds[0]->cmd[0], "exit") && exit_shell(data) == CONTINUE)
+		if (!ft_strcmp(cmds[0]->cmd[0], "exit") && exit_shell(data, 1)
+		== CONTINUE)
 			skip_cmd(cmds);
 		data->err = piper(*cmds);
 		if(data->err)
@@ -105,13 +122,13 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 			if (!data->err)
 				data->err = external(cmds[0], data);
 			close_fds(cmds[0]);
-			exit(data->err);	
+			exit_shell(data, pid);
 		}
-		close_fds(cmds[0]);
 		wait(&data->err);
+		close_fds(cmds[0]);
 		if (data->err && data->err != CONTINUE)
 			break;
-	cmds = &cmds[0]->next;
+		cmds = &cmds[0]->next;
 	}
 }
 

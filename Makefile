@@ -6,7 +6,7 @@
 #    By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/19 11:24:00 by jpizarro          #+#    #+#              #
-#    Updated: 2022/06/08 17:39:30 by jpizarro         ###   ########.fr        #
+#    Updated: 2022/06/16 11:29:44 by jpizarro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ CC = gcc
 
 RM = rm -f
 
+#CFLAGS = -Wall -Werror -Wextra
 CFLAGS = -Wall -Werror -Wextra -g
 
 LDFLAGS = -L/Users/$(USER)/.brew/opt/readline/lib

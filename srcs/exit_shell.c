@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:27:22 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/10 09:40:48 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/16 12:44:00 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ void	free_env(t_env **env)
 **	Manages how the mini-shell is abandoned.
 */
 
-int	exit_shell(t_mini_data *data)
+int	exit_shell(t_mini_data *data, int pid)
 {
-	if (data->cmd_num > 1)
+	if (data->cmd_num > 1 && pid > 0)
 		return (CONTINUE);
 	data->cmd_num = 0;
 	if (data->line)
@@ -79,7 +79,8 @@ int	exit_shell(t_mini_data *data)
 	free(data->prompt);
 	rl_clear_history();
 	free_env(&data->env);
-	write(1, "exit\n", 5);
+	if (pid > 0)
+		write(1, "exit\n", 5);
 
 	////TODO: erase these lines;
 	//printf("sleeping for 5 sec. to ease leaks shearching\n");

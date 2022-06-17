@@ -6,8 +6,9 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
+ 
 
-# Make data base, printed on Sat Jun 11 16:17:48 2022
+# Make data base, printed on Thu Jun 16 11:41:43 2022
 
 # Variables
 
@@ -19,7 +20,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 VSCODE_LOG_NATIVE = false
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
-# makefile (from `Makefile', line 33)
+# makefile (from `Makefile', line 34)
 CPPFLAGS = -I/Users/$(USER)/.brew/opt/readline/include
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
@@ -35,8 +36,9 @@ RM = rm -f
 VSCODE_NLS_CONFIG = {"locale":"en-gb","availableLanguages":{},"_languagePackSupport":true}
 # environment
 _ = /usr/bin/make
-# makefile (from `Makefile', line 29)
+# makefile (from `Makefile', line 30)
 CFLAGS = -Wall -Werror -Wextra -g
+ 
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # environment
@@ -46,25 +48,25 @@ __CFBundleIdentifier = com.microsoft.VSCode
 # environment
 INFOPATH = /opt/homebrew/share/info:
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/40/7b7szcwn237129pgfjngcvpw0000gp/T/vscode-ipc-bb4f4dec-ab5d-471a-ac08-9d9d54ad2015.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/40/7b7szcwn237129pgfjngcvpw0000gp/T/vscode-ipc-6d495442-451d-4a7b-b6e5-e44600f0ae7c.sock
 # environment
 VSCODE_CWD = /
 # environment
 PATH = /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
-# makefile (from `Makefile', line 35)
+# makefile (from `Makefile', line 36)
 LINKERS = -lreadline
 # environment
 VSCODE_LOG_STACK = false
 # environment
 ELECTRON_RUN_AS_NODE = 1
-# makefile (from `Makefile', line 31)
+# makefile (from `Makefile', line 32)
 LDFLAGS = -L/Users/$(USER)/.brew/opt/readline/lib
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.FpjEmPnR2A/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.REu6oBbHYH/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -172,7 +174,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 956
+VSCODE_PID = 1038
 # variable set hash-table stats:
 # Load=81/1024=8%, Rehash=0, Collisions=5/112=4%
 
@@ -182,17 +184,17 @@ VSCODE_PID = 956
 
 # Directories
 
-# . (device 16777234, inode 537005): 17 files, no impossibilities.
-# parse (device 16777234, inode 579132): 14 files, no impossibilities.
-# builtins (device 16777234, inode 537074): 12 files, no impossibilities.
-# srcs (device 16777234, inode 537114): 22 files, no impossibilities.
+# . (device 16777229, inode 537005): 17 files, no impossibilities.
+# parse (device 16777229, inode 579132): 14 files, no impossibilities.
+# builtins (device 16777229, inode 537074): 12 files, no impossibilities.
+# srcs (device 16777229, inode 537114): 22 files, no impossibilities.
 
 # 65 files, no impossibilities in 4 directories.
 
 # Implicit Rules
 
 %.o: %.c
-#  commands to execute (from `Makefile', line 45):
+#  commands to execute (from `Makefile', line 46):
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $(<:.c=.o)
 	
 
@@ -208,7 +210,7 @@ srcs/env2.o: srcs/env2.c
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 45):
+#  commands to execute (from `Makefile', line 46):
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $(<:.c=.o)
 	
 
@@ -220,7 +222,7 @@ srcs/external.o: srcs/external.c
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 45):
+#  commands to execute (from `Makefile', line 46):
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $(<:.c=.o)
 	
 
@@ -260,7 +262,7 @@ builtins/pwd.o: builtins/pwd.c
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 45):
+#  commands to execute (from `Makefile', line 46):
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $(<:.c=.o)
 	
 
@@ -292,16 +294,15 @@ builtins/export.o: builtins/export.c
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 45):
+#  commands to execute (from `Makefile', line 46):
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $(<:.c=.o)
 	
 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-08 17:39:30
+#  Last modified 2022-06-16 11:29:44
 #  File has been updated.
- 
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
@@ -314,7 +315,7 @@ srcs/exit_shell.o: srcs/exit_shell.c
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 45):
+#  commands to execute (from `Makefile', line 46):
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $(<:.c=.o)
 	
 
@@ -325,8 +326,9 @@ parse/file_path.o: parse/file_path.c
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
+ 
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 45):
+#  commands to execute (from `Makefile', line 46):
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $(<:.c=.o)
 	
 
@@ -347,7 +349,7 @@ srcs/utils.o: srcs/utils.c
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 45):
+#  commands to execute (from `Makefile', line 46):
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $(<:.c=.o)
 	
 
@@ -377,7 +379,7 @@ parse/parse_files.o: parse/parse_files.c
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 45):
+#  commands to execute (from `Makefile', line 46):
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $(<:.c=.o)
 	
 
@@ -389,7 +391,7 @@ srcs/executer.o: srcs/executer.c
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 45):
+#  commands to execute (from `Makefile', line 46):
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $(<:.c=.o)
 	
 
@@ -400,7 +402,7 @@ minishell: srcs/env1.o srcs/env2.o srcs/executer.o srcs/exit_shell.o srcs/extern
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 40):
+#  commands to execute (from `Makefile', line 41):
 	@echo "Creating $@"
 	@$(CC) $(CFLAGS) $(OBJS) $(STATICS) $(LINKERS) $(LDFLAGS) -o $@
 	@echo "$@ is ready!"
@@ -414,7 +416,7 @@ srcs/signal.o: srcs/signal.c
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 45):
+#  commands to execute (from `Makefile', line 46):
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $(<:.c=.o)
 	
 
@@ -423,7 +425,7 @@ libft/libft.a:
 #  Last modified 2022-06-10 17:18:31
 #  File has been updated.
 #  Successfully updated.
-#  commands to execute (from `Makefile', line 50):
+#  commands to execute (from `Makefile', line 51):
 	@make -sC ./libft
 	@make -sC ./pipex
 	
@@ -445,7 +447,7 @@ parse/tokenizer.o: parse/tokenizer.c
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 45):
+#  commands to execute (from `Makefile', line 46):
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $(<:.c=.o)
 	
 
@@ -454,7 +456,7 @@ fclean: clean
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 62):
+#  commands to execute (from `Makefile', line 63):
 	@echo "also $(NAME) and debug files"
 	@$(RM) $(NAME) debug
 	@$(RM) $(wildcard srcs/*.o)
@@ -471,7 +473,7 @@ builtins/builtiner.o: builtins/builtiner.c
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 45):
+#  commands to execute (from `Makefile', line 46):
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $(<:.c=.o)
 	
 
@@ -483,7 +485,7 @@ srcs/minishell.o: srcs/minishell.c
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 45):
+#  commands to execute (from `Makefile', line 46):
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $(<:.c=.o)
 	
 
@@ -495,7 +497,7 @@ parse/parse_cmds.o: parse/parse_cmds.c
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 45):
+#  commands to execute (from `Makefile', line 46):
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $(<:.c=.o)
 	
 
@@ -507,7 +509,7 @@ parse/line_to_cmd.o: parse/line_to_cmd.c
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 45):
+#  commands to execute (from `Makefile', line 46):
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $(<:.c=.o)
 	
 
@@ -519,7 +521,7 @@ builtins/env.o: builtins/env.c
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 45):
+#  commands to execute (from `Makefile', line 46):
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $(<:.c=.o)
 	
 
@@ -564,7 +566,6 @@ srcs/exit_shell.c:
 #  Implicit rule search has been done.
 #  Last modified 2022-06-10 09:40:49
 #  File has been updated.
- 
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
@@ -583,7 +584,7 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 54):
+#  commands to execute (from `Makefile', line 55):
 	@echo "Cleaing up binary files"
 	@$(RM) $(OBJS)
 	@make -sC ./libft $@
@@ -594,6 +595,7 @@ clean:
 srcs/utils.c:
 #  Implicit rule search has been done.
 #  Last modified 2022-06-04 19:48:17
+ 
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -607,7 +609,7 @@ parse/parser.o: parse/parser.c
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 45):
+#  commands to execute (from `Makefile', line 46):
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $(<:.c=.o)
 	
 
@@ -619,7 +621,7 @@ builtins/unset.o: builtins/unset.c
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 45):
+#  commands to execute (from `Makefile', line 46):
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $(<:.c=.o)
 	
 
@@ -628,7 +630,7 @@ show:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 74):
+#  commands to execute (from `Makefile', line 75):
 	@echo "SRCS $(SRCS)"
 	@echo "OBJS $(OBJS)"
 	@echo "LIBS $(LIBS)"
@@ -670,11 +672,12 @@ srcs/init_data.o: srcs/init_data.c
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 45):
+#  commands to execute (from `Makefile', line 46):
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $(<:.c=.o)
 	
 
 srcs/env1.o: srcs/env1.c
+ 
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: `srcs/env1'
 #  Last modified 2022-06-10 17:18:29
@@ -682,7 +685,7 @@ srcs/env1.o: srcs/env1.c
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 45):
+#  commands to execute (from `Makefile', line 46):
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $(<:.c=.o)
 	
 
@@ -716,6 +719,7 @@ srcs/minishell.c:
 # Not a target:
 parse/parse_cmds.c:
 #  Implicit rule search has been done.
+ 
 #  Last modified 2022-06-04 11:36:43
 #  File has been updated.
 #  Successfully updated.
@@ -748,7 +752,7 @@ srcs/quotes.o: srcs/quotes.c
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 45):
+#  commands to execute (from `Makefile', line 46):
 	@$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $(<:.c=.o)
 	
 
@@ -765,6 +769,6 @@ srcs/quotes.o: srcs/quotes.c
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Sat Jun 11 16:17:48 2022
+# Finished Make data base on Thu Jun 16 11:41:43 2022
 
  

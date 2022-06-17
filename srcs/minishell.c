@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/10 17:00:46 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/16 17:37:20 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,8 @@ int	main(int argc, char *argv[], char *envp[])
 		reset_data(&data);
 		data.line = readline(data.prompt);
 		if (!data.line)
-			exit_shell(&data);
+			exit_shell(&data, 1);
 		data.err = parser(&data);
-	//	printf("salgo de parseo con err = %d\n", parser(&data));
 	if (!data.err)
 			executer(&data, &data.cmds);
 	}
@@ -84,3 +83,4 @@ int	main(int argc, char *argv[], char *envp[])
 }
 
 //	Buscar TODOs y // antes de dar por finalizada!!
+//	Borrar print_cmd

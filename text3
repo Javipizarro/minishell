@@ -1,0 +1,4 @@
+drwxr-xr-x   13 jpizarro  staff      416 Jun 13 13:44 .git
+-rw-r--r--    1 jpizarro  staff     2131 Jun 16 11:29 Makefile
+-rw-r--r--    1 jpizarro  staff     4136 Jun 16 17:12 minishell.h
+-rwx------    1 jpizarro  staff      104 Jun 16 19:13 text1

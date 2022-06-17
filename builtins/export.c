@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:49:33 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/04 19:56:21 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/17 20:44:07 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,16 +119,16 @@ void	arrange_n_print(t_env **env)
 **	the corresponding actions.
 */
 
-int	export(char **cmd, t_mini_data *data)
+int	export(char **cmd, t_mini_data *data, int pid)
 {
 	int i;
 	int err;
 
 	i = 0;
 	err = 0;
-	if (!cmd[1])
+	if (!cmd[1] && !pid)
 		arrange_n_print(&data->env);
-	else
+	else if (cmd[1] && pid)
 	{
 		while (cmd[++i])
 		{

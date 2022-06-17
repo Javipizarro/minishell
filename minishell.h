@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/16 17:12:08 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/17 20:34:05 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ typedef struct s_mini_data
 }				t_mini_data;
 
 t_env	*add_env_link(char **env_var, int definition);
-int		builtiner(char **cmd, t_mini_data *data);
+int		builtiner(char **cmd, t_mini_data *data, int pid);
 int		check_open_quotes(char *line);
 int		env(char **envp);
 void	erase_quotes(char *line);
@@ -112,7 +112,7 @@ void		executer(t_mini_data *data, t_cmds **cmds);
 int		exit_shell(t_mini_data *data, int pid);
 int		expand_env_var(char **line, int *i, t_env **env);
 void	expand_var(char **line, int *pos, t_env *env);
-int		export(char **cmd, t_mini_data *data);
+int		export(char **cmd, t_mini_data *data, int pid);
 int		export_env(char *env_var, t_env **env);
 int		external(t_cmds *cmd, t_mini_data *data);
 char	*file_path(char *line, t_mini_data *data);
@@ -131,6 +131,6 @@ t_env	*set_env_value(char **var, int def, t_env *env);
 void	signal_handler(void);
 void	trim_spaces(char *line);
 char	tokenizer(char *line, t_cmds *cmd);
-int		unset(char **cmd, t_mini_data *data);
+int		unset(char **cmd, t_mini_data *data, int pid);
 
 void	print_cmd(t_cmds *cmd, char *msg);

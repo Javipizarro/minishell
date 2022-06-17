@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:27:22 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/16 12:44:00 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/17 20:51:37 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ int	exit_shell(t_mini_data *data, int pid)
 	if (pid > 0)
 		write(1, "exit\n", 5);
 
-	////TODO: erase these lines;
-	//printf("sleeping for 5 sec. to ease leaks shearching\n");
-	//sleep(5);	//TODO: erase this line;
-	//////////////////////////
+//	// TODO: erase these lines;
+//	printf("sleeping for 5 sec. to ease leaks shearching\n");
+//	sleep(5);	//TODO: erase this line;
+//	////////////////////
 	exit(g_exit_status);
 }

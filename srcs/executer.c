@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:23:54 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/16 19:40:25 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/17 20:59:00 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ void	skip_cmd(t_cmds **cmds)
 
 int	piper(t_cmds *cmd)
 {
-	if (cmd->fd_out == NOSET && cmd->next && cmd->next->fd_in == NOSET
-	&& ft_strcmp(cmd->next->cmd[0], "exit"))
+	// if (cmd->fd_out == NOSET && cmd->next && cmd->next->fd_in == NOSET
+	// && ft_strcmp(cmd->next->cmd[0], "exit"))
+	if (cmd->fd_out == NOSET && cmd->next && cmd->next->fd_in == NOSET)
 	{
 		if (pipe(cmd->next->pipe))
 			return (PIPING);
@@ -86,7 +87,7 @@ int	set_inoutputs(t_cmds *cmd)
 	{
 		if (dup2(cmd->fd_out, STDOUT_FILENO) < 0)
 			return (DUPING);
-//		close(cmd->fd_out);
+		close(cmd->fd_out);
 	}
 	return (0);
 }
@@ -102,9 +103,8 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 
 	while (cmds[0])
 	{
-		if (!ft_strcmp(cmds[0]->cmd[0], "exit") && exit_shell(data, 1)
-		== CONTINUE)
-			skip_cmd(cmds);
+		if (!ft_strcmp(cmds[0]->cmd[0], "exit"))
+			exit_shell(data, 1);
 		data->err = piper(*cmds);
 		if(data->err)
 			break;
@@ -115,57 +115,17 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 			break;
 		}
 		if (!pid)
-		{
 			data->err = set_inoutputs(cmds[0]);
 			if(!data->err)
-				data->err = builtiner(cmds[0]->cmd, data);
-			if (!data->err)
-				data->err = external(cmds[0], data);
+				data->err = builtiner(cmds[0]->cmd, data, pid);
+		if (!pid && !data->err)
+			data->err = external(cmds[0], data);
 			close_fds(cmds[0]);
+		if (!pid)
 			exit_shell(data, pid);
-		}
 		wait(&data->err);
-		close_fds(cmds[0]);
 		if (data->err && data->err != CONTINUE)
 			break;
 		cmds = &cmds[0]->next;
 	}
 }
-
-//int	executer(t_mini_data *data, t_cmds	**cmds)
-//{
-//	int	pid;
-//
-//	while (cmds[0])
-//	{
-//		pid = fork();
-//		if (pid < 0)
-//			return(FORKING);
-//		if (pid == 0)
-//		{
-//			data->err = piper(*cmds);
-//			if(data->err)
-//				break;
-//			data->err = builtiner(cmds[0]->cmd, data);
-//			if (!data->err)
-//				data->err = external(cmds[0], data);
-//			if (cmds[0]->fd_in == PIPED)
-//				close(cmds[0]->pipe[OUT]);
-//			else if (cmds[0]->fd_in >= 0)
-//				close(cmds[0]->fd_in);
-//			if (cmds[0]->next && cmds[0]->next->fd_in == PIPED)
-//				close(cmds[0]->next->pipe[IN]);
-//			else if (cmds[0]->fd_out >= 0)
-//				close(cmds[0]->fd_out);
-//			if (data->err && data->err != CONTINUE)
-//				break;
-//			exit_shell(data);
-//	//	kill(pid, SIGKILL);
-//		}
-//		cmds = &cmds[0]->next;
-//		wait(NULL);	//Hay que darle el puntero donde pueda almacenar el estado de salida del proceso hijo
-//	if (pid > 0)
-//		kill(pid, SIGKILL);
-//	}
-//	return (0);
-//}

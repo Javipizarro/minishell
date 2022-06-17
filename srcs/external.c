@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:37:10 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/09 19:08:36 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/17 19:18:28 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,44 +31,72 @@ char	*get_env_path(char *environ[])
 }
 
 /*
-**	Tries the different possible paths in the "PATH=" environment variable, and 
-**	saves the correct one on path.
+**	Tries to open the command 'cmd' appliying the root path 'root' with a '/'
+**	in between.
+**	If root is NULL then applies the cmd directly.
+**	Returns the pointer to the malloced path when it can be open, or
+**	NULL otherwise.
 */
 
-void	get_cmd_path(char *cmd, char *environ[], char **path)
+char	*test_path(char *root, char *cmd)
 {
-	char	**paths;
-	char	*pos_path;
-	char	*pos_cmd_path;
-	int		i;
-	int		fd;
+	int	fd;
+	int	free_root;
+	char	*temp;
+	char	*path;
 
-	i = 0;
-	paths = ft_split(ft_strchr(get_env_path(environ), '/'), ':');
-	while (paths[i])
+	free_root = 0;
+	if (!root && ++free_root)
+		root = getcwd(NULL, 0);
+	temp = ft_strjoin(root, "/");
+	if (free_root)
+		free(root);
+	path = ft_strjoin(temp, cmd);
+	free(temp);
+	fd = open(path, O_RDONLY);
+	if (fd >= 0)
+		close(fd);
+	else
 	{
-		pos_path = ft_strjoin(paths[i], "/");
-		pos_cmd_path = ft_strjoin(pos_path, cmd);
-		free(pos_path);
-		fd = open(pos_cmd_path, O_RDONLY);
-		if (fd >= 0)
-		{
-			*path = pos_cmd_path;
-			ft_free_split(paths);
-			close(fd);
-			return ;
-		}
-		free(pos_cmd_path);
-		i++;
+		free(path);
+		path = NULL;
 	}
-	ft_free_split(paths);
+	return (path);
+}
+
+
+/*
+**	Tries the cmd as it is, if this does not work, tries the different
+**	possible paths resulting from combining the root_paths in the "PATH="
+**	environment variable, and the cmd.
+**	Returns the path that works malloced(3) or NULL if none of them has worked../
+*/
+
+char	*get_cmd_path(char *cmd, char *environ[])
+{
+	int		i;
+	char	*path;
+	char	**root_paths;
+
+	path = test_path(NULL, cmd);
+	if (path)
+		return (path);
+	i = -1;
+	root_paths = ft_split(ft_strchr(get_env_path(environ), '/'), ':');
+	while (root_paths[++i])
+	{
+		path = test_path(root_paths[i], cmd);
+		if (path)
+			break;
+	}
+	ft_free_split(root_paths);
+	return (path);
 }
 
 /*
 **	Executes the cmd when it is not a built-in.
 */
 
-//int	external(t_cmds *cmd, t_mini_data *data)
 int	external(t_cmds *cmd, t_mini_data *data)
 {
 	char	*path;
@@ -78,8 +106,7 @@ int	external(t_cmds *cmd, t_mini_data *data)
 				return (DUPING);
 		if (cmd->next && cmd->next->fd_in == PIPED)
 			close(cmd->next->pipe[OUT]);
-		get_cmd_path(cmd->cmd[0], data->envp, &path);
+		path = get_cmd_path(cmd->cmd[0], data->envp);
 		execve(path, cmd->cmd, data->envp);
-
 	return (0);
 }

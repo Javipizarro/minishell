@@ -16,10 +16,12 @@
 **	Prints the list of environment variables.
 */
 
-int	env(char **envp)
+int	env(char **envp, int pid)
 {
 	int i;
 
+	if (pid)
+		return (CONTINUE);
 	i = 0;
 	while (envp[i])
 	{

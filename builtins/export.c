@@ -11,57 +11,6 @@
 /* ************************************************************************** */
 
 #include "../minishell.h"
-/*
-**
-*/
-
-char	**ft_splitonce(const char *s, char c)
-{
-	char	**mem;
-	size_t	var[4];
-
-	var[0] = 1 + (ft_charpos(s, c) > 0);
-	mem = malloc(sizeof(char *) * (var[0] + 1));
-	var[1] = 0;
-	var[3] = 0;
-	while (var[1] < var[0])
-	{	
-		if (var[1] == var[0] - 1)
-			var[2] = ft_strlen(&s[var[3]]);
-		else
-			var[2] = ft_charindex(s, c);
-		mem[var[1]] = malloc(sizeof(char) * (var[2] + 1));
-		ft_memcpy(mem[var[1]], s + var[3], var[2]);
-		mem[var[1]++][var[2]] = 0;
-		var[3] = var[2] + 1;
-	}
-	mem[var[1]] = NULL;
-	return (mem);
-}
-
-
-/*
-**	Adds a new entry at the end of the environment variable chain.
-**	Receives the line of the variable as it is written when the printenv
-**	or env command is called, and a pointer to the head of the chain.
-*/
-
-int	export_env(char *var_def, t_env **env)
-{
-	char	**env_var;
-
-	if (var_def[0] == '=')
-		return (IDENERR);
-	env_var = ft_splitonce(var_def, '=');
-	env = search_env(env_var[0], env);
-	if (!env[0])
-		env[0] = add_env_link(env_var, ft_charpos(var_def, '='));
-	else
-		set_env_value(env_var, ft_charpos(var_def, '='), *env);
-	ft_free_split(env_var);
-	env_var = NULL;
-	return (0);
-}
 
 /*
 **	Prints the environ variables var, followed by an = sign and with
@@ -115,6 +64,65 @@ void	arrange_n_print(t_env **env)
 }
 
 /*
+**	Splits the given string 's' just by the first ocurrence of 'c', ignoring
+**	the rest of them.
+*/
+
+char	**ft_splitonce(const char *s, char c)
+{
+	char	**mem;
+	size_t	var[4];
+
+	var[0] = 1 + (ft_charpos(s, c) > 0);
+	mem = malloc(sizeof(char *) * (var[0] + 1));
+	var[1] = 0;
+	var[3] = 0;
+	while (var[1] < var[0])
+	{	
+		if (var[1] == var[0] - 1)
+			var[2] = ft_strlen(&s[var[3]]);
+		else
+			var[2] = ft_charindex(s, c);
+		mem[var[1]] = malloc(sizeof(char) * (var[2] + 1));
+		ft_memcpy(mem[var[1]], s + var[3], var[2]);
+		mem[var[1]++][var[2]] = 0;
+		var[3] = var[2] + 1;
+	}
+	mem[var[1]] = NULL;
+	return (mem);
+}
+
+/*
+**	Adds a new entry at the end of the environment variable chain.
+**	Receives the line of the variable as it is written when the printenv
+**	or env command is called, and a pointer to the head of the chain.
+*/
+
+int	export_env(char *var_def, t_env **env)
+{
+	char	**env_var;
+	int i;
+
+	if (var_def[0] == '=' || (var_def[0] >= '0' && var_def[0] <= '9'))
+		return (IDENERR);
+	env_var = ft_splitonce(var_def, '=');
+	i = -1;
+	while (env_var[0][++i])
+		if (env_var[0][i] == '<' || env_var[0][i] == '>'
+		|| env_var[0][i] == '|' || env_var[0][i] == '\'' || env_var[0][i] == '"'
+		|| env_var[0][i] == '-' || env_var[0][i] == '+')
+			return (IDENERR);
+	env = search_env(env_var[0], env);
+	if (!env[0])
+		env[0] = add_env_link(env_var, ft_charpos(var_def, '='));
+	else
+		set_env_value(env_var, ft_charpos(var_def, '='), *env);
+	ft_free_split(env_var);
+	env_var = NULL;
+	return (0);
+}
+
+/*
 **	Receives the export cmd with its arguments if there are any, and executes
 **	the corresponding actions.
 */
@@ -131,7 +139,6 @@ int	export(char **cmd, t_mini_data *data, int pid)
 		while (cmd[++i])
 		{
 			data->err = export_env(cmd[i], &data->env);
-			printf("data->err (on export)= %i\n", data->err);
 			if(data->err)
 				break;
 		}
@@ -139,6 +146,6 @@ int	export(char **cmd, t_mini_data *data, int pid)
 			return (data->err);
 		else
 			reset_envp(data);
-	}	
-	return(CONTINUE);
+	}
+	return (CONTINUE);
 }

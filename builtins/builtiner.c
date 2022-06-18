@@ -24,7 +24,7 @@ int	builtiner(char **cmd, t_mini_data *data, int pid)
 	else if (!ft_strcmp(cmd[0], "echo"))
 		printf("%s command is a work in progress right now\n", cmd[0]);
 	else if (!ft_strcmp(cmd[0], "env"))
-		return(env(data->envp));
+		return(env(data->envp, pid));
 	else if (!ft_strcmp(cmd[0], "exit"))
 		return (exit_shell(data, 1));
 	else if (!ft_strcmp(cmd[0], "export"))

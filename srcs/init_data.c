@@ -30,4 +30,5 @@ void 	init_mini_data(t_mini_data *data)
 	data->line = NULL;
 	data->cmds = NULL;
 	data->err = 0;
+	data->child_err = 0;
 }

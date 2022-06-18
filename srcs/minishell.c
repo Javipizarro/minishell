@@ -58,6 +58,7 @@ void	reset_data(t_mini_data *data)
 	data->cmds = NULL;
 	data->cmd_num = 0;
 	data->err = 0;
+	data->child_err = 0;
 
 //	if (data->cmd)
 //		ft_free_split(data->cmd);

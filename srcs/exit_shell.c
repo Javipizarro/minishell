@@ -86,6 +86,5 @@ int	exit_shell(t_mini_data *data, int pid)
 //	printf("sleeping for 5 sec. to ease leaks shearching\n");
 //	sleep(5);	//TODO: erase this line;
 //	////////////////////
-	printf("data->err (on exit) = %i\n", data->err);
 	exit(data->err);
 }

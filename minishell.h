@@ -21,7 +21,6 @@
 #include <readline/readline.h>
 #include <termios.h>
 #include <readline/history.h>
-#include "pipex/pipex.h"
 #include "libft/libft.h"
 
 # include <fcntl.h>
@@ -102,14 +101,15 @@ typedef struct s_mini_data
 	t_cmds			*cmds;
 	int				cmd_num;
 	int				err;
+	int				child_err;
 }				t_mini_data;
 
 t_env	*add_env_link(char **env_var, int definition);
 int		builtiner(char **cmd, t_mini_data *data, int pid);
 int		check_open_quotes(char *line);
-int		env(char **envp);
+int		env(char **envp, int pid);
 void	erase_quotes(char *line);
-void		executer(t_mini_data *data, t_cmds **cmds);
+void	executer(t_mini_data *data, t_cmds **cmds);
 //void	*exit_shell(t_mini_data *data);
 int		exit_shell(t_mini_data *data, int pid);
 int		expand_env_var(char **line, int *i, t_env **env);

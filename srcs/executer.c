@@ -122,12 +122,11 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 			data->err = external(cmds[0], data);
 			close_fds(cmds[0]);
 		if (!pid)
-		{
-			printf("data->err (calling exit_shell) = %i\n", data->err);
 			exit_shell(data, pid);
-		}
-		wait(&data->err);
-		data->err = data->err / 256;
+		wait(&data->child_err);
+		data->child_err = data->child_err / 256;
+		if (data->child_err > data->err)
+			data->err = data->child_err;
 		if (data->err && data->err != CONTINUE)
 			break;
 		cmds = &cmds[0]->next;

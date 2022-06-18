@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 12:10:43 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/17 20:30:20 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/18 10:00:46 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,3 @@ int	builtiner(char **cmd, t_mini_data *data, int pid)
 		return (unset(cmd, data, pid));
 	return (0);
 }
-
-

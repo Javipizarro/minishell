@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:37:10 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/17 19:18:28 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/18 10:56:31 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ char	*get_cmd_path(char *cmd, char *environ[])
 		path = test_path(root_paths[i], cmd);
 		if (path)
 			break;
+		path = NULL;
 	}
 	ft_free_split(root_paths);
 	return (path);
@@ -101,12 +102,14 @@ int	external(t_cmds *cmd, t_mini_data *data)
 {
 	char	*path;
 
-		if (cmd->fd_out >= 0)
-			if (dup2(cmd->fd_out, STDOUT_FILENO) < 0)
-				return (DUPING);
-		if (cmd->next && cmd->next->fd_in == PIPED)
-			close(cmd->next->pipe[OUT]);
-		path = get_cmd_path(cmd->cmd[0], data->envp);
-		execve(path, cmd->cmd, data->envp);
+	if (cmd->fd_out >= 0)
+		if (dup2(cmd->fd_out, STDOUT_FILENO) < 0)
+			return (DUPING);
+	if (cmd->next && cmd->next->fd_in == PIPED)
+		close(cmd->next->pipe[OUT]);
+	path = get_cmd_path(cmd->cmd[0], data->envp);
+	if (!path)
+		return (CMDERR);
+	execve(path, cmd->cmd, data->envp);
 	return (0);
 }

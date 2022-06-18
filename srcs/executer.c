@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:23:54 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/17 20:59:00 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/18 10:55:38 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,12 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 			data->err = external(cmds[0], data);
 			close_fds(cmds[0]);
 		if (!pid)
+		{
+			printf("data->err (calling exit_shell) = %i\n", data->err);
 			exit_shell(data, pid);
+		}
 		wait(&data->err);
+		data->err = data->err / 256;
 		if (data->err && data->err != CONTINUE)
 			break;
 		cmds = &cmds[0]->next;

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/17 20:34:05 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/18 10:42:29 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int			g_exit_status;
 #define	PIPING 7
 #define	DUPING 8
 #define	FORKING 9
+#define IDENERR 10
+#define CMDERR 11
 
 #define	IN 1
 #define	OUT 0

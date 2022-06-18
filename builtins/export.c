@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:49:33 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/17 20:44:07 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/18 10:56:55 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	export_env(char *var_def, t_env **env)
 	char	**env_var;
 
 	if (var_def[0] == '=')
-		return (1);
+		return (IDENERR);
 	env_var = ft_splitonce(var_def, '=');
 	env = search_env(env_var[0], env);
 	if (!env[0])
@@ -122,24 +122,21 @@ void	arrange_n_print(t_env **env)
 int	export(char **cmd, t_mini_data *data, int pid)
 {
 	int i;
-	int err;
 
 	i = 0;
-	err = 0;
 	if (!cmd[1] && !pid)
 		arrange_n_print(&data->env);
 	else if (cmd[1] && pid)
 	{
 		while (cmd[++i])
 		{
-			err = export_env(cmd[i], &data->env);
-			if(err)
+			data->err = export_env(cmd[i], &data->env);
+			printf("data->err (on export)= %i\n", data->err);
+			if(data->err)
 				break;
-
 		}
-		if (err)
-			printf("%s: %s: '%s': not a valid identifier\n",
-			data->shell_name, cmd[0], cmd[i]);	// TODO: Valorar hacer una funci'on de impresi'on de errores
+		if (data->err)
+			return (data->err);
 		else
 			reset_envp(data);
 	}	

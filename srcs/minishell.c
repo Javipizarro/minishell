@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/18 10:43:13 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/19 18:23:53 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	print_err(t_mini_data *data)
 		printf("%s: not a valid identifier\n", data->shell_name);
 	else if (data->err == CMDERR)
 		printf("%s: command not found\n", data->shell_name);
+	else if (data->err == HOMELESS)
+		printf("%s: cd: HOME not set\n", data->shell_name);
 }
 
 

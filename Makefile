@@ -6,7 +6,7 @@
 #    By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/19 11:24:00 by jpizarro          #+#    #+#              #
-#    Updated: 2022/06/16 11:29:44 by jpizarro         ###   ########.fr        #
+#    Updated: 2022/06/19 14:25:14 by jpizarro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,6 @@ $(STATICS):
 #	cd libft/ && $(MAKE)
 #	cd pipex/ && $(MAKE)
 	@make -sC ./libft
-	@make -sC ./pipex
 
 clean:
 	@echo "Cleaing up binary files"
@@ -57,7 +56,6 @@ clean:
 #	cd libft/ && $(MAKE) $@
 #	cd pipex/ && $(MAKE) $@
 	@make -sC ./libft $@
-	@make -sC ./pipex $@
 
 fclean: clean
 	@echo "also $(NAME) and debug files"
@@ -67,7 +65,6 @@ fclean: clean
 #	cd libft/ && $(MAKE) $@
 #	cd pipex/ && $(MAKE) $@
 	@make -sC ./libft $@
-	@make -sC ./pipex $@
 
 re: fclean all
 

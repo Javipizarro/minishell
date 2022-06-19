@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/18 10:42:29 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/19 18:23:53 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int			g_exit_status;
 #define	FORKING 9
 #define IDENERR 10
 #define CMDERR 11
+#define	HOMELESS 12
 
 #define	IN 1
 #define	OUT 0
@@ -106,6 +107,7 @@ typedef struct s_mini_data
 
 t_env	*add_env_link(char **env_var, int definition);
 int		builtiner(char **cmd, t_mini_data *data, int pid);
+int		cd(t_mini_data *data, char **cmd, int pid);
 int		check_open_quotes(char *line);
 int		env(char **envp, int pid);
 void	erase_quotes(char *line);
@@ -124,12 +126,12 @@ void	line_to_cmds(t_mini_data *data, t_cmds	**cmd);
 void	parse_files(char *line, t_cmds *cmd, t_mini_data *data);
 void	parse_cmd(char **line, t_cmds *cmd, t_mini_data *data);
 int		parser(t_mini_data *data);
-int		pwd(void);
+int		pwd(int pid);
 void	quotes_status(char c, char *quo);
 void	reset_envp(t_mini_data *data);
 t_env	**search_env(char *env_name, t_env **env);
 void	set_env_list(char *envp[], t_mini_data *data);
-t_env	*set_env_value(char **var, int def, t_env *env);
+t_env	*set_env_value(char *var_name, char *var_val[], t_env *env);
 void	signal_handler(void);
 void	trim_spaces(char *line);
 char	tokenizer(char *line, t_cmds *cmd);

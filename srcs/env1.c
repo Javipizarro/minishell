@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 17:24:49 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/06 13:59:45 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/19 16:54:08 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,28 +75,32 @@ void	set_env_list(char *envp[], t_mini_data *data)
 }
 
 /*
-**	Sets the value of the environment variable env_name to the value env_val.
-**	It returns the pointer to the t_env link where this variable is stored or NULL
-**	if env_name doesn't exists.
+**	Sets the value of the environment variable var_name to the value var_val,
+**	wich must be malloced and will receive the old value of the var_val (their
+**	pointers are swaped).
+**	It returns the pointer to the t_env link where this variable is stored
+**	or NULL if env_name doesn't exists.
 */
 
-t_env	*set_env_value(char **var, int def, t_env *env)
+//t_env	*set_env_value(char **var, int def, t_env *env)
+t_env	*set_env_value(char *var_name, char *var_val[], t_env *env)
 {
 	char	*temp;
 
-	if (!var[1] && !def)
+//	if (!var[1] && !def)
+	if (!var_val[0])
 		return (env);
-	env = *search_env(var[0], &env);
+	env = *search_env(var_name, &env);
 	if (!env)
 		return (env);
 //	if (env->var[1])
 		temp = env->var[1];
 //	else
 //		temp = NULL;
-	if (var[1])
-		env->var[1] = var[1];
+	if (var_val[0])
+		env->var[1] = var_val[0];
 	else
 		env->var[1] = ft_strdup("");
-	var[1] = temp;
+	var_val[0] = temp;
 	return(env);
 }

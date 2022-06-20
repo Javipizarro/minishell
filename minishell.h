@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/19 18:23:53 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/20 19:59:19 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ t_env	*add_env_link(char **env_var, int definition);
 int		builtiner(char **cmd, t_mini_data *data, int pid);
 int		cd(t_mini_data *data, char **cmd, int pid);
 int		check_open_quotes(char *line);
+int		echo(char **cmd, int pid);
 int		env(char **envp, int pid);
 void	erase_quotes(char *line);
 void	executer(t_mini_data *data, t_cmds **cmds);

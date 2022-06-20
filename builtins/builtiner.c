@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 12:10:43 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/19 18:07:24 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/20 19:59:34 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	builtiner(char **cmd, t_mini_data *data, int pid)
 	if (!ft_strcmp(cmd[0], "cd"))
 		return (cd(data, cmd, pid));
 	else if (!ft_strcmp(cmd[0], "echo"))
-		printf("%s command is a work in progress right now\n", cmd[0]);////
+		return (echo(cmd, pid));
 	else if (!ft_strcmp(cmd[0], "env"))
 		return(env(data->envp, pid));
 	else if (!ft_strcmp(cmd[0], "exit"))

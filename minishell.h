@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/20 19:59:19 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/22 17:10:37 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_cmds
 	int				fd_in;
 	int				fd_out;
 	int				pipe[2];
+	char			*key_word;
 //	int				entry_pipe[2];
 //	int				exit_pipe[2];
 	char			**cmd;

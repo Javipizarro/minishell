@@ -102,9 +102,6 @@ int	external(t_cmds *cmd, t_mini_data *data)
 {
 	char	*path;
 
-	if (cmd->fd_out >= 0)
-		if (dup2(cmd->fd_out, STDOUT_FILENO) < 0)
-			return (DUPING);
 	if (cmd->next && cmd->next->fd_in == PIPED)
 		close(cmd->next->pipe[OUT]);
 	path = get_cmd_path(cmd->cmd[0], data->envp);

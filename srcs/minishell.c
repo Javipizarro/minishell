@@ -32,11 +32,11 @@ void	print_err(t_mini_data *data)
 	else if (data->err == NOTFILE)
 		printf("%s: No such file or directory\n", data->shell_name);
 	else if (data->err == PIPING)
-		printf("%s: Error whlie piping\n", data->shell_name);
+		printf("%s: Error while piping\n", data->shell_name);
 	else if (data->err == DUPING)
-		printf("%s: Error whlie dupping\n", data->shell_name);
+		printf("%s: Error while dupping\n", data->shell_name);
 	else if (data->err == FORKING)
-		printf("%s: Error whlie forking\n", data->shell_name);
+		printf("%s: Error while forking\n", data->shell_name);
 	else if (data->err == IDENERR)
 		printf("%s: not a valid identifier\n", data->shell_name);
 	else if (data->err == CMDERR)

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 12:20:24 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/22 17:16:01 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/22 17:38:20 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,29 +78,6 @@ void	expand_path(char **path, t_mini_data *data)
 }
 
 /*
-**	Replaces the '~' char at the beginning of a path with the value of the
-**	home environmental variable.
-**	Returns a pointer to the new path.
-*/
-
-char	*add_home_to_path(t_mini_data *data, char *path)
-{
-	char	*home;
-	char	*abs_path;
-
-	home = search_env("HOME", &data->env)[0]->var[1];
-	if (!home)
-	{
-		data->err = HOMELESS;
-		return (path);
-	}
-	abs_path = ft_strjoin(home, &path[1]);
-	free(path);
-	path = NULL;
-	return (abs_path);
-}
-
-/*
 **	Takes the next characters string until the firs significative space,
 **	expands its variables and search for anything that could be wrong.
 **	Returns the string that contains the file path, or null if there has
@@ -127,8 +104,6 @@ char	*file_path(char *line, t_mini_data *data)
 	ft_memcpy(path, line, i);
 	ft_memcpy(line, &line[i], ft_strlen(&line[i]) + 1);
 //	i = -1;
-	if (path[0] == '~')
-		path = add_home_to_path(data, path);
 	if (data->err)
 		return(path);
 	erase_quotes(path);

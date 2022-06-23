@@ -6,11 +6,34 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:36:05 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/10 17:07:38 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/23 13:01:13 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+/*
+**	Replaces the '~' char at the beginning of a path with the value of the
+**	home environmental variable.
+**	Returns a pointer to the new path.
+*/
+
+char	*add_home_to_path(t_mini_data *data, char *path)
+{
+	char	*home;
+	char	*abs_path;
+
+	home = search_env("HOME", &data->env)[0]->var[1];
+	if (!home)
+	{
+		data->err = HOMELESS;
+		return (path);
+	}
+	abs_path = ft_strjoin(home, &path[1]);
+	free(path);
+	path = NULL;
+	return (abs_path);
+}
 
 /*
 **	Opens the file pointed by path according to the token instructions.
@@ -23,35 +46,22 @@ void	open_file(char token, char *path, t_cmds *cmd, t_mini_data *data)
 	(void)data;
 
 
-	//	TODO: Verificar permisos de usuarios?
 	if ((token == TOKIN || token == TOKHERE) && cmd->fd_in >= 0)
 		close(cmd->fd_in);
 	if ((token == TOKOUT || token == TOKAPPN) && cmd->fd_out >= 0)
 		close(cmd->fd_out);
 	if (token == TOKIN)
 	{
-//		printf("token detectado TOKIN\n");
 		cmd->fd_in = open(path, O_RDONLY);
 		if (cmd->fd_in < 0)
 			data->err = NOTFILE;
 	}
 	else if (token == TOKOUT)
-		{
-//			printf("token detectado TOKOUT\n");
-//			cmd->fd_out = open(path, O_WRONLY | O_CREAT | O_TRUNC);
 			cmd->fd_out = open(path, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
-//			write(cmd->fd_out, "prueba de escritura\n", 20);
-//			close(cmd->fd_out);
-		}
 	else if (token == TOKHERE)
-	{
-//		printf("token detectado TOKHERE\n");
-		printf("working on <<.\nSorry for the inconvenieces\n");}	//	TODO: Write a function to manage TOKHERE
+		cmd->fd_in = open(path, O_RDONLY);
 	else if (token == TOKAPPN)
-	{
-//		printf("token detectado TOKAPPN\n");
 		cmd->fd_out = open(path, O_WRONLY | O_CREAT | O_APPEND, S_IRWXU);
-	}
 }
 
 /*
@@ -82,6 +92,11 @@ void	parse_files(char *line, t_cmds *cmd, t_mini_data *data)
 		if (!token)
 			continue;
 		path = file_path(&line[i], data);
+		if (token == TOKHERE)
+			data->err = heredoc(&path);
+		else if (path[0] == '~')
+			path = add_home_to_path(data, path);
+
 //		path = ft_strdup(&line[i]);
 //		int pos = ft_charindex(path, ' ');
 //		path[pos] = 0;

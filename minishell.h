@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/22 17:10:37 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/23 12:41:54 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ int		external(t_cmds *cmd, t_mini_data *data);
 char	*file_path(char *line, t_mini_data *data);
 void	free_cmds(t_cmds **cmds);
 void 	init_mini_data(t_mini_data *data);
+int		heredoc(char *path[]);
 void	line_to_cmds(t_mini_data *data, t_cmds	**cmd);
 void	parse_files(char *line, t_cmds *cmd, t_mini_data *data);
 void	parse_cmd(char **line, t_cmds *cmd, t_mini_data *data);

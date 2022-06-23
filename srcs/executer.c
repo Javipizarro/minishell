@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:23:54 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/18 10:55:38 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/23 14:12:06 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@ void	close_fds(t_cmds *cmd)	// Some parts must be done by the father
 	if (cmd->fd_in == PIPED)
 		close(cmd->pipe[OUT]);
 	else if (cmd->fd_in >= 0)
+	{
+		if (cmd->tok_in == TOKHERE)
+			unlink(".heredoc");
 		close(cmd->fd_in);
+	}
 	if (cmd->fd_out == PIPED)
 		close(cmd->next->pipe[IN]);
 	else if (cmd->fd_out >= 0)

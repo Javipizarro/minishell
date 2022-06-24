@@ -121,6 +121,7 @@ void	expand_var(char **line, int *pos, t_env *env);
 int		export(char **cmd, t_mini_data *data, int pid);
 int		export_env(char *env_var, t_env **env);
 int		external(t_cmds *cmd, t_mini_data *data);
+//void	external(t_cmds *cmd, t_mini_data *data);
 char	*file_path(char *line, t_mini_data *data);
 void	free_cmds(t_cmds **cmds);
 void 	init_mini_data(t_mini_data *data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ihorcada <ihorcada@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 19:31:20 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/20 20:02:35 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/25 17:19:06 by ihorcada         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,25 @@
 
 int	echo(char **cmd, int pid)
 {
-	int	i;
+	int		i;
 	char	flag;
+	int		k;
 
+	k = 0;
 	i = 0;
 	flag = 0;
 	if (!pid)
 		return (CONTINUE);
-	while (!ft_strcmp(cmd[++i], "-n"))
-		flag = 'n';
+	while (cmd[++i] && cmd[i][k] == '-')
+	{
+		while (cmd[i][++k] == 'n')
+			continue ;
+		if (cmd[i][k] == '\0')
+			flag = 'n';
+		else
+			break ;
+		k = 0;
+	}
 	while (cmd[i])
 	{
 		write(STDOUT_FILENO, cmd[i], ft_strlen(cmd[i]));

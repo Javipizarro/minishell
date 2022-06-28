@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/23 12:41:54 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/28 12:37:26 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,18 +107,18 @@ typedef struct s_mini_data
 }				t_mini_data;
 
 t_env	*add_env_link(char **env_var, int definition);
-int		builtiner(char **cmd, t_mini_data *data, int pid);
-int		cd(t_mini_data *data, char **cmd, int pid);
+int		builtiner(char **cmd, t_mini_data *data, pid_t pid);
+int		cd(t_mini_data *data, char **cmd, pid_t pid);
 int		check_open_quotes(char *line);
-int		echo(char **cmd, int pid);
-int		env(char **envp, int pid);
+int		echo(char **cmd, pid_t pid);
+int		env(char **envp, pid_t pid);
 void	erase_quotes(char *line);
 void	executer(t_mini_data *data, t_cmds **cmds);
 //void	*exit_shell(t_mini_data *data);
-int		exit_shell(t_mini_data *data, int pid);
+int		exit_shell(t_mini_data *data, pid_t pid);
 int		expand_env_var(char **line, int *i, t_env **env);
 void	expand_var(char **line, int *pos, t_env *env);
-int		export(char **cmd, t_mini_data *data, int pid);
+int		export(char **cmd, t_mini_data *data, pid_t pid);
 int		export_env(char *env_var, t_env **env);
 int		external(t_cmds *cmd, t_mini_data *data);
 //void	external(t_cmds *cmd, t_mini_data *data);
@@ -130,7 +130,7 @@ void	line_to_cmds(t_mini_data *data, t_cmds	**cmd);
 void	parse_files(char *line, t_cmds *cmd, t_mini_data *data);
 void	parse_cmd(char **line, t_cmds *cmd, t_mini_data *data);
 int		parser(t_mini_data *data);
-int		pwd(int pid);
+int		pwd(pid_t pid);
 void	quotes_status(char c, char *quo);
 void	reset_envp(t_mini_data *data);
 t_env	**search_env(char *env_name, t_env **env);
@@ -139,6 +139,6 @@ t_env	*set_env_value(char *var_name, char *var_val[], t_env *env);
 void	signal_handler(void);
 void	trim_spaces(char *line);
 char	tokenizer(char *line, t_cmds *cmd);
-int		unset(char **cmd, t_mini_data *data, int pid);
+int		unset(char **cmd, t_mini_data *data, pid_t pid);
 
 void	print_cmd(t_cmds *cmd, char *msg);

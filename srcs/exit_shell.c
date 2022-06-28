@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:27:22 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/18 10:53:18 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/28 12:37:26 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	free_env(t_env **env)
 **	Manages how the mini-shell is abandoned.
 */
 
-int	exit_shell(t_mini_data *data, int pid)
+int	exit_shell(t_mini_data *data, pid_t pid)
 {
 	if (data->cmd_num > 1 && pid > 0)
 		return (CONTINUE);

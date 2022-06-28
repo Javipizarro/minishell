@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:23:54 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/23 14:12:06 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/28 13:07:06 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	set_inoutputs(t_cmds *cmd)
 			return (DUPING);
 		close(cmd->fd_in);
 	}
-	if (cmd->fd_out == PIPED)
+	if (cmd->next && cmd->fd_out == PIPED)
 	{
 		close(cmd->next->pipe[OUT]);
 		cmd->next->pipe[OUT] = NOSET;
@@ -103,7 +103,7 @@ int	set_inoutputs(t_cmds *cmd)
 
 void	executer(t_mini_data *data, t_cmds	**cmds)
 {
-	int	pid;
+	pid_t	pid;
 
 	while (cmds[0])
 	{
@@ -127,12 +127,21 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 			close_fds(cmds[0]);
 		if (!pid)
 			exit_shell(data, pid);
-		wait(&data->child_err);
-		data->child_err = data->child_err / 256;
+	//	wait(&data->child_err);
+		data->child_err = data->child_err / 256;  // ha de ser sustituido por la funcion que transforma la salida de execve
 		if (data->child_err > data->err)
 			data->err = data->child_err;
 		if (data->err && data->err != CONTINUE)
 			break;
 		cmds = &cmds[0]->next;
 	}
+	int i = 0;
+	while (i < data->cmd_num && ++i)
+	{
+		wait(&data->child_err);
+		data->child_err = data->child_err / 256;  // ha de ser sustituido por la funcion que transforma la salida de execve
+		if (data->child_err > data->err)
+			data->err = data->child_err;
+	}
+	//waitpid(-1, &data->child_err, -1);
 }

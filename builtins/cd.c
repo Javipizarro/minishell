@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 14:06:26 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/28 09:12:54 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/28 12:37:34 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ch_home_dir(t_mini_data *data, char *new_wd)
 */
 
 
-int	cd(t_mini_data *data, char **cmd, int pid)
+int	cd(t_mini_data *data, char **cmd, pid_t pid)
 {
 	char	*cwd;
 

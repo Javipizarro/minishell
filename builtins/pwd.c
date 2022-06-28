@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:45:46 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/19 15:37:36 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/28 12:37:26 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **	Prints the current working directory.
 */
 
-int	pwd(int pid)
+int	pwd(pid_t pid)
 {
 	char	*cwd;
 

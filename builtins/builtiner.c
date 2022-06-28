@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 12:10:43 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/20 19:59:34 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/28 13:40:46 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 **	Returns one on possitive result, and 0 on negative.
 */
 
-int	builtiner(char **cmd, t_mini_data *data, int pid)
+int	builtiner(char **cmd, t_mini_data *data, pid_t pid)
 {
 	if (!ft_strcmp(cmd[0], "cd"))
 		return (cd(data, cmd, pid));

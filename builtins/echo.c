@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 19:31:20 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/28 08:19:31 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/28 18:12:18 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ int	is_a_n_flag(char *str)
 **	possibilities of the 'n' flag.
 */
 
-int	echo(char **cmd, int pid)
+int	echo(char **cmd, pid_t pid)
 {
 	int	i;
 	char	flag;
 
+	if (pid)
+		return (CONTINUE);
 	i = 0;
 	flag = 0;
-	if (!pid)
-		return (CONTINUE);
 	while (is_a_n_flag(cmd[++i]))
 		flag = 'n';
 	while (cmd[i])

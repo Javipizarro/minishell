@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:47:45 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/17 20:35:10 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/28 12:37:26 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **	Removes the environment variable env_name, from the list env.
 */
 
-int	unset(char **cmd, t_mini_data *data, int pid)
+int	unset(char **cmd, t_mini_data *data, pid_t pid)
 {
 	t_env *dump;
 	t_env **env;

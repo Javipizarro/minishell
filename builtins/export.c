@@ -6,13 +6,16 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:49:33 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/19 16:59:03 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/28 12:37:26 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
 /*
-**
+**	Allocates (with malloc(3)) and returns an array of strings obtained
+**	by splitting ’s’ using the first ocurrence of the character ’c’ as a
+**	delimiter. The array is ended by a NULL pointer.
 */
 
 char	**ft_splitonce(const char *s, char c)
@@ -72,10 +75,15 @@ int	export_env(char *var_def, t_env **env)
 void	expvar_printer(char *var_name, t_env **env)
 {
 	env = search_env(var_name, env);
+	
+	write(STDOUT_FILENO, env[0]->var[0], ft_strlen(env[0]->var[0]));
 	if (env[0]->var[1])
-		printf("%s=\"%s\"\n", env[0]->var[0], env[0]->var[1]);
-	else
-		printf("%s\n", env[0]->var[0]);
+	{
+		write(STDOUT_FILENO, "=\"", 2);
+		write(STDOUT_FILENO, env[0]->var[1], ft_strlen(env[0]->var[1]));
+		write(STDOUT_FILENO, "\"", 1);
+	}
+	write(STDOUT_FILENO, "\n", 1);
 }
 
 /*
@@ -120,7 +128,7 @@ void	arrange_n_print(t_env **env)
 **	the corresponding actions.
 */
 
-int	export(char **cmd, t_mini_data *data, int pid)
+int	export(char **cmd, t_mini_data *data, pid_t pid)
 {
 	int i;
 

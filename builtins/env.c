@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:44:43 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/06 17:14:22 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/28 12:37:26 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **	Prints the list of environment variables.
 */
 
-int	env(char **envp, int pid)
+int	env(char **envp, pid_t pid)
 {
 	int i;
 
@@ -25,7 +25,8 @@ int	env(char **envp, int pid)
 	i = 0;
 	while (envp[i])
 	{
-		printf("%s\n", envp[i]);
+		write(STDOUT_FILENO, envp[i], ft_strlen(envp[i]));
+		write(STDOUT_FILENO, "\n", 1);
 		i++;
 	}
 	return(CONTINUE);

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:37:10 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/18 10:56:31 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/28 11:52:46 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,7 @@ char	*get_cmd_path(char *cmd, t_mini_data *data)
 int	external(t_cmds *cmd, t_mini_data *data)
 {
 	char	*path;
-
 	
-	if (cmd->next && cmd->next->fd_in == PIPED)
-		close(cmd->next->pipe[OUT]);
 	path = get_cmd_path(cmd->cmd[0], data);
 	if (!path)
 		return (CMDERR);

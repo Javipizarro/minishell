@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 14:06:26 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/22 17:01:50 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/28 09:12:54 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@
 
 int	ch_home_dir(t_mini_data *data, char *new_wd)
 {
-	char	*home;
+	t_env	**home;
 	char	*abs_wd;
 
-	home = search_env("HOME", &data->env)[0]->var[1];
-	if (!home)
+	home = search_env("HOME", &data->env);
+	if (!home[0])
 		return (HOMELESS);
 	if (!new_wd)
-		return(chdir(home));
-	abs_wd = ft_strjoin(home, &new_wd[1]);
+		return(chdir(home[0]->var[1]));
+	abs_wd = ft_strjoin(home[0]->var[1], &new_wd[1]);
 	data->err = chdir(abs_wd);
 	free(abs_wd);
 	abs_wd = NULL;

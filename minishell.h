@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/28 12:37:26 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/30 20:39:48 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 #include <readline/history.h>
 #include "libft/libft.h"
 
+# include <signal.h>
 # include <fcntl.h>
 # include <errno.h>
-# include <signal.h>
 
 
 int			g_exit_status;
@@ -69,6 +69,10 @@ int			g_exit_status;
 
 #define	IN 1
 #define	OUT 0
+
+#define	GENERAL 0
+#define EXEC 1
+#define HEREDOC 2
 
 #define NOSET -1
 #define PIPED -2
@@ -136,7 +140,8 @@ void	reset_envp(t_mini_data *data);
 t_env	**search_env(char *env_name, t_env **env);
 void	set_env_list(char *envp[], t_mini_data *data);
 t_env	*set_env_value(char *var_name, char *var_val[], t_env *env);
-void	signal_handler(void);
+//void	signal_handler(void);
+void	signal_handler(int type, int pid);
 void	trim_spaces(char *line);
 char	tokenizer(char *line, t_cmds *cmd);
 int		unset(char **cmd, t_mini_data *data, pid_t pid);

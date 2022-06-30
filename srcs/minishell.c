@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/28 13:07:26 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/30 20:19:55 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)argv;
 	init_mini_data(&data);
 	set_env_list(envp, &data);
-	signal_handler();
+	signal_handler(GENERAL, 0);
 	while(1)
 	{
 		print_err(&data);
@@ -86,7 +86,11 @@ int	main(int argc, char *argv[], char *envp[])
 			exit_shell(&data, 1);
 		data.err = parser(&data);
 		if (!data.err)
+		{
+			signal_handler(EXEC, 0);
 			executer(&data, &data.cmds);
+			signal_handler(GENERAL, 0);
+		}
 	}
 	return(0);
 }

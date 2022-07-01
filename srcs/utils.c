@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 19:03:23 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/22 17:14:31 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/06/30 22:09:40 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	expand_var(char **line, int *pos, t_env *env)
 	i = *pos;
 	j = *pos + 1;
 	while (line[0][j] && line[0][j] != '$' && line[0][j] != ' '
-	&& line[0][j] != '"' && line[0][j] != '\'')
+	&& line[0][j] != '"' && line[0][j] != '\'' && line[0][j] != '=')
 		j++;
 	tmp = ft_calloc(j - i, sizeof(char));
 	ft_memcpy(tmp, &line[0][i + 1], j - i - 1);

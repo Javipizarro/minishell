@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:36:05 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/04 20:53:58 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/04 14:36:42 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	get_in_token(char *line)
 }
 
 /*
-**	Parses the token at the beggining of the line, stores its value inthe cmd
+**	Parses the token at the beggining of the line, stores its value in the cmd
 **	structure, erases it form the line, and returns its value.
 */
 

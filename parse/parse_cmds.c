@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 16:51:09 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/04 11:36:43 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:39:10 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	expand_vars(char **line, t_env *env)
 		if (quo == '\'')
 			continue;
 		if (line[0][i] == '$')
-			expand_var(line, &i, env);
+			expand_var(line, &i, env, 0);
 	}
 }
 
@@ -65,8 +65,8 @@ void	spaces_to_31(char *line)
 void	parse_cmd(char **line, t_cmds *cmd, t_mini_data *data)
 {
 	trim_spaces(*line);
-	spaces_to_31(*line);
 	expand_vars(line, data->env);
+	spaces_to_31(*line);
 	erase_quotes(*line);
 	cmd->cmd = ft_split(*line, 31);
 }

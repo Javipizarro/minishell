@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:23:54 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/28 13:07:06 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:22:02 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ void	skip_cmd(t_cmds **cmds)
 
 int	piper(t_cmds *cmd)
 {
-	// if (cmd->fd_out == NOSET && cmd->next && cmd->next->fd_in == NOSET
-	// && ft_strcmp(cmd->next->cmd[0], "exit"))
 	if (cmd->fd_out == NOSET && cmd->next && cmd->next->fd_in == NOSET)
 	{
 		if (pipe(cmd->next->pipe))

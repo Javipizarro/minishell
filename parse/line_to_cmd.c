@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:53:09 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/16 19:31:07 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:46:03 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,21 +63,22 @@ char	**split_by_pipes(char *line)
 void	line_to_cmds(t_mini_data *data, t_cmds	**cmd)
 {
 	int	i;
-	char	**cmds;
+	char	**line_cmds;
 
-	cmds = split_by_pipes(data->line);
+	line_cmds = split_by_pipes(data->line);
 	i = -1;
-	while (cmds[++i])
+	while (line_cmds[++i])
 	{
 		data->cmd_num++;
 		*cmd = new_cmd();
-		parse_files(cmds[i], *cmd, data);
+		while(parse_files(line_cmds[i], *cmd, data))
+			continue;
 		if (data->err)
 			break;
-		parse_cmd(&cmds[i], *cmd, data);
+		parse_cmd(&line_cmds[i], *cmd, data);
 		if (data->err)
 			break;
-		cmd = &cmd[0]->next;	
+		cmd = &cmd[0]->next;
 	}
-	ft_free_split(cmds);
+	ft_free_split(line_cmds);
 }

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:45:46 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/28 12:37:26 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:41:03 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ int	pwd(pid_t pid)
 	if (pid)
 		return (CONTINUE);
 	cwd = getcwd(NULL, 0);
-	printf("%s\n", cwd);
+	write(STDOUT_FILENO, cwd, ft_strlen(cwd));
+	write(STDOUT_FILENO, "\n", 1);
+//	printf("%s\n", cwd);
 	free(cwd);
 	cwd = NULL;
 	return (CONTINUE);

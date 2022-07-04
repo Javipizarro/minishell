@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   file_path.c                                        :+:      :+:    :+:   */
+/*   get_file_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 12:20:24 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/30 21:22:38 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/04 15:08:50 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,29 +53,29 @@ int	expand_no_quo(char **path, int *pos, t_env *env)
 	return (0);
 }
 
-/*
-**	Expands the variables in path, and verifies whether everything is correct.
-*/
-
-void	expand_path(char **path, t_mini_data *data)
-{
-	int	i;
-	char	quo;
-	
-	i = -1;
-	while (path[0][++i])
-	{
-		quotes_status(path[0][i], &quo);
-		if (quo == '\'')
-			continue;
-		else if (!quo && path[0][i] == '$')
-			data->err = expand_no_quo(path, &i,data->env);
-		else if (quo || path[0][i] == '$')
-			expand_var(path, &i, data->env);
-		if (data->err)
-			return;
-	}
-}
+// /*
+// **	Expands the variables in path, and verifies whether everything is correct.
+// */
+//
+// void	expand_path(char **path, t_mini_data *data)
+// {
+// 	int	i;
+// 	char	quo;
+//	
+// 	i = -1;
+// 	while (path[0][++i])
+// 	{
+// 		quotes_status(path[0][i], &quo);
+// 		if (quo == '\'')
+// 			continue;
+// 		else if (!quo && path[0][i] == '$')
+// 			data->err = expand_no_quo(path, &i,data->env);
+// 		else if (quo || path[0][i] == '$')
+// 			expand_var(path, &i, data->env);
+// 		if (data->err)
+// 			return;
+// 	}
+// }
 
 /*
 **	Takes the next characters string until the firs significative space,
@@ -84,7 +84,7 @@ void	expand_path(char **path, t_mini_data *data)
 **	been any problem.
 */
 
-char	*file_path(char *line, t_mini_data *data)
+char	*get_file_path(char *line, t_mini_data *data)
 {
 	int	i;
 	char	quo;
@@ -97,7 +97,7 @@ char	*file_path(char *line, t_mini_data *data)
 		quotes_status(line[i], &quo);
 		if (quo)
 			continue;
-		if (line[i] == ' ')
+		if (line[i] == ' ' || line[i] == '<' || line[i] == '>')
 			break;
 	}
 	path = ft_calloc(sizeof(char), i + 1);
@@ -105,6 +105,6 @@ char	*file_path(char *line, t_mini_data *data)
 	ft_memcpy(line, &line[i], ft_strlen(&line[i]) + 1);
 	if (data->err)
 		return(path);
-	erase_quotes(path);
+//	erase_quotes(path);
 	return(path);
 }

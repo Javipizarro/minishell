@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:54:58 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/30 20:30:12 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/04 15:06:34 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	heredoc(char *path[])
 
 	keyword = *path;
 	*path = strdup(".heredoc");
+	erase_quotes(keyword);
 	pid = fork();
 	if (pid < 0)
 	{

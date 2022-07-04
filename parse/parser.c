@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:56:11 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/28 18:14:19 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:45:53 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,7 @@ int	parser(t_mini_data *data)
 		return (QUOTERR);
 	if (check_tokens(data->line))
 		return (TOKERR);
-	/////
-	//	printf("cmds_num=%i\n", data->cmd_num);
-	//	print_cmd(data->cmds, "BEFORE LINE_TO_CMDS");
 	line_to_cmds(data, &data->cmds);
-	/////
-	//	printf("cmds_num=%i\n", data->cmd_num);
-	//	print_cmd(data->cmds, "AFTER LINE_TO_CMDS");
 	if (data->err)
 		return (data->err);
 	return (0);

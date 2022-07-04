@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:36:05 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/23 13:01:13 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:05:45 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,30 @@ char	*add_home_to_path(t_mini_data *data, char *path)
 	free(path);
 	path = NULL;
 	return (abs_path);
+}
+
+/*
+**	Expands the variables in path, and verifies whether everything is correct.
+*/
+
+void	expand_path(char **path, t_mini_data *data)
+{
+	int	i;
+	char	quo;
+	
+	i = -1;
+	quo = 0;
+	while (path[0][++i])
+	{
+		quotes_status(path[0][i], &quo);
+		if (quo == '\'')
+			continue;
+		if (path[0][i] == '$')
+			data->err = expand_var(path, &i, data->env, !quo);
+		if (data->err)
+			return;
+	}
+	erase_quotes(*path);
 }
 
 /*
@@ -71,7 +95,7 @@ void	open_file(char token, char *path, t_cmds *cmd, t_mini_data *data)
 **	Fills data->err if there is any.
 */
 
-void	parse_files(char *line, t_cmds *cmd, t_mini_data *data)
+int	parse_files(char *line, t_cmds *cmd, t_mini_data *data)
 {
 	int i;
 	char	quo;
@@ -89,27 +113,24 @@ void	parse_files(char *line, t_cmds *cmd, t_mini_data *data)
 			continue;
 		if (line[i] == '<' || line[i] == '>')
 			token = tokenizer(&line[i], cmd);
-		if (!token)
-			continue;
-		path = file_path(&line[i], data);
-		if (token == TOKHERE)
-			data->err = heredoc(&path);
-		else if (path[0] == '~')
-			path = add_home_to_path(data, path);
-
-//		path = ft_strdup(&line[i]);
-//		int pos = ft_charindex(path, ' ');
-//		path[pos] = 0;
-/////
-//printf("path is: %s\n", path);
-/////
-		if (data->err)
+		if (token)
 			break;
-		open_file(token, path, cmd, data);
-		free(path);
-		path = NULL;
-		if (data->err)
-			break;
-		i--;
 	}
+	if (!token)
+		return (0);
+	path = get_file_path(&line[i], data);
+	if (token == TOKHERE)
+		data->err = heredoc(&path);
+	else
+		expand_path(&path, data);
+	if (path[0] == '~')
+			path = add_home_to_path(data, path);
+	if (data->err)
+		return (0);
+	open_file(token, path, cmd, data);
+	free(path);
+	path = NULL;
+	if (data->err)
+		return (0);
+	return (1);
 }

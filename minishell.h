@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/30 20:39:48 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/04 17:38:49 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@
 
 int			g_exit_status;
 
-
-// Clearing the shell using escape sequences
-#define clear() printf("\033[H\033[J")	// ???
 
 #define MAX_PATH 1024	//	1024 is the max path length for MacOS, 4096 for Linux
 #define MAX_NAME 255	//
@@ -121,17 +118,18 @@ void	executer(t_mini_data *data, t_cmds **cmds);
 //void	*exit_shell(t_mini_data *data);
 int		exit_shell(t_mini_data *data, pid_t pid);
 int		expand_env_var(char **line, int *i, t_env **env);
-void	expand_var(char **line, int *pos, t_env *env);
+//void	expand_var(char **line, int *pos, t_env *env);
+int		expand_var(char **line, int *pos, t_env *env, int check_spaces);
 int		export(char **cmd, t_mini_data *data, pid_t pid);
 int		export_env(char *env_var, t_env **env);
 int		external(t_cmds *cmd, t_mini_data *data);
 //void	external(t_cmds *cmd, t_mini_data *data);
-char	*file_path(char *line, t_mini_data *data);
+char	*get_file_path(char *line, t_mini_data *data);
 void	free_cmds(t_cmds **cmds);
 void 	init_mini_data(t_mini_data *data);
 int		heredoc(char *path[]);
 void	line_to_cmds(t_mini_data *data, t_cmds	**cmd);
-void	parse_files(char *line, t_cmds *cmd, t_mini_data *data);
+int		parse_files(char *line, t_cmds *cmd, t_mini_data *data);
 void	parse_cmd(char **line, t_cmds *cmd, t_mini_data *data);
 int		parser(t_mini_data *data);
 int		pwd(pid_t pid);

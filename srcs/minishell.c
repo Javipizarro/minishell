@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/30 20:19:55 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/04 18:58:23 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 
 void	print_err(t_mini_data *data)
 {
+	printf("data->err = %i\ndata->child_err = %i\n", data->err, data->child_err);
+
 	if (!data->err || data->err == CONTINUE)
 		return;
 	else if (data->err == QUOTERR)

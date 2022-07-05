@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 13:19:31 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/06 17:52:03 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/04 18:40:46 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,5 @@ void 	init_mini_data(t_mini_data *data)
 	data->cmds = NULL;
 	data->err = 0;
 	data->child_err = 0;
+	g_exit_status = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:27:22 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/28 12:37:26 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/04 18:39:41 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,6 @@ void	free_cmds(t_cmds **cmds)
 		close(cmds[0]->pipe[IN]);
 	if (cmds[0]->fd_in == PIPED)
 		close(cmds[0]->pipe[OUT]);
-//	if (cmds[0]->entry_pipe[IN])
-//		close(cmds[0]->entry_pipe[IN]);
-//	if (cmds[0]->entry_pipe[OUT])
-//		close(cmds[0]->entry_pipe[OUT]);
-//	if (cmds[0]->exit_pipe[IN])
-//		close(cmds[0]->exit_pipe[IN]);
-//	if (cmds[0]->exit_pipe[OUT])
-//		close(cmds[0]->exit_pipe[OUT]);
 	if (cmds[0]->fd_in >= 0)
 		close(cmds[0]->fd_in);
 	if (cmds[0]->fd_out >= 0)

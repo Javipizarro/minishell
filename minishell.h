@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/04 17:38:49 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/04 19:08:01 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,10 @@ int			g_exit_status;
 #define	DUPING 8
 #define	FORKING 9
 #define IDENERR 10
-#define CMDERR 11
-#define	HOMELESS 12
+#define	HOMELESS 11
+#define CMDERR 127
+#define CMD_INTER 130
+
 
 #define	IN 1
 #define	OUT 0
@@ -73,6 +75,8 @@ int			g_exit_status;
 
 #define NOSET -1
 #define PIPED -2
+
+#define	EXIT_STAT -1
 
 typedef struct s_env
 {

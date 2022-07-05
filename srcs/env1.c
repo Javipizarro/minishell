@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 17:24:49 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/19 16:54:08 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/04 18:39:08 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,12 @@ t_env	*set_env_value(char *var_name, char *var_val[], t_env *env)
 {
 	char	*temp;
 
-//	if (!var[1] && !def)
 	if (!var_val[0])
 		return (env);
 	env = *search_env(var_name, &env);
 	if (!env)
 		return (env);
-//	if (env->var[1])
 		temp = env->var[1];
-//	else
-//		temp = NULL;
 	if (var_val[0])
 		env->var[1] = var_val[0];
 	else

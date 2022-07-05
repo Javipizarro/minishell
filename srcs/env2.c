@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:31:23 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/28 08:59:51 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/04 18:50:25 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ t_env	*add_env_link(char **env_var, int def)
 t_env	**search_env(char *env_name, t_env **env)
 {
 	if (!env_name)
-		while (*env)
-			env = &env[0]->next;
+		return (NULL);
 	else
 		while (*env && ft_strcmp(env[0]->var[0], env_name))
 			env = &env[0]->next;

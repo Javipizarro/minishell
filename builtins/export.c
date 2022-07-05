@@ -82,6 +82,7 @@ void	expvar_printer(char *var_name, t_env **env)
 {
 	env = search_env(var_name, env);
 	
+	write(STDOUT_FILENO, "declare -x ", 11);
 	write(STDOUT_FILENO, env[0]->var[0], ft_strlen(env[0]->var[0]));
 	if (env[0]->var[1])
 	{

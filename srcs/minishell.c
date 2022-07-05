@@ -107,3 +107,30 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	return(0);
 }
+
+/*Test to pass:
+cd $HOME/Documents  ## needs to go to Users/(user)/Documents
+export "" ## not a valid identifier
+$ ## command not found
+$not_defined_var ## nothing, just a new line
+echo bonjour > $test ## var test not defined -> ambiguous redirect
+file_name_in_current_dir ## with a file named file_name_in_current_dir -> command not found
+export var ="cat Makefile | grep >"  ##  should export var and export ="cat Makefile | grep >" -> not a valid identifier
+cat diufosgid ## should yield a $? == 1
+exit hola ## should print a "numeric argument required" and yield a $? == 255
+exit -10 ## shouldn't print anything and yield a $? == 246
+exit +10 ## shouldn't print anything and yield a $? == 10
+cd no_file  ## should print no_file: No such file or directory
+cd a b c d  ## should print a: No such file or directory
+Ctrl + C (with something written) ## shoudn't print ^C (not very important);
+exit 0 | exit 1 ## Should yield a $? == 1 (not exiting)
+exit 1 | exit 0 ## Should yield a $? == 0 (not exiting)
+*/
+
+
+/* More stuff:
+print "declare -x " before each variable when doing export.
+show the cause of an error when printing it:
+	-when command not found:
+	-when not a file or directory
+*/

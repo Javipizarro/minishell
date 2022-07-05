@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-void	close_fds(t_cmds *cmd)	// Some parts must be done by the father
+void	close_fds(t_cmds *cmd)
 {
 	if (cmd->fd_in == PIPED)
 		close(cmd->pipe[OUT]);
@@ -118,15 +118,13 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 		}
 		if (!pid)
 			data->err = set_inoutputs(cmds[0]);
-			if(!data->err)
-				data->err = builtiner(cmds[0]->cmd, data, pid);
+		if(!data->err)
+			data->err = builtiner(cmds[0]->cmd, data, pid);
 		if (!pid && !data->err)
 			data->err = external(cmds[0], data);
 			close_fds(cmds[0]);
 		if (!pid)
 			exit_shell(data, pid);
-	//	wait(&data->child_err);
-		data->child_err = data->child_err / 256;  // ha de ser sustituido por la funcion que transforma la salida de execve
 		if (data->child_err > data->err)
 			data->err = data->child_err;
 		if (data->err && data->err != CONTINUE)
@@ -137,9 +135,10 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 	while (i < data->cmd_num && ++i)
 	{
 		wait(&data->child_err);
-		data->child_err = data->child_err / 256;  // ha de ser sustituido por la funcion que transforma la salida de execve
-		if (data->child_err > data->err)
-			data->err = data->child_err;
-	}
-	//waitpid(-1, &data->child_err, -1);
+		if (data->child_err == 2)
+			data->err = CMD_INTER;
+		else if (data->child_err > data->err)
+			data->err = data->child_err / 256;
+		
+	}	
 }

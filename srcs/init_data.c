@@ -18,11 +18,6 @@
 
 void 	init_mini_data(t_mini_data *data)
 {
-	//	TODO?:llamar a un malloc free para las var que lo necesiten.
-	//data->pip = NULL;
-	//data->par = NULL;
-	//data->sig = NULL;
-	//data->bin = NULL;
 	data->shell_name = ft_strdup("JaviShell");
 	data->prompt = ft_strdup("JaviShell> ");
 	data->env = NULL;
@@ -31,5 +26,4 @@ void 	init_mini_data(t_mini_data *data)
 	data->cmds = NULL;
 	data->err = 0;
 	data->child_err = 0;
-	g_exit_status = 0;
 }

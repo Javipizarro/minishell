@@ -73,10 +73,7 @@ int	exit_shell(t_mini_data *data, pid_t pid)
 	free_env(&data->env);
 	if (pid > 0)
 		write(1, "exit\n", 5);
-
-//	// TODO: erase these lines;
-//	printf("sleeping for 5 sec. to ease leaks shearching\n");
-//	sleep(5);	//TODO: erase this line;
-//	////////////////////
-	exit(data->err);
+	if (!pid)
+		exit(data->err);
+	exit (g_exit_status);
 }

@@ -82,7 +82,6 @@ void	set_env_list(char *envp[], t_mini_data *data)
 **	or NULL if env_name doesn't exists.
 */
 
-//t_env	*set_env_value(char **var, int def, t_env *env)
 t_env	*set_env_value(char *var_name, char *var_val[], t_env *env)
 {
 	char	*temp;

@@ -13,13 +13,27 @@
 #include "../minishell.h"
 
 /*
+**	Sets the global variable g_exit_status according to the error found if any.
+*/
+
+void	set_exit_status(int error)
+{
+	if (!error || error == CONTINUE)
+		g_exit_status = 0;
+	else if (error < 100)
+		g_exit_status = 1;
+	else
+		g_exit_status = error;
+}
+
+
+
+/*
 **	If an error has ocurred in the previous cicle, it prints it.
 */
 
 void	print_err(t_mini_data *data)
 {
-	printf("data->err = %i\ndata->child_err = %i\n", data->err, data->child_err);
-
 	if (!data->err || data->err == CONTINUE)
 		return;
 	else if (data->err == QUOTERR)
@@ -63,10 +77,6 @@ void	reset_data(t_mini_data *data)
 	data->cmd_num = 0;
 	data->err = 0;
 	data->child_err = 0;
-
-//	if (data->cmd)
-//		ft_free_split(data->cmd);
-//	data->cmd = NULL;
 }
 
 
@@ -82,6 +92,7 @@ int	main(int argc, char *argv[], char *envp[])
 	while(1)
 	{
 		print_err(&data);
+		set_exit_status(data.err);
 		reset_data(&data);
 		data.line = readline(data.prompt);
 		if (!data.line)
@@ -96,6 +107,3 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	return(0);
 }
-
-//	Buscar TODOs y // antes de dar por finalizada!!
-//	Borrar print_cmd

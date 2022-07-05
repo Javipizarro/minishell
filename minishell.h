@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// C Program to design a shell in Linux
 #include <sys/stat.h>
 #include <stdio.h>
 #include <string.h>
@@ -45,7 +44,6 @@ int			g_exit_status;
 
 
 
-//#define PIPE '|'
 #define	TOKIN '<'
 #define TOKOUT '>'
 #define	TOKHERE '<' + 1
@@ -92,8 +90,6 @@ typedef struct s_cmds
 	int				fd_out;
 	int				pipe[2];
 	char			*key_word;
-//	int				entry_pipe[2];
-//	int				exit_pipe[2];
 	char			**cmd;
 	struct s_cmds	*next;
 }				t_cmds;
@@ -119,15 +115,12 @@ int		echo(char **cmd, pid_t pid);
 int		env(char **envp, pid_t pid);
 void	erase_quotes(char *line);
 void	executer(t_mini_data *data, t_cmds **cmds);
-//void	*exit_shell(t_mini_data *data);
 int		exit_shell(t_mini_data *data, pid_t pid);
 int		expand_env_var(char **line, int *i, t_env **env);
-//void	expand_var(char **line, int *pos, t_env *env);
 int		expand_var(char **line, int *pos, t_env *env, int check_spaces);
 int		export(char **cmd, t_mini_data *data, pid_t pid);
 int		export_env(char *env_var, t_env **env);
 int		external(t_cmds *cmd, t_mini_data *data);
-//void	external(t_cmds *cmd, t_mini_data *data);
 char	*get_file_path(char *line, t_mini_data *data);
 void	free_cmds(t_cmds **cmds);
 void 	init_mini_data(t_mini_data *data);
@@ -142,7 +135,6 @@ void	reset_envp(t_mini_data *data);
 t_env	**search_env(char *env_name, t_env **env);
 void	set_env_list(char *envp[], t_mini_data *data);
 t_env	*set_env_value(char *var_name, char *var_val[], t_env *env);
-//void	signal_handler(void);
 void	signal_handler(int type, int pid);
 void	trim_spaces(char *line);
 char	tokenizer(char *line, t_cmds *cmd);

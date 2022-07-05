@@ -32,8 +32,6 @@ int	expand_var(char **line, int *pos, t_env *env, int check_spaces)
 	tmp = ft_calloc(j - i, sizeof(char));
 	ft_memcpy(tmp, &line[0][i + 1], j - i - 1);
 	env = *search_env(tmp, &env);
-//	while (env && ft_strcmp(tmp, env->var[0])) // Sustituir por search_env()
-//		env = env->next;
 	if (!env && !ft_strcmp(tmp, "?"))
 		var_val = ft_itoa(g_exit_status);
 	else if (!env)

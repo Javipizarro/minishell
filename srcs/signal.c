@@ -26,13 +26,14 @@ void	sig_exec(int sig)
 {
 	(void) sig;
 	write(STDOUT_FILENO, "\n", 1);
-	g_exit_status = 1;
+	g_exit_status = CMD_INTER;
 }
 
 void	sig_here_no_pid(int signal)
 {
 	(void)signal;
-	exit(g_exit_status);
+	g_exit_status = CMD_INTER;
+	exit(CMD_INTER);
 }
 
 void	sig_here_pid(int signal)

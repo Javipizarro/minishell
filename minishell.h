@@ -29,6 +29,7 @@
 
 int			g_exit_status;
 
+#define SHNAME "JaviShell"
 
 #define MAX_PATH 1024	//	1024 is the max path length for MacOS, 4096 for Linux
 #define MAX_NAME 255	//
@@ -96,8 +97,6 @@ typedef struct s_cmds
 
 typedef struct s_mini_data
 {
-	char			*shell_name;
-	char			*prompt;
 	t_env			*env;
 	char			**envp;
 	char			*line;

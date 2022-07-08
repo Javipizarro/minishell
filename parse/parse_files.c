@@ -105,9 +105,10 @@ int	parse_files(char *line, t_cmds *cmd, t_mini_data *data)
 	i = -1;
 	quo = 0;
 	path = NULL;
+	token = 0;
 	while (line[++i])
 	{
-		token = 0;
+	//	token = 0;  // why in every loop?
 		quotes_status(line[i], &quo);
 		if (quo)
 			continue;

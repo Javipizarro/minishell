@@ -18,8 +18,6 @@
 
 void 	init_mini_data(t_mini_data *data)
 {
-	data->shell_name = ft_strdup("JaviShell");
-	data->prompt = ft_strdup("JaviShell> ");
 	data->env = NULL;
 	data->envp = NULL;
 	data->line = NULL;

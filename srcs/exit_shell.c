@@ -67,8 +67,6 @@ int	exit_shell(t_mini_data *data, pid_t pid)
 		free_cmds(&data->cmds);
 	ft_free_split(data->envp);
 	data->envp = NULL;
-	free(data->shell_name);
-	free(data->prompt);
 	rl_clear_history();
 	free_env(&data->env);
 	if (pid > 0)

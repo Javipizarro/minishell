@@ -38,27 +38,27 @@ void	print_err(t_mini_data *data)
 		return;
 	else if (data->err == QUOTERR)
 		printf("%s: open quotes are not suported by %s\n",
-		data->shell_name, data->shell_name);
+		SHNAME, SHNAME);
 	else if (data->err == SYNTERR)
-		printf("%s: syntax error\n", data->shell_name);
+		printf("%s: syntax error\n", SHNAME);
 	else if (data->err == TOKERR)
-		printf("%s: syntax error near unexpected token\n", data->shell_name);
+		printf("%s: syntax error near unexpected token\n", SHNAME);
 	else if (data->err == AMBRED)
-		printf("%s: ambiguous redirect\n", data->shell_name);
+		printf("%s: ambiguous redirect\n", SHNAME);
 	else if (data->err == NOTFILE)
-		printf("%s: No such file or directory\n", data->shell_name);
+		printf("%s: No such file or directory\n", SHNAME);
 	else if (data->err == PIPING)
-		printf("%s: Error while piping\n", data->shell_name);
+		printf("%s: Error while piping\n", SHNAME);
 	else if (data->err == DUPING)
-		printf("%s: Error while dupping\n", data->shell_name);
+		printf("%s: Error while dupping\n", SHNAME);
 	else if (data->err == FORKING)
-		printf("%s: Error while forking\n", data->shell_name);
+		printf("%s: Error while forking\n", SHNAME);
 	else if (data->err == IDENERR)
-		printf("%s: not a valid identifier\n", data->shell_name);
+		printf("%s: not a valid identifier\n", SHNAME);
 	else if (data->err == CMDERR)
-		printf("%s: command not found\n", data->shell_name);
+		printf("%s: command not found\n", SHNAME);
 	else if (data->err == HOMELESS)
-		printf("%s: cd: HOME not set\n", data->shell_name);
+		printf("%s: cd: HOME not set\n", SHNAME);
 }
 
 
@@ -94,7 +94,7 @@ int	main(int argc, char *argv[], char *envp[])
 		print_err(&data);
 		set_exit_status(data.err);
 		reset_data(&data);
-		data.line = readline(data.prompt);
+		data.line = readline(SHNAME "> " );
 		if (!data.line)
 			exit_shell(&data, 1);
 		data.err = parser(&data);
@@ -111,6 +111,7 @@ int	main(int argc, char *argv[], char *envp[])
 /*Tests to pass:
 export "" ## not a valid identifier
 export no debe cortar al no encontrar una variable, cambiar el sistema de errores.
+unset leaves leaks
 verificar las variables con espacios, a lo mejor hay que rodearlas con "" o ''
 ls | nocmd | wc ## Should show:	0	0	0
 export | wc ## no funciona

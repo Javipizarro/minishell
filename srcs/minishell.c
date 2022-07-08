@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/04 18:58:23 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/07 02:17:50 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,13 @@ int	main(int argc, char *argv[], char *envp[])
 	return(0);
 }
 
-/*Test to pass:
-cd $HOME/Documents  ## needs to go to Users/(user)/Documents
+/*Tests to pass:
 export "" ## not a valid identifier
-$ ## command not found
+export no debe cortar al no encontrar una variable, cambiar el sistema de errores.
+verificar las variables con espacios, a lo mejor hay que rodearlas con "" o ''
+ls | nocmd | wc ## Should show:	0	0	0
+export | wc ## no funciona
+cd $HOME/Documents  ## needs to go to Users/(user)/Documents
 $not_defined_var ## nothing, just a new line
 echo bonjour > $test ## var test not defined -> ambiguous redirect
 file_name_in_current_dir ## with a file named file_name_in_current_dir -> command not found
@@ -125,11 +128,19 @@ cd a b c d  ## should print a: No such file or directory
 Ctrl + C (with something written) ## shoudn't print ^C (not very important);
 exit 0 | exit 1 ## Should yield a $? == 1 (not exiting)
 exit 1 | exit 0 ## Should yield a $? == 0 (not exiting)
+
+Resueltos:
+$ ## command not found
 */
 
 
 /* More stuff:
-print "declare -x " before each variable when doing export.
+try to perform the heredoc on a pipe instead of on a file
+
+manage $? on every cmd execution
+
+print the error on the execution of the cmd not at the end of then all
+
 show the cause of an error when printing it:
 	-when command not found:
 	-when not a file or directory

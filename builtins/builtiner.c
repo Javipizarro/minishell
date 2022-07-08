@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 12:10:43 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/28 13:40:46 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/06 14:23:34 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 
 int	builtiner(char **cmd, t_mini_data *data, pid_t pid)
 {
-	if (!ft_strcmp(cmd[0], "cd"))
+	if (!cmd || !cmd[0])
+		return (CMDERR);
+	else if (!ft_strcmp(cmd[0], "cd"))
 		return (cd(data, cmd, pid));
 	else if (!ft_strcmp(cmd[0], "echo"))
 		return (echo(cmd, pid));

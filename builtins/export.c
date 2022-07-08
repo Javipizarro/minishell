@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:49:33 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/01 12:31:46 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/06 21:31:18 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ int	export(char **cmd, t_mini_data *data, pid_t pid)
 		while (cmd[++i])
 		{
 			data->err = export_env(cmd[i], &data->env);
-			if(data->err)
+			if(data->err)	//// no debe salirse cuando hay un error, si no imprimirlo y seguir
 				break;
 		}
 		if (data->err)

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:31:23 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/04 18:50:25 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/06 13:25:08 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,6 @@ t_env	*add_env_link(char **env_var, int def)
 }
 
 /*
-**	Searches the env_var in the env list and returns a double pointer to the
-**	link that contains it so you can manipulate it.
-*/
-
-t_env	**search_env(char *env_name, t_env **env)
-{
-	if (!env_name)
-		return (NULL);
-	else
-		while (*env && ft_strcmp(env[0]->var[0], env_name))
-			env = &env[0]->next;
-	return (env);
-}
-
-/*
 **	Counts the amount of environment variables in the env list.
 */
 
@@ -73,7 +58,6 @@ int	count_env(t_env **env)
 		env = &env[0]->next;
 	return (i);
 }
-
 
 /*
 **	Transforms a env_var info into a malloced *char to use as an envp line and

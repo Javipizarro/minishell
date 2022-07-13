@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:56:11 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/04 17:45:53 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/13 19:11:05 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,9 @@ int	parser(t_mini_data *data)
 	if (!data->line[0])
 		return (CONTINUE);
 	if (check_open_quotes(data->line))
-		return (QUOTERR);
+		return (manage_errors(QUOTERR, NULL));
 	if (check_tokens(data->line))
-		return (TOKERR);
+		return (manage_errors(TOKERR, NULL));
 	line_to_cmds(data, &data->cmds);
 	if (data->err)
 		return (data->err);

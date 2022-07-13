@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:49:33 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/13 12:47:04 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/13 19:06:42 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	export_env(char *var_def, t_env **env)
 	char	**env_var;
 
 	i = -1;
-	if (var_def[0] == '=')
+	if (!var_def[0] || var_def[0] == '=')
 		return (IDENERR);
 	while (var_def[++i] && var_def[i] != '?' && var_def[i] != '!'
 	&& var_def[i] >= 0 && var_def[i] != '=')
@@ -147,13 +147,9 @@ int	export(char **cmd, t_mini_data *data, pid_t pid)
 		while (cmd[++i])
 		{
 			data->err = export_env(cmd[i], &data->env);
-			if(data->err)	//// no debe salirse cuando hay un error, si no imprimirlo y seguir
-				break;
+			manage_errors(data->err, NULL);
 		}
-		if (data->err)
-			return (data->err);
-		else
-			reset_envp(data);
+		reset_envp(data);
 	}	
 	return(CONTINUE);
 }

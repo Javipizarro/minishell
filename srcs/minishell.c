@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/12 19:51:28 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/13 20:57:42 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,12 @@ int	main(int argc, char *argv[], char *envp[])
 }
 
 /*
-Hacer que los errores se impriman en el momento que se produzcan.
-Incluir la parte de la línea que lo causó.
+Incluir la parte de la línea que causó el error.
+Valorar si sigue siendo necesaria la varible child_err
 */
 
 /*Tests to pass:
+Look over the g_exit_status, when it changes to 1, does't return to 0 after a correct command
 export "" ## not a valid identifier
 export no debe cortar al no encontrar una variable, cambiar el sistema de errores.
 unset leaves leaks

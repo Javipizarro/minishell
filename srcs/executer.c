@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:23:54 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/12 19:48:10 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/13 20:17:29 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	piper(t_cmds *cmd)
 	if (cmd->fd_out == NOSET && cmd->next && cmd->next->fd_in == NOSET)
 	{
 		if (pipe(cmd->next->pipe))
-			return (PIPING);
+			return (manage_errors(PIPING, NULL));
 		cmd->fd_out = PIPED;
 		cmd->next->fd_in = PIPED;
 	}
@@ -67,13 +67,13 @@ int	set_inoutputs(t_cmds *cmd)
 	if (cmd->fd_in == PIPED)
 	{
 		if (dup2(cmd->pipe[OUT], STDIN_FILENO) < 0)
-			return (DUPING);
+			return (manage_errors(DUPING, NULL));
 		close(cmd->pipe[OUT]);
 	}
 	else if (cmd->fd_in >= 0)
 	{
 		if (dup2(cmd->fd_in, STDIN_FILENO) < 0)
-			return (DUPING);
+			return (manage_errors(DUPING, NULL));
 		close(cmd->fd_in);
 	}
 	if (cmd->next && cmd->fd_out == PIPED)
@@ -81,13 +81,13 @@ int	set_inoutputs(t_cmds *cmd)
 		close(cmd->next->pipe[OUT]);
 		cmd->next->pipe[OUT] = NOSET;
 		if (dup2(cmd->next->pipe[IN], STDOUT_FILENO) < 0)
-			return (DUPING);
+			return (manage_errors(DUPING, NULL));
 		close(cmd->next->pipe[IN]);
 	}
 	else if (cmd->fd_out >= 0)
 	{
 		if (dup2(cmd->fd_out, STDOUT_FILENO) < 0)
-			return (DUPING);
+			return (manage_errors(DUPING, NULL));
 		close(cmd->fd_out);
 	}
 	return (0);
@@ -114,7 +114,7 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 //	printf("punto de control 0 pid = %i\n", pid);
 		if (pid < 0)
 		{
-			data->err = FORKING;
+			data->err = manage_errors(FORKING, NULL);
 			break;
 		}
 		if (!pid)
@@ -132,8 +132,8 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 			exit_shell(data, pid);
 		if (data->child_err > data->err)
 			data->err = data->child_err;
-		if (data->err && data->err != CONTINUE)
-			break;
+//		if (data->err && data->err != CONTINUE)
+//			break;
 		cmds = &cmds[0]->next;
 	}
 	int i = 0;

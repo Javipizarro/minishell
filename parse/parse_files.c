@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:36:05 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/06 13:45:15 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/13 20:54:46 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@
 
 char	*add_home_to_path(t_mini_data *data, char *path)
 {
-	char	*home;
+	t_env	**home;
 	char	*abs_path;
 
-	home = search_env("HOME", &data->env)[0]->var[1];
-	if (!home)
+	home = search_env("HOME", &data->env);
+	if (!home[0])
 	{
-		data->err = HOMELESS;
+		data->err = manage_errors(HOMELESS, "");
 		return (path);
 	}
-	abs_path = ft_strjoin(home, &path[1]);
+	abs_path = ft_strjoin(home[0]->var[1], &path[1]);
 	free(path);
 	path = NULL;
 	return (abs_path);
@@ -78,7 +78,7 @@ void	open_file(char token, char *path, t_cmds *cmd, t_mini_data *data)
 	{
 		cmd->fd_in = open(path, O_RDONLY);
 		if (cmd->fd_in < 0)
-			data->err = NOTFILE;
+			data->err = manage_errors(NOTFILE, ""); //// Needs to pass the name of the file
 	}
 	else if (token == TOKOUT)
 			cmd->fd_out = open(path, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:45:46 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/04 18:13:21 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/13 18:05:50 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ int	pwd(pid_t pid)
 	write(STDOUT_FILENO, "\n", 1);
 	free(cwd);
 	cwd = NULL;
-	return (CONTINUE);
+	return (manage_errors(CONTINUE, NULL));
 }

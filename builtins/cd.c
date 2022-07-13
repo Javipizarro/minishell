@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 14:06:26 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/28 12:37:34 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/13 20:53:33 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ int	cd(t_mini_data *data, char **cmd, pid_t pid)
 		set_env_value("OLDPWD", &cwd, data->env);
 	free (cwd);
 	if (data->err == HOMELESS)	
-		return (HOMELESS);
+		return (manage_errors(HOMELESS, ": cd"));
 	if (data->err < 0)	
-		return (NOTFILE);
+		return (manage_errors(NOTFILE, ": cd"));	//Needs the culprit
 	cwd = getcwd(NULL, 0);
 	set_env_value("PWD", &cwd, data->env);
 	free (cwd);
 	cwd = NULL;
-	return (CONTINUE);
+	return (manage_errors(CONTINUE, NULL));
 }

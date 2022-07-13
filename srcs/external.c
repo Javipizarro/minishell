@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:37:10 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/08 18:32:52 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/13 20:20:20 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int	external(t_cmds *cmd, t_mini_data *data)
 	
 	path = get_cmd_path(cmd->cmd[0], data);
 	if (!path)
-		return (CMDERR);
+		return (manage_errors(CMDERR, NULL));
 	execve(path, cmd->cmd, data->envp);
 	return (0);
 }

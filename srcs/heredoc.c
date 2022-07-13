@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:54:58 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/04 15:06:34 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/13 19:24:19 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	heredoc(char *path[])
 	if (pid < 0)
 	{
 		free(keyword);
-		return (FORKING);
+		return (manage_errors(FORKING, NULL));
 	}
 	signal_handler(HEREDOC, pid);
 	if (!pid)

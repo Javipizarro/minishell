@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 12:20:24 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/04 15:08:50 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/13 19:16:44 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	expand_no_quo(char **path, int *pos, t_env *env)
 	else
 		var_val = env->var[1];
 	if (ft_strchr(var_val, ' '))
-		return (AMBRED);
+		return (manage_errors(AMBRED, NULL));
 	tmp = ft_calloc(ft_strlen(var_val + ft_strlen(*path) - j + i + 1), 
 	sizeof(char));
 	ft_memcpy(tmp, *path, i);

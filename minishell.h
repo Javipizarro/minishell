@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/12 19:45:53 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/13 19:14:58 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int			g_exit_status;
 
 #define CONTINUE 1
 #define QUOTERR 2
-#define SYNTERR 3
+////
+//#define SYNTERR 3
 #define TOKERR 4
 #define	AMBRED 5
 #define NOTFILE 6
@@ -125,7 +126,7 @@ void	free_cmds(t_cmds **cmds);
 void 	init_mini_data(t_mini_data *data);
 int		heredoc(char *path[]);
 void	line_to_cmds(t_mini_data *data, t_cmds	**cmd);
-void	manage_errors(int error, char *culprit);
+int		manage_errors(int error, char *culprit);
 int		parse_files(char *line, t_cmds *cmd, t_mini_data *data);
 void	parse_cmd(char **line, t_cmds *cmd, t_mini_data *data);
 int		parser(t_mini_data *data);

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 16:51:09 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/06 17:41:04 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/12 19:50:03 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	parse_cmd(char **line, t_cmds *cmd, t_mini_data *data)
 	// 	printf("cmd[0] aft = ##>%i<##\n", cmd->cmd[i][0]);
 	// }
 ////
-	printf("size of cmd = %i\n", i);
+//	printf("size of cmd = %i\n", i);
 }
 
 ///*

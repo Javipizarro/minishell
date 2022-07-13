@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 19:03:23 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/06 19:27:45 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/12 19:49:39 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int	expand_var(char **line, int *pos, t_env *env, int check_spaces)
 		var_val = ft_itoa(g_exit_status);
 	else if (!env)
 	{
-		printf("var_val = \"\"\n");
+////	
+//		printf("var_val = \"\"\n");
 		var_val = "''";
 	}
 	else

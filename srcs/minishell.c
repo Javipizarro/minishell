@@ -6,61 +6,11 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/07 02:17:50 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/12 19:51:28 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-/*
-**	Sets the global variable g_exit_status according to the error found if any.
-*/
-
-void	set_exit_status(int error)
-{
-	if (!error || error == CONTINUE)
-		g_exit_status = 0;
-	else if (error < 100)
-		g_exit_status = 1;
-	else
-		g_exit_status = error;
-}
-
-
-
-/*
-**	If an error has ocurred in the previous cicle, it prints it.
-*/
-
-void	print_err(t_mini_data *data)
-{
-	if (!data->err || data->err == CONTINUE)
-		return;
-	else if (data->err == QUOTERR)
-		printf("%s: open quotes are not suported by %s\n",
-		SHNAME, SHNAME);
-	else if (data->err == SYNTERR)
-		printf("%s: syntax error\n", SHNAME);
-	else if (data->err == TOKERR)
-		printf("%s: syntax error near unexpected token\n", SHNAME);
-	else if (data->err == AMBRED)
-		printf("%s: ambiguous redirect\n", SHNAME);
-	else if (data->err == NOTFILE)
-		printf("%s: No such file or directory\n", SHNAME);
-	else if (data->err == PIPING)
-		printf("%s: Error while piping\n", SHNAME);
-	else if (data->err == DUPING)
-		printf("%s: Error while dupping\n", SHNAME);
-	else if (data->err == FORKING)
-		printf("%s: Error while forking\n", SHNAME);
-	else if (data->err == IDENERR)
-		printf("%s: not a valid identifier\n", SHNAME);
-	else if (data->err == CMDERR)
-		printf("%s: command not found\n", SHNAME);
-	else if (data->err == HOMELESS)
-		printf("%s: cd: HOME not set\n", SHNAME);
-}
-
 
 /*
 **	Frees and anulates what is needed for a fresh main minishell loop.
@@ -91,8 +41,8 @@ int	main(int argc, char *argv[], char *envp[])
 	signal_handler(GENERAL, 0);
 	while(1)
 	{
-		print_err(&data);
-		set_exit_status(data.err);
+//		print_err(&data);
+//		set_exit_status(data.err);
 		reset_data(&data);
 		data.line = readline(SHNAME "> " );
 		if (!data.line)
@@ -107,6 +57,11 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	return(0);
 }
+
+/*
+Hacer que los errores se impriman en el momento que se produzcan.
+Incluir la parte de la línea que lo causó.
+*/
 
 /*Tests to pass:
 export "" ## not a valid identifier

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:23:54 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/06 19:55:47 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/12 19:48:10 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	close_fds(t_cmds *cmd)
 	else if (cmd->fd_out >= 0)
 		close(cmd->fd_out);
 }
-
 
 /*
 **	Skips the current command in in the case it's not usefull.
@@ -112,7 +111,7 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 			break;
 		pid = fork();
 ////
-	printf("punto de control 0 pid = %i\n", pid);
+//	printf("punto de control 0 pid = %i\n", pid);
 		if (pid < 0)
 		{
 			data->err = FORKING;
@@ -121,11 +120,11 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 		if (!pid)
 			data->err = set_inoutputs(cmds[0]);
 ////
-	printf("punto de control 1 pid = %i\n", pid);
+//	printf("punto de control 1 pid = %i\n", pid);
 		if(!data->err)
 			data->err = builtiner(cmds[0]->cmd, data, pid);
 ////
-	printf("punto de control 2 pid = %i\n", pid);
+//	printf("punto de control 2 pid = %i\n", pid);
 		if (!pid && !data->err)
 			data->err = external(cmds[0], data);
 		close_fds(cmds[0]);
@@ -148,5 +147,5 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 		
 	}
 ////
-	printf("salgo de executer\n");
+//	printf("salgo de executer\n");
 }

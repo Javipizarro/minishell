@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:47:45 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/13 18:06:31 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/14 20:13:56 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	unset(char **cmd, t_mini_data *data, pid_t pid)
 			return (manage_errors(CONTINUE, NULL));
 		dump = *env;
 		env[0] = env[0]->next;
+		ft_free_split(dump->var);
 		free(dump);
 		dump = NULL;
 	}
-	reset_envp(data);
 	return (manage_errors(CONTINUE, NULL));
 }

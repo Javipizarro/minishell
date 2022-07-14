@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/14 19:09:12 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:40:42 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,11 @@ int	main(int argc, char *argv[], char *envp[])
 }
 
 /*
-Incluir la parte de la línea que causó el error.
+Incluir la parte de la línea que causó el error. -> not required.
 */
 
 /*Tests to pass:
-Look over the g_exit_status, when it changes to 1, does't return to 0 after a correct command
-export "" ## not a valid identifier
-export no debe cortar al no encontrar una variable, cambiar el sistema de errores.
+"" OR $ ## command not found
 unset leaves leaks
 verificar las variables con espacios, a lo mejor hay que rodearlas con "" o ''
 ls | nocmd | wc ## Should show:	0	0	0
@@ -83,7 +81,9 @@ exit 0 | exit 1 ## Should yield a $? == 1 (not exiting)
 exit 1 | exit 0 ## Should yield a $? == 0 (not exiting)
 
 Resueltos:
-$ ## command not found
+export "" OR export $ ## not a valid identifier
+Look over the g_exit_status, when it changes to 1, does't return to 0 after a correct command
+export no debe cortar al no encontrar una variable, cambiar el sistema de errores.
 */
 
 

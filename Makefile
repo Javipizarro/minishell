@@ -6,7 +6,7 @@
 #    By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/19 11:24:00 by jpizarro          #+#    #+#              #
-#    Updated: 2022/06/19 14:25:14 by jpizarro         ###   ########.fr        #
+#    Updated: 2022/07/14 19:53:22 by jpizarro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME = minishell
 
-SRCS =	$(wildcard srcs/*.c) $(wildcard builtins/*.c) $(wildcard parse/*.c) 
+SRCS =	$(wildcard srcs/*.c) $(wildcard builtins/*.c) $(wildcard parse/*.c) $(wildcard env/*.c) 
 
 OBJS = $(SRCS:.c=.o)
 

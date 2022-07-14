@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:23:54 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/13 20:17:29 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:07:34 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,6 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 		if(data->err)
 			break;
 		pid = fork();
-////
-//	printf("punto de control 0 pid = %i\n", pid);
 		if (pid < 0)
 		{
 			data->err = manage_errors(FORKING, NULL);
@@ -119,32 +117,23 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 		}
 		if (!pid)
 			data->err = set_inoutputs(cmds[0]);
-////
-//	printf("punto de control 1 pid = %i\n", pid);
 		if(!data->err)
 			data->err = builtiner(cmds[0]->cmd, data, pid);
-////
-//	printf("punto de control 2 pid = %i\n", pid);
 		if (!pid && !data->err)
 			data->err = external(cmds[0], data);
 		close_fds(cmds[0]);
 		if (!pid)
 			exit_shell(data, pid);
-		if (data->child_err > data->err)
-			data->err = data->child_err;
-//		if (data->err && data->err != CONTINUE)
-//			break;
 		cmds = &cmds[0]->next;
 	}
 	int i = 0;
 	while (i < data->cmd_num && ++i)
 	{
-		wait(&data->child_err);
-		if (data->child_err == 2)
-			data->err = CMD_INTER;
-		else if (data->child_err > data->err)
-			data->err = data->child_err / 256;
-		
+		wait(&data->err);
+		if (data->err == 2)
+			data->err = manage_errors(CMD_INTER, "");
+		else
+			data->err = manage_errors(data->err / 256, "");
 	}
 ////
 //	printf("salgo de executer\n");

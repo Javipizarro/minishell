@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:27:22 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/12 19:43:41 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:09:12 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ int	exit_shell(t_mini_data *data, pid_t pid)
 	free_env(&data->env);
 	if (pid > 0)
 		write(1, "exit\n", 5);
-////
-//			printf("salgo de shell pid = %i\n", pid);				
 	if (!pid)
 		exit(data->err);
 	exit (g_exit_status);

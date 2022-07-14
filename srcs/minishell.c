@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/13 20:57:42 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:09:12 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	reset_data(t_mini_data *data)
 	data->cmds = NULL;
 	data->cmd_num = 0;
 	data->err = 0;
-	data->child_err = 0;
 }
 
 
@@ -41,8 +40,6 @@ int	main(int argc, char *argv[], char *envp[])
 	signal_handler(GENERAL, 0);
 	while(1)
 	{
-//		print_err(&data);
-//		set_exit_status(data.err);
 		reset_data(&data);
 		data.line = readline(SHNAME "> " );
 		if (!data.line)
@@ -60,7 +57,6 @@ int	main(int argc, char *argv[], char *envp[])
 
 /*
 Incluir la parte de la línea que causó el error.
-Valorar si sigue siendo necesaria la varible child_err
 */
 
 /*Tests to pass:

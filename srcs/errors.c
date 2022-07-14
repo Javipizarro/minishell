@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 17:53:13 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/13 20:53:01 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:09:12 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*select_main_msg(int error)
 		return (": command not found");
 	else if (error == HOMELESS)
 		return (": HOME not set");
-	return (": ERROR not registered"); 
+	return (NULL);
 }
 
 /*
@@ -68,13 +68,14 @@ void	print_error(int error, char *culprit)
 {
 	char	*main_msg;
 
-	(void)culprit;
 	if (!error || error == CONTINUE)
+		return;
+	main_msg = select_main_msg(error);
+	if (!main_msg)
 		return;
 	write(2, SHNAME, ft_strlen(SHNAME));
 	if (error == HOMELESS || error == NOTFILE)
 		write(2, culprit, ft_strlen(culprit));
-	main_msg = select_main_msg(error);
 	write(2, main_msg, ft_strlen(main_msg));
 	if (error == QUOTERR)
 		write(2, SHNAME, ft_strlen(SHNAME));
@@ -119,8 +120,6 @@ void	print_error(int error, char *culprit)
 
 int	manage_errors(int error, char *culprit)
 {
-	if (!error || error == CONTINUE)
-		return(error);
 	print_error(error, culprit);
 	set_exit_status(error);
 	return(error);

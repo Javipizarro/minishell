@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:36:05 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/13 20:54:46 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:08:22 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ int	parse_files(char *line, t_cmds *cmd, t_mini_data *data)
 	token = 0;
 	while (line[++i])
 	{
-	//	token = 0;  // why in every loop?
 		quotes_status(line[i], &quo);
 		if (quo)
 			continue;

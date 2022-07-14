@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/13 19:14:58 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/14 19:09:12 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ typedef struct s_mini_data
 	t_cmds			*cmds;
 	int				cmd_num;
 	int				err;
-	int				child_err;
 }				t_mini_data;
 
 t_env	*add_env_link(char **env_var, int definition);

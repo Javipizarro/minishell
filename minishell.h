@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/14 19:09:12 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/15 14:14:09 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int			g_exit_status;
 #define CMDERR 127
 #define CMD_INTER 130
 
-
 #define	IN 1
 #define	OUT 0
 
@@ -77,6 +76,7 @@ int			g_exit_status;
 #define PIPED -2
 
 #define	EXIT_STAT -1
+
 
 typedef struct s_env
 {

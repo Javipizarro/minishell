@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/14 19:40:42 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/15 13:22:39 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ Incluir la parte de la línea que causó el error. -> not required.
 
 /*Tests to pass:
 "" OR $ ## command not found
-unset leaves leaks
-verificar las variables con espacios, a lo mejor hay que rodearlas con "" o ''
 ls | nocmd | wc ## Should show:	0	0	0
 export | wc ## no funciona
 cd $HOME/Documents  ## needs to go to Users/(user)/Documents
@@ -79,11 +77,13 @@ cd a b c d  ## should print a: No such file or directory
 Ctrl + C (with something written) ## shoudn't print ^C (not very important);
 exit 0 | exit 1 ## Should yield a $? == 1 (not exiting)
 exit 1 | exit 0 ## Should yield a $? == 0 (not exiting)
+verificar las variables con espacios, a lo mejor hay que rodearlas con "" o ''
 
 Resueltos:
 export "" OR export $ ## not a valid identifier
 Look over the g_exit_status, when it changes to 1, does't return to 0 after a correct command
 export no debe cortar al no encontrar una variable, cambiar el sistema de errores.
+unset leaves leaks
 */
 
 

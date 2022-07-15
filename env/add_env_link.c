@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 20:01:09 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/15 14:13:44 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/15 15:14:17 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,3 @@ t_env	*add_env_link(char **env_var, int def)
 	new->next = NULL;
 	return(new);
 }
-

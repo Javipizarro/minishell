@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 19:03:23 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/12 19:49:39 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/15 15:18:31 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ int	expand_var(char **line, int *pos, t_env *env, int check_spaces)
 	
 	i = *pos;
 	j = *pos + 1;
-	while (line[0][j] && line[0][j] != '$' && line[0][j] != ' '
-	&& line[0][j] != '"' && line[0][j] != '\'' && line[0][j] != '=')
+//	while (line[0][j] && line[0][j] != '$' && line[0][j] != ' '
+//	&& line[0][j] != '"' && line[0][j] != '\'' && line[0][j] != '=')
+	while (line[0][j] && (ft_isalnum(line[0][j]) || line[0][j] == '_'))
 		j++;
 ////
 //	printf("size of var_name = %i\n", j - i - 1);

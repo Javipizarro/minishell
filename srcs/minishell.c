@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/15 13:22:39 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/15 15:20:40 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,6 @@ Incluir la parte de la línea que causó el error. -> not required.
 */
 
 /*Tests to pass:
-"" OR $ ## command not found
-ls | nocmd | wc ## Should show:	0	0	0
-export | wc ## no funciona
-cd $HOME/Documents  ## needs to go to Users/(user)/Documents
 $not_defined_var ## nothing, just a new line
 echo bonjour > $test ## var test not defined -> ambiguous redirect
 file_name_in_current_dir ## with a file named file_name_in_current_dir -> command not found
@@ -84,6 +80,11 @@ export "" OR export $ ## not a valid identifier
 Look over the g_exit_status, when it changes to 1, does't return to 0 after a correct command
 export no debe cortar al no encontrar una variable, cambiar el sistema de errores.
 unset leaves leaks
+export var ## leaks
+ls | nocmd | wc ## Should show:	0	0	0
+"" OR $ ## command not found
+export | wc ## no funciona
+cd $HOME/Documents  ## needs to go to Users/(user)/Documents
 */
 
 

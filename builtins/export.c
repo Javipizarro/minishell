@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:49:33 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/15 14:09:36 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/15 15:15:06 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int	export_env(char *var_def, t_env **env)
 	i = -1;
 	if (!var_def[0] || var_def[0] == '=')
 		return (IDENERR);
-	while (var_def[++i] && var_def[i] != '?' && var_def[i] != '!'
-	&& var_def[i] >= 0 && var_def[i] != '=')
+
+	while (var_def[++i] && (ft_isalnum(var_def[i]) || var_def[i] == '_'))
 		continue;
 	if (var_def[i] && var_def[i] != '=')
 		return (IDENERR);

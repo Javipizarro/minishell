@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:23:54 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/15 14:30:56 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/19 13:40:29 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,19 @@ void	close_fds(t_cmds *cmd)
 }
 
 /*
-**	Skips the current command in in the case it's not usefull.
-**	Closes the fds related to it.
+**	Checks whether the command is empty and returns a corresponding error to
+** 	avoid processing it, if it is.
 */
 
-void	skip_cmd(t_cmds **cmds)
+int	check_empty_cmd(t_cmds *cmd)
 {
-	close_fds(cmds[0]);
-	cmds = &cmds[0]->next;
+	if (!cmd->cmd)
+		return (CMDERR);
+	else if (!cmd->cmd[0] && !cmd->only_vars)
+		return (CMDERR);
+	else if (!cmd->cmd[0] && cmd->only_vars)
+		return (CONTINUE);
+	return (0);
 }
 
 /*
@@ -118,6 +123,8 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 		if (!pid)
 			data->err = set_inoutputs(cmds[0]);
 		if(!data->err)
+			data->err = check_empty_cmd(cmds[0]);
+		if(!data->err)
 			data->err = builtiner(cmds[0]->cmd, data, pid);
 		if (!pid && !data->err)
 			data->err = external(cmds[0], data);
@@ -132,6 +139,8 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 		wait(&data->err);
 		if (data->err == 2)
 			data->err = manage_errors(CMD_INTER, "");
+		else if (data->err < CMD_INTER)
+			data->err = manage_errors(data->err, "");
 		else
 			data->err = manage_errors(data->err / 256, "");
 	}

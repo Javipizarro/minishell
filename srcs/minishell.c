@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/19 12:24:35 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/19 13:42:14 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ Incluir la parte de la línea que causó el error. -> not required.
 */
 
 /*Tests to pass:
-$not_defined_var ## nothing, just a new line
 echo bonjour > $test ## var test not defined -> ambiguous redirect
 file_name_in_current_dir ## with a file named file_name_in_current_dir -> command not found
 export var ="cat Makefile | grep >"  ##  should export var and export ="cat Makefile | grep >" -> not a valid identifier
@@ -89,10 +88,13 @@ cd $HOME/Documents  ## needs to go to Users/(user)/Documents
 ls > "" ## No such file or directory
 export a=""; ls > $a ## ambiguous redirect
 ls > $ ## creates a file "$" and fills it with the ls
+$not_defined_var ## nothing, just a new line
 */
 
 
 /* More stuff:
+Check wheter the built-ins support absolute path
+
 try to perform the heredoc on a pipe instead of on a file
 
 manage $? on every cmd execution

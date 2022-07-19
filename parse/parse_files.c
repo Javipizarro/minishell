@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:36:05 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/19 12:21:29 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/19 12:44:48 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	expand_path(char **path, t_mini_data *data, t_cmds *cmd)
 	cmd->only_vars = 1;
 	while (path[0][++i])
 	{
-		quotes_status(path[0][i], &quo);
 		if (path[0][i] != '$')
 			cmd->only_vars = 0;
+		quotes_status(path[0][i], &quo);
 		if (quo == '\'')
 			continue;
 		if (path[0][i] == '$')

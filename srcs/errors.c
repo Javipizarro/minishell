@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 17:53:13 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/14 19:09:12 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/19 11:37:51 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,28 @@ void	set_exit_status(int error)
 char	*select_main_msg(int error)
 {
 	if (error == QUOTERR)
-		return (": open quotes are not suported by ");
+		return ("open quotes are not suported by ");
 ////
 //	else if (error == SYNTERR)
-//		return (": syntax error\n");
+//		return ("syntax error\n");
 	else if (error == TOKERR)
-		return (": syntax error near unexpected token");
+		return ("syntax error near unexpected token");
 	else if (error == AMBRED)
-		return (": ambiguous redirect");
+		return ("ambiguous redirect");
 	else if (error == NOTFILE)
-		return (": No such file or directory");
+		return ("No such file or directory");
 	else if (error == PIPING)
-		return (": Error while piping");
+		return ("Error while piping");
 	else if (error == DUPING)
-		return (": Error while dupping");
+		return ("Error while dupping");
 	else if (error == FORKING)
-		return (": Error while forking");
+		return ("Error while forking");
 	else if (error == IDENERR)
-		return (": not a valid identifier");
+		return ("not a valid identifier");
 	else if (error == CMDERR)
-		return (": command not found");
+		return ("command not found");
 	else if (error == HOMELESS)
-		return (": HOME not set");
+		return ("HOME not set");
 	return (NULL);
 }
 
@@ -74,8 +74,12 @@ void	print_error(int error, char *culprit)
 	if (!main_msg)
 		return;
 	write(2, SHNAME, ft_strlen(SHNAME));
+	write(2, ": ", 2);
 	if (error == HOMELESS || error == NOTFILE)
+	{
 		write(2, culprit, ft_strlen(culprit));
+		write(2, ": ", 2);
+	}
 	write(2, main_msg, ft_strlen(main_msg));
 	if (error == QUOTERR)
 		write(2, SHNAME, ft_strlen(SHNAME));

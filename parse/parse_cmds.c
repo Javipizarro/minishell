@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 16:51:09 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/12 19:50:03 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/18 22:44:26 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	expand_vars(char **line, t_env *env)
 		if (quo == '\'')
 			continue;
 		if (line[0][i] == '$')
-			expand_var(line, &i, env, 0);
+			expand_var(line, &i, env);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/15 14:14:09 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/19 11:00:36 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct s_cmds
 	int				fd_in;
 	int				fd_out;
 	int				pipe[2];
-	char			*key_word;
+	char			only_vars;
 	char			**cmd;
 	struct s_cmds	*next;
 }				t_cmds;
@@ -116,7 +116,8 @@ void	erase_quotes(char *line);
 void	executer(t_mini_data *data, t_cmds **cmds);
 int		exit_shell(t_mini_data *data, pid_t pid);
 int		expand_env_var(char **line, int *i, t_env **env);
-int		expand_var(char **line, int *pos, t_env *env, int check_spaces);
+//int		expand_var(char **line, int *pos, t_env *env, int check_spaces);
+void	expand_var(char **line, int *pos, t_env *env);
 int		export(char **cmd, t_mini_data *data, pid_t pid);
 int		export_env(char *env_var, t_env **env);
 int		external(t_cmds *cmd, t_mini_data *data);

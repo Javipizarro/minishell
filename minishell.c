@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/19 12:24:35 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/12 19:35:28 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	reset_data(t_mini_data *data)
 	data->cmds = NULL;
 	data->cmd_num = 0;
 	data->err = 0;
+	data->child_err = 0;
 }
-
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -40,6 +40,8 @@ int	main(int argc, char *argv[], char *envp[])
 	signal_handler(GENERAL, 0);
 	while(1)
 	{
+		print_err(&data);
+		set_exit_status(data.err);
 		reset_data(&data);
 		data.line = readline(SHNAME "> " );
 		if (!data.line)
@@ -55,11 +57,14 @@ int	main(int argc, char *argv[], char *envp[])
 	return(0);
 }
 
-/*
-Incluir la parte de la línea que causó el error. -> not required.
-*/
-
 /*Tests to pass:
+export "" ## not a valid identifier
+export no debe cortar al no encontrar una variable, cambiar el sistema de errores.
+unset leaves leaks
+verificar las variables con espacios, a lo mejor hay que rodearlas con "" o ''
+ls | nocmd | wc ## Should show:	0	0	0
+export | wc ## no funciona
+cd $HOME/Documents  ## needs to go to Users/(user)/Documents
 $not_defined_var ## nothing, just a new line
 echo bonjour > $test ## var test not defined -> ambiguous redirect
 file_name_in_current_dir ## with a file named file_name_in_current_dir -> command not found
@@ -73,22 +78,9 @@ cd a b c d  ## should print a: No such file or directory
 Ctrl + C (with something written) ## shoudn't print ^C (not very important);
 exit 0 | exit 1 ## Should yield a $? == 1 (not exiting)
 exit 1 | exit 0 ## Should yield a $? == 0 (not exiting)
-verificar las variables con espacios, a lo mejor hay que rodearlas con "" o ''
-$HOME hola ## is a directory
 
 Resueltos:
-export "" OR export $ ## not a valid identifier
-Look over the g_exit_status, when it changes to 1, does't return to 0 after a correct command
-export no debe cortar al no encontrar una variable, cambiar el sistema de errores.
-unset leaves leaks
-export var ## leaks
-ls | nocmd | wc ## Should show:	0	0	0
-"" OR $ ## command not found
-export | wc ## no funciona
-cd $HOME/Documents  ## needs to go to Users/(user)/Documents
-ls > "" ## No such file or directory
-export a=""; ls > $a ## ambiguous redirect
-ls > $ ## creates a file "$" and fills it with the ls
+$ ## command not found
 */
 
 

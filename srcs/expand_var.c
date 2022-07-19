@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 19:03:23 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/19 12:21:29 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/19 14:59:33 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@ void	expand_var(char **line, int *pos, t_env *env)
 
 	i = *pos;
 	j = *pos + 1;
-	while (line[0][j] && (ft_isalnum(line[0][j]) || line[0][j] == '_'))
+	if (line[0][j] == '?' && (ft_isspace(line[0][j + 1]) || !line[0][j + 1]))
 		j++;
+	else
+		while (line[0][j] && (ft_isalnum(line[0][j]) || line[0][j] == '_'))
+			j++;
 	tmp = ft_calloc(j - i, sizeof(char));
 	ft_memcpy(tmp, &line[0][i + 1], j - i - 1);
 	env = *search_env(tmp, &env);

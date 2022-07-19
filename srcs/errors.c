@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 17:53:13 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/19 11:37:51 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/19 13:47:25 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,37 +85,6 @@ void	print_error(int error, char *culprit)
 		write(2, SHNAME, ft_strlen(SHNAME));
 	write(2, "\n", 1);
 }
-
-//void	print_error(int error, char *culprit)
-//{
-//	(void)culprit;
-//	if (!error || error == CONTINUE)
-//		return;
-//	else if (error == QUOTERR)
-//		printf("%s: open quotes are not suported by %s\n",
-//		SHNAME, SHNAME);
-//////
-////	else if (error == SYNTERR)
-////		printf("%s: syntax error\n", SHNAME);
-//	else if (error == TOKERR)
-//		printf("%s: syntax error near unexpected token\n", SHNAME);
-//	else if (error == AMBRED)
-//		printf("%s: ambiguous redirect\n", SHNAME);
-//	else if (error == NOTFILE)
-//		printf("%s: No such file or directory\n", SHNAME);
-//	else if (error == PIPING)
-//		printf("%s: Error while piping\n", SHNAME);
-//	else if (error == DUPING)
-//		printf("%s: Error while dupping\n", SHNAME);
-//	else if (error == FORKING)
-//		printf("%s: Error while forking\n", SHNAME);
-//	else if (error == IDENERR)
-//		printf("%s: not a valid identifier\n", SHNAME);
-//	else if (error == CMDERR)
-//		printf("%s: command not found\n", SHNAME);
-//	else if (error == HOMELESS)
-//		printf("%s:%s HOME not set\n", SHNAME, culprit);
-//}
 
 /*
 **	Manages the errors printing the corresponding message and setting the

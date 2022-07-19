@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:23:54 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/19 13:40:29 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/19 19:10:59 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,7 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 			data->err = manage_errors(data->err, "");
 		else
 			data->err = manage_errors(data->err / 256, "");
+		if (data->err == 256)
+			g_exit_status = 1;
 	}
 }

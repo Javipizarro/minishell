@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/19 13:42:14 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/19 19:34:05 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,6 @@ Incluir la parte de la línea que causó el error. -> not required.
 */
 
 /*Tests to pass:
-echo bonjour > $test ## var test not defined -> ambiguous redirect
-file_name_in_current_dir ## with a file named file_name_in_current_dir -> command not found
-export var ="cat Makefile | grep >"  ##  should export var and export ="cat Makefile | grep >" -> not a valid identifier
-cat diufosgid ## should yield a $? == 1
 exit hola ## should print a "numeric argument required" and yield a $? == 255
 exit -10 ## shouldn't print anything and yield a $? == 246
 exit +10 ## shouldn't print anything and yield a $? == 10
@@ -89,6 +85,10 @@ ls > "" ## No such file or directory
 export a=""; ls > $a ## ambiguous redirect
 ls > $ ## creates a file "$" and fills it with the ls
 $not_defined_var ## nothing, just a new line
+echo bonjour > $test ## var test not defined -> ambiguous redirect
+file_name_in_current_dir ## with a file named file_name_in_current_dir -> command not found
+export var ="cat Makefile | grep >"  ##  should export var and export ="cat Makefile | grep >" -> not a valid identifier
+cat algo_que_no_exista ## should yield a $? == 1
 */
 
 

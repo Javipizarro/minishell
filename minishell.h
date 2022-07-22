@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/19 18:52:53 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/22 22:57:57 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ int			g_exit_status;
 						**	always receive more input until at least one line can be read.
 						*/
 
-
-
 #define	TOKIN '<'
 #define TOKOUT '>'
 #define	TOKHERE '<' + 1
@@ -61,8 +59,10 @@ int			g_exit_status;
 #define	FORKING 9
 #define IDENERR 10
 #define	HOMELESS 11
+#define TOOMARG 13
 #define CMDERR 127
 #define CMD_INTER 130
+#define NOINTARG 255
 
 #define	IN 1
 #define	OUT 0
@@ -90,7 +90,7 @@ typedef struct s_cmds
 	int				fd_in;
 	int				fd_out;
 	int				pipe[2];
-	char			only_vars;
+	char			avoid;
 	char			**cmd;
 	struct s_cmds	*next;
 }				t_cmds;
@@ -103,7 +103,14 @@ typedef struct s_mini_data
 	t_cmds			*cmds;
 	int				cmd_num;
 	int				err;
+	struct termios	termattr;
 }				t_mini_data;
+
+////
+void	backup_termattr(struct termios *termattr);
+void	restore_termattr(struct termios *termattr);
+void	turn_off_echoctl(void);
+////
 
 t_env	*add_env_link(char **env_var, int definition);
 int		builtiner(char **cmd, t_mini_data *data, pid_t pid);
@@ -113,29 +120,31 @@ int		echo(char **cmd, pid_t pid);
 int		env(char **envp, pid_t pid);
 void	erase_quotes(char *line);
 void	executer(t_mini_data *data, t_cmds **cmds);
-int		exit_shell(t_mini_data *data, pid_t pid);
+int		exit_shell(t_mini_data *data, char **cmd, pid_t pid);
 int		expand_env_var(char **line, int *i, t_env **env);
 //int		expand_var(char **line, int *pos, t_env *env, int check_spaces);
-void	expand_var(char **line, int *pos, t_env *env);
+//void	expand_var(char **line, int *pos, t_env *env);
+int		expand_var(char **line, int *pos, const char *var_name, t_env *env);
 int		export(char **cmd, t_mini_data *data, pid_t pid);
 int		export_env(char *env_var, t_env **env);
 int		external(t_cmds *cmd, t_mini_data *data);
+char	*extract_env_var_name(char *line, int pos);
 char	*get_file_path(char *line, t_mini_data *data);
 void	free_cmds(t_cmds **cmds);
+int		heredoc(t_mini_data *data, char *path[]);
 void 	init_mini_data(t_mini_data *data);
-int		heredoc(char *path[]);
 void	line_to_cmds(t_mini_data *data, t_cmds	**cmd);
-int		manage_errors(int error, char *culprit);
+int		manage_errors(char *cmd_name, int error, char *culprit);
 int		parse_files(char *line, t_cmds *cmd, t_mini_data *data);
 void	parse_cmd(char **line, t_cmds *cmd, t_mini_data *data);
 int		parser(t_mini_data *data);
-int		pwd(pid_t pid);
+int		pwd(char **cmd, pid_t pid);
 void	quotes_status(char c, char *quo);
 void	reset_envp(t_mini_data *data);
-t_env	**search_env(char *env_name, t_env **env);
+t_env	**search_env(const char *env_name, t_env **env);
 void	set_env_list(char *envp[], t_mini_data *data);
 t_env	*set_env_value(char *var_name, char *var_val[], t_env *env);
-void	signal_handler(int type, int pid);
+void	signal_handler(t_mini_data *data, int type, int pid);
 void	trim_spaces(char *line);
 char	tokenizer(char *line, t_cmds *cmd);
 int		unset(char **cmd, t_mini_data *data, pid_t pid);

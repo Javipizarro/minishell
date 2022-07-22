@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 16:51:09 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/19 13:43:23 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/21 18:03:08 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,28 @@
 **	sends them to expand.
 */
 
-void	expand_vars(char **line, t_env *env, t_cmds *cmd)
+void	expand_vars(char **line, t_env *env)
 {
 	int i;
 	char	quo;
+	char	*var_to_expand;
 
-	i = -1;
+	i = 0;
 	quo = 0;
 	while (line[0][++i])
 	{
-		if (line[0][i] != '$' && line[0][i] != ' ')
-			cmd->only_vars = 0;
+//		if (line[0][i] != '$' && line[0][i] != ' ')
+//			cmd->only_vars = 0;
 		quotes_status(line[0][i], &quo);
 		if (quo == '\'')
 			continue;
 		if (line[0][i] == '$')
-			expand_var(line, &i, env);
+		{
+			var_to_expand = extract_env_var_name(*line, i);
+			expand_var(line, &i, var_to_expand, env);
+			free(var_to_expand);
+			i--;
+		}
 	}
 }
 
@@ -68,9 +74,8 @@ void	parse_cmd(char **line, t_cmds *cmd, t_mini_data *data)
 {
 	int i;
 
-	cmd->only_vars = 1;
 	trim_spaces(*line);
-	expand_vars(line, data->env, cmd);
+	expand_vars(line, data->env);
 	spaces_to_31(*line);
 	cmd->cmd = ft_split(*line, 31);
 	i = -1;

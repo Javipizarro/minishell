@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:47:45 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/21 11:46:41 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/21 11:49:29 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ int	unset(char **cmd, t_mini_data *data, pid_t pid)
 		free(dump);
 		dump = NULL;
 	}
-	return (manage_errors(CONTINUE, NULL));
+	return (manage_errors(cmd[0], CONTINUE, NULL));
 }

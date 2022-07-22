@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:27:22 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/14 19:09:12 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/22 23:00:09 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,11 @@ void	free_env(t_env **env)
 }
 
 /*
-**	Manages how the mini-shell is abandoned.
+**	Frees everything to exit without leaks.
 */
 
-int	exit_shell(t_mini_data *data, pid_t pid)
+void	free_stuff(t_mini_data *data)
 {
-	if (data->cmd_num > 1 && pid > 0)
-		return (CONTINUE);
-	data->cmd_num = 0;
 	if (data->line)
 	{
 		free(data->line);
@@ -69,9 +66,54 @@ int	exit_shell(t_mini_data *data, pid_t pid)
 	data->envp = NULL;
 	rl_clear_history();
 	free_env(&data->env);
-	if (pid > 0)
-		write(1, "exit\n", 5);
+
+}
+
+/*
+**	Checks whether the exit arguments are correct and whether according to
+**	them we can actually exit the shell.
+*/
+
+int	process_exit_arguments(char **cmd)
+{
+	int	i;
+
+	if (!cmd[1])
+		return (0);
+	i = -1;
+	if (cmd[1][0] == '-' || cmd[1][0] == '+')
+		i++;
+	while (cmd[1][++i])
+		if (!ft_isdigit(cmd[1][i]))
+		{
+			manage_errors(cmd[0], NOINTARG, cmd[1]);
+			return (0);
+		}
+	if (cmd[2])
+	{
+		manage_errors(cmd[0], TOOMARG, NULL);
+		return (CONTINUE);
+	}
+	return (0);
+}
+
+/*
+**	Manages how the mini-shell is abandoned.
+*/
+
+int	exit_shell(t_mini_data *data, char **cmd, pid_t pid) //redo it
+{
+	if (data->cmd_num > 1 && pid)
+		return (CONTINUE);
+	if (pid && cmd && cmd[0])
+		write(2, "exit\n", 5);
+	if (pid > 0 && cmd && cmd[0] && process_exit_arguments(cmd))
+		return (CONTINUE);
+	free_stuff(data);
 	if (!pid)
 		exit(data->err);
+////
+	restore_termattr(&data->termattr);
+
 	exit (g_exit_status);
 }

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 13:24:39 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/06 15:14:06 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/21 18:07:27 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 **	link that contains it so you can manipulate it.
 */
 
-t_env	**search_env(char *env_name, t_env **env)
+t_env	**search_env(const char *env_name, t_env **env)
 {
 	if (!env_name)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 19:31:20 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/13 18:03:56 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/21 11:37:57 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,5 @@ int	echo(char **cmd, pid_t pid)
 	}
 	if (!flag)
 		write(STDOUT_FILENO, "\n", 1);
-	return (manage_errors(CONTINUE, NULL));
+	return (manage_errors(cmd[0], CONTINUE, NULL));
 }

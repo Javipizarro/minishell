@@ -6,52 +6,11 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 12:20:24 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/13 19:16:44 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/21 13:35:56 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../minishell.h"
-
-/*
-**	Expands the variables in path thar are not between quotes, and replaces
-**	the name with the value.
-**	Returns an error if there is any.
-*/
-
-int	expand_no_quo(char **path, int *pos, t_env *env)
-{
-	int i;
-	int	j;
-	char	*tmp;
-	char	*var_val;
-	
-	i = *pos;
-	j = *pos + 1;
-	while (path[0][j] && path[0][j] != '$' && path[0][j] != ' '
-	&& path[0][j] != '"' && path[0][j] != '\'')
-		j++;
-	tmp = ft_calloc(j - i, sizeof(char));
-	ft_memcpy(tmp, &path[0][i + 1], j - i - 1);
-	while (env && !ft_strcmp(tmp, env->var[0]))
-		env = env->next;
-	free(tmp);
-	if (!env)
-		var_val = "";
-	else
-		var_val = env->var[1];
-	if (ft_strchr(var_val, ' '))
-		return (manage_errors(AMBRED, NULL));
-	tmp = ft_calloc(ft_strlen(var_val + ft_strlen(*path) - j + i + 1), 
-	sizeof(char));
-	ft_memcpy(tmp, *path, i);
-	ft_memcpy(&tmp[i], var_val, ft_strlen(var_val));
-	ft_memcpy(&tmp[i + ft_strlen(var_val)], &path[0][j], ft_strlen(&path[0][j]));
-	free(*path);
-	*path = tmp;
-	*pos += ft_strlen(var_val);
-	return (0);
-}
 
 /*
 **	Takes the next characters string until the firs significative space,

@@ -6,11 +6,19 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/19 19:34:05 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/22 23:04:24 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	ctrl_d(t_mini_data *data)
+{
+	ft_putstr_fd("\x1b[1A", STDOUT_FILENO);
+	ft_putstr_fd("\033[11C", STDOUT_FILENO);
+	ft_putstr_fd("exit\n", STDOUT_FILENO);
+	exit_shell(data, NULL, 1);
+}
 
 /*
 **	Frees and anulates what is needed for a fresh main minishell loop.
@@ -32,31 +40,33 @@ void	reset_data(t_mini_data *data)
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_mini_data	data;
-	
+
+
 	(void)argc;
 	(void)argv;
 	init_mini_data(&data);
 	set_env_list(envp, &data);
-	signal_handler(GENERAL, 0);
+	backup_termattr(&data.termattr);
+	signal_handler(&data, GENERAL, 0);
 	while(1)
 	{
 		reset_data(&data);
 		data.line = readline(SHNAME "> " );
 		if (!data.line)
-			exit_shell(&data, 1);
+			ctrl_d(&data);
 		data.err = parser(&data);
 		if (!data.err)
 		{
-			signal_handler(EXEC, 0);
+			signal_handler(&data, EXEC, 0);
 			executer(&data, &data.cmds);
-			signal_handler(GENERAL, 0);
+			signal_handler(&data, GENERAL, 0);
 		}
 	}
 	return(0);
 }
 
 /*
-Incluir la parte de la línea que causó el error. -> not required.
+Cambiar los write por ft_putstr_fd
 */
 
 /*Tests to pass:
@@ -89,6 +99,9 @@ echo bonjour > $test ## var test not defined -> ambiguous redirect
 file_name_in_current_dir ## with a file named file_name_in_current_dir -> command not found
 export var ="cat Makefile | grep >"  ##  should export var and export ="cat Makefile | grep >" -> not a valid identifier
 cat algo_que_no_exista ## should yield a $? == 1
+Incluir la parte de la línea que causó el error.
+Ctrl + D  ## must print the exit word in the same line, when it's empty
+Ctrl + C  ## do not print ^C but when a command is active it does, unless it is in heredoc.
 */
 
 

@@ -1,7 +1,5 @@
 make --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/Users/jpizarro/Programming/42/minishell/minishell'
-gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c srcs/env1.c -o srcs/env1.o
-gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c srcs/env2.c -o srcs/env2.o
 gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c srcs/errors.c -o srcs/errors.o
 gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c srcs/executer.c -o srcs/executer.o
 gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c srcs/exit_shell.c -o srcs/exit_shell.o
@@ -26,9 +24,13 @@ gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c par
 gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c parse/parse_files.c -o parse/parse_files.o
 gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c parse/parser.c -o parse/parser.o
 gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c parse/tokenizer.c -o parse/tokenizer.o
+gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c env/add_env_link.c -o env/add_env_link.o
+gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c env/reset__envp.c -o env/reset__envp.o
+gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c env/set_env_list.c -o env/set_env_list.o
+gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c env/set_env_value.c -o env/set_env_value.o
 make -sC ./libft
 echo "Creating minishell"
-gcc -Wall -Werror -Wextra -g srcs/env1.o srcs/env2.o srcs/errors.o srcs/executer.o srcs/exit_shell.o srcs/expand_var.o srcs/external.o srcs/heredoc.o srcs/init_data.o srcs/minishell.o srcs/quotes.o srcs/search_env.o srcs/signal.o builtins/builtiner.o builtins/cd.o builtins/echo.o builtins/env.o builtins/export.o builtins/pwd.o builtins/unset.o parse/get_file_path.o parse/line_to_cmd.o parse/parse_cmds.o parse/parse_files.o parse/parser.o parse/tokenizer.o libft/libft.a -lreadline -L/Users/jpizarro/.brew/opt/readline/lib -o minishell
+gcc -Wall -Werror -Wextra -g srcs/errors.o srcs/executer.o srcs/exit_shell.o srcs/expand_var.o srcs/external.o srcs/heredoc.o srcs/init_data.o srcs/minishell.o srcs/quotes.o srcs/search_env.o srcs/signal.o builtins/builtiner.o builtins/cd.o builtins/echo.o builtins/env.o builtins/export.o builtins/pwd.o builtins/unset.o parse/get_file_path.o parse/line_to_cmd.o parse/parse_cmds.o parse/parse_files.o parse/parser.o parse/tokenizer.o env/add_env_link.o env/reset__envp.o env/set_env_list.o env/set_env_value.o libft/libft.a -lreadline -L/Users/jpizarro/.brew/opt/readline/lib -o minishell
 echo "minishell is ready!"
 make: Leaving directory `/Users/jpizarro/Programming/42/minishell/minishell'
  

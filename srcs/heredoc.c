@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/22 13:54:58 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/13 19:24:19 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/22 22:18:29 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **	Activates the here_doc mode of entry information.
 */
 
-int	heredoc(char *path[])
+int		heredoc(t_mini_data *data, char *path[])
 {
 	char	*keyword;
 	char	*line;
@@ -32,9 +32,9 @@ int	heredoc(char *path[])
 	if (pid < 0)
 	{
 		free(keyword);
-		return (manage_errors(FORKING, NULL));
+		return (manage_errors(NULL, FORKING, NULL));
 	}
-	signal_handler(HEREDOC, pid);
+	signal_handler(data, HEREDOC, pid);
 	if (!pid)
 	{
 		fd = open(".heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -55,7 +55,7 @@ int	heredoc(char *path[])
 		exit (0);
 	}
 	wait(NULL);
-	signal_handler(GENERAL, 0);
+	signal_handler(data, GENERAL, 0);
 	free (keyword);
 	return (0);
 }

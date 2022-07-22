@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:36:05 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/19 12:44:48 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/22 21:58:54 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*add_home_to_path(t_mini_data *data, char *path)
 	home = search_env("HOME", &data->env);
 	if (!home[0])
 	{
-		data->err = manage_errors(HOMELESS, "");
+		data->err = manage_errors(NULL, HOMELESS, NULL);
 		return (path);
 	}
 	abs_path = ft_strjoin(home[0]->var[1], &path[1]);
@@ -39,27 +39,34 @@ char	*add_home_to_path(t_mini_data *data, char *path)
 **	Expands the variables in path, and verifies whether everything is correct.
 */
 
-void	expand_path(char **path, t_mini_data *data, t_cmds *cmd)
+void	expand_path(char **path, t_mini_data *data)
 {
 	int	i;
 	char	quo;
+	char *var_to_expand;
 	
 	i = -1;
 	quo = 0;
-	cmd->only_vars = 1;
+//	cmd->only_vars = 1;
 	while (path[0][++i])
 	{
-		if (path[0][i] != '$')
-			cmd->only_vars = 0;
+//		if (path[0][i] != '$')
+//			cmd->only_vars = 0;
 		quotes_status(path[0][i], &quo);
 		if (quo == '\'')
 			continue;
 		if (path[0][i] == '$')
-			expand_var(path, &i, data->env);
-//		if (path[0][i] == '$')
-//			data->err = expand_var(path, &i, data->env);
-//		if (data->err && cmd->only_vars)
-//			return;
+		{
+			var_to_expand = extract_env_var_name(*path, i);
+			if (!expand_var(path, &i, var_to_expand, data->env))
+			{
+				data->err = manage_errors(NULL, AMBRED, var_to_expand);
+				free(var_to_expand);
+				return;
+			}
+			free(var_to_expand);
+			i--;
+		}
 	}
 	erase_quotes(*path);
 }
@@ -83,16 +90,18 @@ void	open_file(char token, char *path, t_cmds *cmd, t_mini_data *data)
 		cmd->fd_in = open(path, O_RDONLY);
 	else if (token == TOKAPPN)
 		cmd->fd_out = open(path, O_WRONLY | O_CREAT | O_APPEND, S_IRWXU);
-	if (token == TOKIN && cmd->fd_in < 0 && !cmd->only_vars)
-		data->err = manage_errors(NOTFILE, path);
-	else if (token == TOKIN && cmd->fd_in < 0 && cmd->only_vars)
-		data->err = manage_errors(AMBRED, path);
+	if (token == TOKIN && cmd->fd_in < 0)
+//	 && !cmd->only_vars)
+		data->err = manage_errors(NULL, NOTFILE, path);
+//	else if (token == TOKIN && cmd->fd_in < 0 && cmd->only_vars)
+//		data->err = manage_errors(NULL, AMBRED, path);
 	else if ((token == TOKOUT || token == TOKAPPN)
-	&& cmd->fd_out < 0 && !cmd->only_vars)
-		data->err = manage_errors(NOTFILE, path);
-	else if ((token == TOKOUT || token == TOKAPPN)
-	&& cmd->fd_out < 0 && cmd->only_vars)
-		data->err = manage_errors(AMBRED, path);
+	&& cmd->fd_out < 0)
+//	 && !cmd->only_vars)
+		data->err = manage_errors(NULL, NOTFILE, path);
+//	else if ((token == TOKOUT || token == TOKAPPN)
+//	&& cmd->fd_out < 0 && cmd->only_vars)
+//		data->err = manage_errors(NULL, AMBRED, path);
 }
 
 /*
@@ -127,9 +136,11 @@ int	parse_files(char *line, t_cmds *cmd, t_mini_data *data)
 		return (0);
 	path = get_file_path(&line[i], data);
 	if (token == TOKHERE)
-		data->err = heredoc(&path);
+		data->err = heredoc(data, &path);
 	else
-		expand_path(&path, data, cmd);
+		expand_path(&path, data);
+	if (data->err)
+		return(0);
 	if (path[0] == '~')
 			path = add_home_to_path(data, path);
 	if (data->err)

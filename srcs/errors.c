@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 17:53:13 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/19 13:47:25 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/21 17:27:17 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ char	*select_main_msg(int error)
 {
 	if (error == QUOTERR)
 		return ("open quotes are not suported by ");
-////
-//	else if (error == SYNTERR)
-//		return ("syntax error\n");
 	else if (error == TOKERR)
 		return ("syntax error near unexpected token");
 	else if (error == AMBRED)
@@ -57,6 +54,10 @@ char	*select_main_msg(int error)
 		return ("command not found");
 	else if (error == HOMELESS)
 		return ("HOME not set");
+	else if (error == NOINTARG)
+		return ("numeric argument required");
+	else if (error == TOOMARG)
+		return ("too many arguments");
 	return (NULL);
 }
 
@@ -64,7 +65,7 @@ char	*select_main_msg(int error)
 **	If an error has ocurred in the previous cicle, it prints it.
 */
 
-void	print_error(int error, char *culprit)
+void	print_error(char *cmd_name, int error, char *culprit)
 {
 	char	*main_msg;
 
@@ -75,8 +76,15 @@ void	print_error(int error, char *culprit)
 		return;
 	write(2, SHNAME, ft_strlen(SHNAME));
 	write(2, ": ", 2);
-	if (error == HOMELESS || error == NOTFILE)
+	if (cmd_name && cmd_name[0])
 	{
+		write(2, cmd_name, ft_strlen(cmd_name));
+		write(2, ": ", 2);
+	}
+	if (culprit && culprit[0])
+	{
+		if (error == AMBRED)
+			write (2, "$", 1);
 		write(2, culprit, ft_strlen(culprit));
 		write(2, ": ", 2);
 	}
@@ -91,9 +99,9 @@ void	print_error(int error, char *culprit)
 **	g_exit_status global varible.
 */
 
-int	manage_errors(int error, char *culprit)
+int	manage_errors(char *cmd, int error, char *culprit)
 {
-	print_error(error, culprit);
+	print_error(cmd, error, culprit);
 	set_exit_status(error);
 	return(error);
 }

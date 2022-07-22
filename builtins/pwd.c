@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:45:46 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/13 18:05:50 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/21 12:25:59 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **	Prints the current working directory.
 */
 
-int	pwd(pid_t pid)
+int	pwd(char **cmd, pid_t pid)
 {
 	char	*cwd;
 
@@ -27,5 +27,5 @@ int	pwd(pid_t pid)
 	write(STDOUT_FILENO, "\n", 1);
 	free(cwd);
 	cwd = NULL;
-	return (manage_errors(CONTINUE, NULL));
+	return (manage_errors(cmd[0], CONTINUE, NULL));
 }

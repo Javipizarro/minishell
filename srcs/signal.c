@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:30:48 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/04 19:13:30 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/22 22:59:06 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	sig_general(int sig)
 {
 	(void) sig;
-	write(STDOUT_FILENO, "\n", 1);
+	ft_putstr_fd("\n", STDOUT_FILENO);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
@@ -42,12 +42,19 @@ void	sig_here_pid(int signal)
 	write(STDOUT_FILENO, "\n", 1);
 }
 
-void	signal_handler(int type, int pid)
+void	signal_handler(t_mini_data *data, int type, int pid)
 {
 	if (type == GENERAL)
+	{
+		turn_off_echoctl();
 		signal(SIGINT, sig_general);
+	}
 	else if (type == EXEC)
+	{
+//(void)data;
 		signal(SIGINT, sig_exec);
+		restore_termattr(&data->termattr);
+	}
 	else if (type == HEREDOC && !pid)
 		signal(SIGINT, sig_here_no_pid);
 	else if (type == HEREDOC && pid)

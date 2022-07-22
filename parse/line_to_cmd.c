@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:53:09 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/06 13:58:56 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/21 17:13:03 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_cmds	*new_cmd()
 	new->pipe[IN] = NOSET;
 	new->pipe[OUT] = NOSET;
 	new->cmd = NULL;
+	new->avoid = 0;
 	new->next = NULL;
 	return (new);
 }
@@ -73,6 +74,11 @@ void	line_to_cmds(t_mini_data *data, t_cmds	**cmd)
 		*cmd = new_cmd();
 		while(parse_files(line_cmds[i], *cmd, data))
 			continue;
+		if (data->err == AMBRED || data->err == NOTFILE)
+		{
+			cmd[0]->avoid = 1;
+			continue;
+		}
 		if (data->err)
 			break;
 		parse_cmd(&line_cmds[i], *cmd, data);

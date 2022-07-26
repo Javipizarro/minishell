@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:27:22 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/22 23:00:09 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/26 09:43:26 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	process_exit_arguments(char **cmd)
 		manage_errors(cmd[0], TOOMARG, NULL);
 		return (CONTINUE);
 	}
+	g_exit_status = ft_atoi(cmd[1]) % 256;
 	return (0);
 }
 
@@ -112,8 +113,6 @@ int	exit_shell(t_mini_data *data, char **cmd, pid_t pid) //redo it
 	free_stuff(data);
 	if (!pid)
 		exit(data->err);
-////
 	restore_termattr(&data->termattr);
-
 	exit (g_exit_status);
 }

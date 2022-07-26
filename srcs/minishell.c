@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/26 09:32:18 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/26 09:53:26 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,6 @@ Cambiar los write por ft_putstr_fd
 */
 
 /*Tests to pass:
-exit -10 ## shouldn't print anything and yield a $? == 246
-exit +10 ## shouldn't print anything and yield a $? == 10
-cd no_file  ## should print no_file: No such file or directory
-cd a b c d  ## should print a: No such file or directory
-Ctrl + C (with something written) ## shoudn't print ^C (not very important);
 exit 0 | exit 1 ## Should yield a $? == 1 (not exiting)
 exit 1 | exit 0 ## Should yield a $? == 0 (not exiting)
 verificar las variables con espacios, a lo mejor hay que rodearlas con "" o ''
@@ -102,6 +97,10 @@ Incluir la parte de la línea que causó el error.
 Ctrl + D  ## must print the exit word in the same line, when it's empty
 Ctrl + C  ## do not print ^C but when a command is active it does, unless it is in heredoc.
 exit hola ## should print a "numeric argument required" and yield a $? == 255
+exit -10 ## shouldn't print anything and yield a $? == 246
+exit +10 ## shouldn't print anything and yield a $? == 10
+cd a b c d  ## should print a: No such file or directory
+Ctrl + C (with something written) ## shoudn't print ^C (not very important);
 */
 
 

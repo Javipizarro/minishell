@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 17:53:13 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/21 17:27:17 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/26 11:07:37 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ void	print_error(char *cmd_name, int error, char *culprit)
 	}
 	if (culprit && culprit[0])
 	{
-		if (error == AMBRED)
-			write (2, "$", 1);
 		write(2, culprit, ft_strlen(culprit));
 		write(2, ": ", 2);
 	}

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 17:53:13 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/26 11:07:37 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/26 12:47:48 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 
 void	set_exit_status(int error)
 {
-	if (!error || error == CONTINUE)
+	if (error == KEEPGESTAT)
+		return;
+	else if (!error || error == CONTINUE)
 		g_exit_status = 0;
 	else if (error < 100)
 		g_exit_status = 1;

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:23:54 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/21 21:06:14 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/26 12:48:57 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,6 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 
 	while (cmds[0])
 	{
-//		if (cmds[0]->cmd[0] && !ft_strcmp(cmds[0]->cmd[0], "exit"))
-//		{
-////			
-//			printf("ejecuto exit shell desde executer\n");
-//			exit_shell(data, cmds[0]->cmd, 1);
-//		}
 		data->err = piper(*cmds);
 		if(data->err)
 			break;

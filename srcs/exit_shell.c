@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:27:22 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/26 09:43:26 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/26 12:45:03 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,15 +104,20 @@ int	process_exit_arguments(char **cmd)
 
 int	exit_shell(t_mini_data *data, char **cmd, pid_t pid) //redo it
 {
-	if (data->cmd_num > 1 && pid)
-		return (CONTINUE);
-	if (pid && cmd && cmd[0])
-		write(2, "exit\n", 5);
-	if (pid > 0 && cmd && cmd[0] && process_exit_arguments(cmd))
-		return (CONTINUE);
-	free_stuff(data);
 	if (!pid)
+	{
+		if (data->cmd_num > 1)
+			data->err = KEEPGESTAT;
+		free_stuff(data);
 		exit(data->err);
+	}
+	if (pid && cmd && cmd[0] && data->cmd_num == 1)
+		write(2, "exit\n", 5);
+	if (pid && cmd && cmd[0] && process_exit_arguments(cmd))
+		return (CONTINUE);
+	if (data->cmd_num > 1)
+		return (KEEPGESTAT);
+	free_stuff(data);
 	restore_termattr(&data->termattr);
 	exit (g_exit_status);
 }

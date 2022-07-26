@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/22 22:57:57 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/26 12:46:45 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include <errno.h>
 
 
-int			g_exit_status;
+unsigned char	g_exit_status;
 
 #define SHNAME "JaviShell"
 
@@ -59,6 +59,7 @@ int			g_exit_status;
 #define	FORKING 9
 #define IDENERR 10
 #define	HOMELESS 11
+#define KEEPGESTAT 12
 #define TOOMARG 13
 #define CMDERR 127
 #define CMD_INTER 130
@@ -122,8 +123,6 @@ void	erase_quotes(char *line);
 void	executer(t_mini_data *data, t_cmds **cmds);
 int		exit_shell(t_mini_data *data, char **cmd, pid_t pid);
 int		expand_env_var(char **line, int *i, t_env **env);
-//int		expand_var(char **line, int *pos, t_env *env, int check_spaces);
-//void	expand_var(char **line, int *pos, t_env *env);
 int		expand_var(char **line, int *pos, const char *var_name, t_env *env);
 int		export(char **cmd, t_mini_data *data, pid_t pid);
 int		export_env(char *env_var, t_env **env);

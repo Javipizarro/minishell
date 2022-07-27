@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 14:06:26 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/21 11:25:38 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/27 14:56:56 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	cd(t_mini_data *data, char **cmd, pid_t pid)
 {
 	char	*cwd;
 
-	if (!pid)
+	if ((data->cmd_num > 1 && pid) || (data->cmd_num == 1 && !pid))
 		return (CONTINUE);
 	cwd = getcwd(NULL, 0);
 	if (!cmd[1] || cmd[1][0] == '~')

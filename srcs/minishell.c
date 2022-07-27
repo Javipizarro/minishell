@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/26 09:53:26 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/27 15:51:53 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	t_mini_data	data;
 
-
 	(void)argc;
 	(void)argv;
 	init_mini_data(&data);
@@ -70,10 +69,14 @@ Cambiar los write por ft_putstr_fd
 */
 
 /*Tests to pass:
-exit 0 | exit 1 ## Should yield a $? == 1 (not exiting)
-exit 1 | exit 0 ## Should yield a $? == 0 (not exiting)
+ls | no ##
+no | ls ##
 verificar las variables con espacios, a lo mejor hay que rodearlas con "" o ''
 $HOME hola ## is a directory
+export var="ls | grep mini" ejecutar $var
+Figure out whrere the 13 error comes from
+echo $var"algo" ## debe imprimir el contenido de la variable y algo detrás
+$% ## should print $%
 
 Resueltos:
 export "" OR export $ ## not a valid identifier
@@ -101,6 +104,9 @@ exit -10 ## shouldn't print anything and yield a $? == 246
 exit +10 ## shouldn't print anything and yield a $? == 10
 cd a b c d  ## should print a: No such file or directory
 Ctrl + C (with something written) ## shoudn't print ^C (not very important);
+exit 0 | exit 1 ## Should yield a $? == 1 (not exiting)
+exit 1 | exit 0 ## Should yield a $? == 0 (not exiting)
+echo hola | cd .. ## cd should not change directory when piped
 */
 
 

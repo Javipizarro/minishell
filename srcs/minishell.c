@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/27 19:30:10 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/27 19:37:22 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,12 @@ Cambiar los write por ft_putstr_fd
 /*Tests to pass:
 ls | no ##
 no | ls ##
-verificar las variables con espacios, a lo mejor hay que rodearlas con "" o ''
 $HOME hola ## is a directory
-export var="ls | grep mini" ejecutar $var
+export var="ls | grep mini" ## ejecutar $var
 Figure out whrere the 13 error comes from
+export var="text -la" ;  ls > $var ## should show an ambiguous redirection
+verificar las variables con espacios, a lo mejor hay que rodearlas con "" o ''
+export var="ls -la" ; $var ## should execute ls with -la as an argument
 
 Resueltos:
 export "" OR export $ ## not a valid identifier

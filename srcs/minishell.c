@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/27 15:51:53 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/27 19:30:10 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ verificar las variables con espacios, a lo mejor hay que rodearlas con "" o ''
 $HOME hola ## is a directory
 export var="ls | grep mini" ejecutar $var
 Figure out whrere the 13 error comes from
-echo $var"algo" ## debe imprimir el contenido de la variable y algo detrás
-$% ## should print $%
 
 Resueltos:
 export "" OR export $ ## not a valid identifier
@@ -107,6 +105,9 @@ Ctrl + C (with something written) ## shoudn't print ^C (not very important);
 exit 0 | exit 1 ## Should yield a $? == 1 (not exiting)
 exit 1 | exit 0 ## Should yield a $? == 0 (not exiting)
 echo hola | cd .. ## cd should not change directory when piped
+$% ## should print $%
+$^ ## should print $^
+echo $var"algo" ## debe imprimir el contenido de la variable y algo detrás
 */
 
 

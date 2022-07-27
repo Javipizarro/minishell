@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 12:55:52 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/27 17:22:09 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/27 19:08:34 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ char	*extract_env_var_name(char *line, int pos)
 			end++;
 	var_name = ft_calloc(end - pos + 1, sizeof(char));
 	ft_memcpy(var_name, &line[pos], end - pos);
-	ft_memcpy(&line[pos], &line[end], ft_strlen(&line[end] + 1));
+	ft_memcpy(&line[pos], &line[end], ft_strlen(&line[end]) + 1);
 	return (var_name);
 }

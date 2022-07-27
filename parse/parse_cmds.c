@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 16:51:09 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/26 11:03:09 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/27 19:28:58 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void	expand_vars(char **line, t_env *env)
 	quo = 0;
 	while (line[0][++i])
 	{
-//		if (line[0][i] != '$' && line[0][i] != ' ')
-//			cmd->only_vars = 0;
 		quotes_status(line[0][i], &quo);
 		if (quo == '\'')
 			continue;

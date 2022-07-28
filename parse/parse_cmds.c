@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 16:51:09 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/27 19:28:58 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/28 16:39:03 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	expand_vars(char **line, t_env *env)
 	char	quo;
 	char	*var_to_expand;
 
-	i = 0;
+	i = -1;
 	quo = 0;
 	while (line[0][++i])
 	{
@@ -35,7 +35,6 @@ void	expand_vars(char **line, t_env *env)
 			var_to_expand = extract_env_var_name(*line, i);
 			expand_var(line, &i, var_to_expand, env);
 			free(var_to_expand);
-			i--;
 		}
 	}
 }

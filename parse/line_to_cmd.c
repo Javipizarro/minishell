@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:53:09 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/27 19:11:56 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/28 16:27:58 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void	line_to_cmds(t_mini_data *data, t_cmds	**cmd)
 			cmd[0]->avoid = 1;
 			continue;
 		}
+////
+	printf("line_cmds[%i] = %s\n", i, line_cmds[i]);
 		if (data->err)
 			break;
 		parse_cmd(&line_cmds[i], *cmd, data);

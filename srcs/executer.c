@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:23:54 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/27 18:39:02 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/07/28 20:37:13 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ int	piper(t_cmds *cmd)
 		cmd->fd_out = PIPED;
 		cmd->next->fd_in = PIPED;
 	}
+//////
+//	printf("cmd = %s cmd->fd_in = %i\n", cmd->cmd[0], cmd->fd_in);
+//	printf("cmd = %s cmd->fd_out = %i\n", cmd->cmd[0], cmd->fd_out);
 	return (0);
 }
 
@@ -119,7 +122,13 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 			break;
 		}
 		if (!pid)
+		{
 			data->err = set_inoutputs(cmds[0]);
+////
+	printf("cmd = %s cmd->fd_in = %i\n", cmds[0]->cmd[0], cmds[0]->fd_in);
+	printf("cmd = %s cmd->fd_out = %i\n", cmds[0]->cmd[0],cmds[0]->fd_out);
+
+		}
 		if(!data->err)
 			data->err = check_empty_cmd(cmds[0]);
 		if(!data->err)

@@ -1,0 +1,18 @@
+cmd = ls cmd->fd_in = -1
+cmd = ls cmd->fd_out = 3
+total 144
+drwxr-xr-x   15 jpizarro  2019    510 Jul 28 20:37 .
+drwxr-xr-x    7 jpizarro  2019    238 Jul 27 15:43 ..
+drwxr-xr-x   15 jpizarro  2019    510 Jul 28 16:40 .git
+-rw-r--r--    1 jpizarro  2019    440 Jul  8 18:33 .gitignore
+drwxr-xr-x    7 jpizarro  2019    238 Jul 27 17:06 .vscode
+-rw-r--r--    1 jpizarro  2019   2088 Jul 14 19:53 Makefile
+-rw-r--r--    1 jpizarro  2019     42 Jul  8 18:18 README.md
+drwxr-xr-x   18 jpizarro  2019    612 Jul 28 19:47 builtins
+drwxr-xr-x   14 jpizarro  2019    476 Jul 27 19:32 env
+drwxr-xr-x  107 jpizarro  2019   3638 Jul 27 19:32 libft
+-rwxr-xr-x    1 jpizarro  2019  45644 Jul 28 20:37 minishell
+-rw-r--r--    1 jpizarro  2019   4657 Jul 27 17:06 minishell.h
+drwxr-xr-x   16 jpizarro  2019    544 Jul 28 20:00 parse
+drwxr-xr-x   24 jpizarro  2019    816 Jul 28 20:37 srcs
+-rw-r--r--    1 jpizarro  2019     50 Jul 28 20:38 text

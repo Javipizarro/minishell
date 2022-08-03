@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:30:48 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/22 22:59:06 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/02 12:38:05 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	signal_handler(t_mini_data *data, int type, int pid)
 	}
 	else if (type == EXEC)
 	{
-//(void)data;
 		signal(SIGINT, sig_exec);
 		restore_termattr(&data->termattr);
 	}

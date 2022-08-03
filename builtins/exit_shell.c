@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:27:22 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/26 12:45:03 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:12:46 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ void	free_cmds(t_cmds **cmds)
 		free_cmds(&cmds[0]->next);
 	if (cmds[0]->cmd)
 		ft_free_split(cmds[0]->cmd);
-	if (cmds[0]->fd_in == PIPED)
+//	if (cmds[0]->fd_in == PIPED)
+	if (cmds[0]->fd_in == NOSET)
 		close(cmds[0]->pipe[IN]);
-	if (cmds[0]->fd_in == PIPED)
+//	if (cmds[0]->fd_in == PIPED)
+	if (cmds[0]->fd_in == NOSET)
 		close(cmds[0]->pipe[OUT]);
 	if (cmds[0]->fd_in >= 0)
 		close(cmds[0]->fd_in);

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/28 20:41:20 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:45:09 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ Figure out whrere the 13 error comes from
 export var="text -la" ;  ls > $var ## should show an ambiguous redirection
 verificar las variables con espacios, a lo mejor hay que rodearlas con "" o ''
 ctrl \ echar un ojo, no está funcionando
-ls -la >text | grep mini | wc ## para solucionarlo abrir pipe para que lea el siguiente comando
 
 Resueltos:
 export "" OR export $ ## not a valid identifier
@@ -112,6 +111,7 @@ $^ ## should print $^
 echo $var"algo" ## debe imprimir el contenido de la variable y algo detrás
 export var="ls | grep mini" ## ejecutar $var
 export var="ls -la" ; $var ## should execute ls with -la as an argument
+ls -la >text | grep mini | wc ## para solucionarlo abrir pipe para que lea el siguiente comando
 */
 
 

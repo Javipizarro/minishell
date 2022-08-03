@@ -6,27 +6,12 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:23:54 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/28 20:37:13 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:41:45 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	close_fds(t_cmds *cmd)
-{
-	if (cmd->fd_in == PIPED)
-		close(cmd->pipe[OUT]);
-	else if (cmd->fd_in >= 0)
-	{
-		if (cmd->tok_in == TOKHERE)
-			unlink(".heredoc");
-		close(cmd->fd_in);
-	}
-	if (cmd->fd_out == PIPED)
-		close(cmd->next->pipe[IN]);
-	else if (cmd->fd_out >= 0)
-		close(cmd->fd_out);
-}
 
 /*
 **	Checks whether the command is empty and returns a corresponding error to
@@ -52,16 +37,9 @@ int	check_empty_cmd(t_cmds *cmd)
 
 int	piper(t_cmds *cmd)
 {
-	if (cmd->fd_out == NOSET && cmd->next && cmd->next->fd_in == NOSET)
-	{
+	if (cmd->next)
 		if (pipe(cmd->next->pipe))
 			return (manage_errors(NULL, PIPING, NULL));
-		cmd->fd_out = PIPED;
-		cmd->next->fd_in = PIPED;
-	}
-//////
-//	printf("cmd = %s cmd->fd_in = %i\n", cmd->cmd[0], cmd->fd_in);
-//	printf("cmd = %s cmd->fd_out = %i\n", cmd->cmd[0], cmd->fd_out);
 	return (0);
 }
 
@@ -70,35 +48,47 @@ int	piper(t_cmds *cmd)
 **	sets stdin and stdout if they do.
 */
 
-int	set_inoutputs(t_cmds *cmd)
+int	set_inoutputs(t_cmds *cmd, int i)
 {
-	if (cmd->fd_in == PIPED)
+	if (cmd->fd_in == NOSET && i)
 	{
 		if (dup2(cmd->pipe[OUT], STDIN_FILENO) < 0)
 			return (manage_errors(NULL, DUPING, NULL));
-		close(cmd->pipe[OUT]);
 	}
 	else if (cmd->fd_in >= 0)
-	{
 		if (dup2(cmd->fd_in, STDIN_FILENO) < 0)
 			return (manage_errors(NULL, DUPING, NULL));
-		close(cmd->fd_in);
-	}
-	if (cmd->next && cmd->fd_out == PIPED)
+	if (cmd->next && cmd->fd_out == NOSET)
 	{
-		close(cmd->next->pipe[OUT]);
-		cmd->next->pipe[OUT] = NOSET;
 		if (dup2(cmd->next->pipe[IN], STDOUT_FILENO) < 0)
 			return (manage_errors(NULL, DUPING, NULL));
-		close(cmd->next->pipe[IN]);
 	}
 	else if (cmd->fd_out >= 0)
-	{
 		if (dup2(cmd->fd_out, STDOUT_FILENO) < 0)
 			return (manage_errors(NULL, DUPING, NULL));
-		close(cmd->fd_out);
-	}
 	return (0);
+}
+
+/*
+**	
+*/
+
+void	close_fds(t_cmds *cmd, pid_t pid, int i)
+{
+	if (i)
+		close(cmd->pipe[OUT]);
+	if (cmd->next)
+		close(cmd->next->pipe[IN]);
+	if (cmd->next && !pid)
+		close(cmd->next->pipe[OUT]);
+	if (cmd->fd_in >= 0)
+	{
+		if (cmd->tok_in == TOKHERE && pid)
+			unlink(".heredoc");
+		close(cmd->fd_in);
+	}
+	if (cmd->fd_out >= 0)
+		close(cmd->fd_out);
 }
 
 /*
@@ -109,7 +99,9 @@ int	set_inoutputs(t_cmds *cmd)
 void	executer(t_mini_data *data, t_cmds	**cmds)
 {
 	pid_t	pid;
-
+	int i;
+	
+	i = 0;
 	while (cmds[0])
 	{
 		data->err = piper(*cmds);
@@ -122,25 +114,23 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 			break;
 		}
 		if (!pid)
-		{
-			data->err = set_inoutputs(cmds[0]);
-////
-	printf("cmd = %s cmd->fd_in = %i\n", cmds[0]->cmd[0], cmds[0]->fd_in);
-	printf("cmd = %s cmd->fd_out = %i\n", cmds[0]->cmd[0],cmds[0]->fd_out);
-
-		}
+			data->err = set_inoutputs(cmds[0], i);
+		close_fds(cmds[0], pid, i);
+//////
+//	printf("cmd = %s cmd->fd_in = %i\n", cmds[0]->cmd[0], cmds[0]->fd_in);
+//	printf("cmd = %s cmd->fd_out = %i\n", cmds[0]->cmd[0],cmds[0]->fd_out);
 		if(!data->err)
 			data->err = check_empty_cmd(cmds[0]);
 		if(!data->err)
 			data->err = builtiner(cmds[0]->cmd, data, pid);
 		if (!pid && !data->err)
 			data->err = external(cmds[0], data);
-		close_fds(cmds[0]);
 		if (!pid)
 			exit_shell(data, NULL, pid);
 		cmds = &cmds[0]->next;
+		i++;
 	}
-	int i = 0;
+	i = 0;
 	while (i < data->cmd_num && ++i)
 	{
 		wait(&data->err);

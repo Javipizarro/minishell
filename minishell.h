@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/26 12:46:45 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:43:17 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ unsigned char	g_exit_status;
 #define TOKAPPN '>' + 1
 
 #define CONTINUE 1
-//#define SYNTERR 2
 #define QUOTERR 3
 #define TOKERR 4
 #define	AMBRED 5

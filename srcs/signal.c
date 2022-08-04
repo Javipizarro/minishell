@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 11:30:48 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/02 12:38:05 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/04 19:38:04 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,17 @@ void	sig_exec(int sig)
 {
 	(void) sig;
 	write(STDOUT_FILENO, "\n", 1);
-	g_exit_status = CMD_INTER;
+//	g_exit_status = CMD_INTER;
+	set_exit_status(CMDINTERR);
 }
 
 void	sig_here_no_pid(int signal)
 {
 	(void)signal;
-	g_exit_status = CMD_INTER;
-	exit(CMD_INTER);
+//	g_exit_status = CMD_INTER;
+//	exit(CMD_INTER);
+	set_exit_status(CMDINTERR);
+	exit(g_exit_status);
 }
 
 void	sig_here_pid(int signal)

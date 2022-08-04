@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:37:10 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/19 18:58:19 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/04 19:54:16 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,29 @@ char	*get_cmd_path(char *cmd, t_mini_data *data)
 {
 	int		i;
 	char	**system_paths;
-	char	*cwd;
+//	char	*cwd;
 	char 	*path;
 
-	path = (test_path(NULL, cmd));
-	if (path)
-		return (path);
-	cwd = getcwd(NULL, 0);	
-	path = test_path(cwd,cmd);
-	free(cwd);
-	cwd = NULL;
-	if (path)
-		return (path);
+
+	if (cmd[0] == '.')
+	{
+		path = (test_path(NULL, cmd));
+//////			
+//			printf("path after test_path(NULL, cmd) = %s\n", path);
+
+		if (path)
+			return (path);
+		data->err = manage_errors(NULL, NOTFILE, cmd);
+		return (NULL);
+	}
+//	cwd = getcwd(NULL, 0);	
+//	path = test_path(cwd,cmd);
+//////		
+//		printf("path after test_path(cwd, cmd) = %s\n", path);
+//	free(cwd);
+//	cwd = NULL;
+//	if (path)
+//		return (path);
 	i = -1;
 	system_paths = get_system_paths(data->env);
 	if (!system_paths)
@@ -97,7 +108,10 @@ char	*get_cmd_path(char *cmd, t_mini_data *data)
 			break;
 	}
 	ft_free_split(system_paths);
-	return (path);
+	if (path)
+		return (path);
+	data->err = manage_errors(NULL, CMDERR, cmd);
+	return (NULL);
 }
 
 /*
@@ -109,6 +123,8 @@ int	external(t_cmds *cmd, t_mini_data *data)
 	char	*path;
 	
 	path = get_cmd_path(cmd->cmd[0], data);
+	if (data->err)
+		return (CMDERR);
 	execve(path, cmd->cmd, data->envp);
-	return (CMDERR);
+	return (0);
 }

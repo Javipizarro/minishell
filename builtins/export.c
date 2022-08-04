@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:49:33 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/28 16:16:25 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/03 18:43:33 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,5 +151,5 @@ int	export(char **cmd, t_mini_data *data, pid_t pid)
 		}
 		reset_envp(data);
 	}	
-	return(CONTINUE);
+	return(manage_errors(cmd[0], CONTINUE, NULL));
 }

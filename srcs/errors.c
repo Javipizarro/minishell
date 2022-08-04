@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 17:53:13 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/27 17:07:59 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/04 19:52:06 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /*
 **	Sets the global variable g_exit_status according to the error found if any.
 */
-
+//// Esta puede desaparecer
 void	set_builtin_exit_status(int error)
 {
 	if (error == KEEPGESTAT)
@@ -94,6 +94,18 @@ void	print_error(char *cmd_name, int error, char *culprit)
 	write(2, "\n", 1);
 }
 
+int	set_error_exit(int error)
+{
+	if (error == CONTINUE)
+		return (0);
+	else if (error >= QUOTERR && error <= TOOMARG)
+		return (CMDPROB);
+	else
+		return (error);
+}
+
+
+
 /*
 **	Manages the errors printing the corresponding message and setting the
 **	g_exit_status global varible.
@@ -101,7 +113,11 @@ void	print_error(char *cmd_name, int error, char *culprit)
 
 int	manage_errors(char *cmd, int error, char *culprit)
 {
+	int	error_exit;
+
 	print_error(cmd, error, culprit);
-	set_builtin_exit_status(error);
-	return(error);
+//	set_builtin_exit_status(error);
+	error_exit = set_error_exit(error);
+//	return(error);
+	return(error_exit);
 }

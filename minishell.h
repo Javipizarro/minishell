@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/03 12:43:17 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/04 20:01:36 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ unsigned char	g_exit_status;
 #define TOKAPPN '>' + 1
 
 #define CONTINUE 1
+#define CMDINTERR 2
 #define QUOTERR 3
 #define TOKERR 4
 #define	AMBRED 5
@@ -58,11 +59,14 @@ unsigned char	g_exit_status;
 #define	FORKING 9
 #define IDENERR 10
 #define	HOMELESS 11
-#define KEEPGESTAT 12
-#define TOOMARG 13
-#define CMDERR 127
-#define CMD_INTER 130
+#define TOOMARG 12
+#define KEEPGESTAT 14
+//#define CMDERR 127
+#define CMDERR 32512
+//#define CMD_INTER 130
 #define NOINTARG 255
+////
+#define CMDPROB 256
 
 #define	IN 1
 #define	OUT 0
@@ -72,7 +76,6 @@ unsigned char	g_exit_status;
 #define HEREDOC 2
 
 #define NOSET -1
-#define PIPED -2
 
 #define	EXIT_STAT -1
 
@@ -126,6 +129,7 @@ int		expand_var(char **line, int *pos, const char *var_name, t_env *env);
 int		export(char **cmd, t_mini_data *data, pid_t pid);
 int		export_env(char *env_var, t_env **env);
 int		external(t_cmds *cmd, t_mini_data *data);
+//void	external(t_cmds *cmd, t_mini_data *data);
 char	*extract_env_var_name(char *line, int pos);
 char	*get_file_path(char *line, t_mini_data *data);
 void	free_cmds(t_cmds **cmds);
@@ -142,6 +146,7 @@ void	reset_envp(t_mini_data *data);
 t_env	**search_env(const char *env_name, t_env **env);
 void	set_env_list(char *envp[], t_mini_data *data);
 t_env	*set_env_value(char *var_name, char *var_val[], t_env *env);
+void	set_exit_status(int const status);
 void	signal_handler(t_mini_data *data, int type, int pid);
 void	trim_spaces(char *line);
 char	tokenizer(char *line, t_cmds *cmd);

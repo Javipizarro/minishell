@@ -2,16 +2,13 @@ make --dry-run --always-make --keep-going --print-directory
 make: Entering directory `/Users/jpizarro/Programming/42/minishell/minishell'
 gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c srcs/errors.c -o srcs/errors.o
 gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c srcs/executer.c -o srcs/executer.o
-gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c srcs/exit_shell.c -o srcs/exit_shell.o
 gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c srcs/external.c -o srcs/external.o
 gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c srcs/heredoc.c -o srcs/heredoc.o
- 
 gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c srcs/init_data.c -o srcs/init_data.o
 gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c srcs/minishell.c -o srcs/minishell.o
 gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c srcs/quotes.c -o srcs/quotes.o
 gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c srcs/search_env.c -o srcs/search_env.o
 gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c srcs/set_exit_status.c -o srcs/set_exit_status.o
- 
 gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c srcs/signal.c -o srcs/signal.o
 gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c srcs/termios.c -o srcs/termios.o
 gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c builtins/builtiner.c -o builtins/builtiner.o
@@ -36,7 +33,7 @@ gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c env
 gcc -Wall -Werror -Wextra -g -I/Users/jpizarro/.brew/opt/readline/include -c env/set_env_value.c -o env/set_env_value.o
 make -sC ./libft
 echo "Creating minishell"
-gcc -Wall -Werror -Wextra -g srcs/errors.o srcs/executer.o srcs/exit_shell.o srcs/external.o srcs/heredoc.o srcs/init_data.o srcs/minishell.o srcs/quotes.o srcs/search_env.o srcs/set_exit_status.o srcs/signal.o srcs/termios.o builtins/builtiner.o builtins/cd.o builtins/echo.o builtins/env.o builtins/exit_shell.o builtins/export.o builtins/pwd.o builtins/unset.o parse/get_file_path.o parse/line_to_cmd.o parse/parse_cmds.o parse/parse_files.o parse/parser.o parse/tokenizer.o env/add_env_link.o env/expand_var.o env/extract_env_var_name.o env/reset__envp.o env/set_env_list.o env/set_env_value.o libft/libft.a -lreadline -L/Users/jpizarro/.brew/opt/readline/lib -o minishell
+gcc -Wall -Werror -Wextra -g srcs/errors.o srcs/executer.o srcs/external.o srcs/heredoc.o srcs/init_data.o srcs/minishell.o srcs/quotes.o srcs/search_env.o srcs/set_exit_status.o srcs/signal.o srcs/termios.o builtins/builtiner.o builtins/cd.o builtins/echo.o builtins/env.o builtins/exit_shell.o builtins/export.o builtins/pwd.o builtins/unset.o parse/get_file_path.o parse/line_to_cmd.o parse/parse_cmds.o parse/parse_files.o parse/parser.o parse/tokenizer.o env/add_env_link.o env/expand_var.o env/extract_env_var_name.o env/reset__envp.o env/set_env_list.o env/set_env_value.o libft/libft.a -lreadline -L/Users/jpizarro/.brew/opt/readline/lib -o minishell
 echo "minishell is ready!"
 make: Leaving directory `/Users/jpizarro/Programming/42/minishell/minishell'
  

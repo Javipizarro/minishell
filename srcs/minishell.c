@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/03 12:45:09 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/04 21:21:04 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ Figure out whrere the 13 error comes from
 export var="text -la" ;  ls > $var ## should show an ambiguous redirection
 verificar las variables con espacios, a lo mejor hay que rodearlas con "" o ''
 ctrl \ echar un ojo, no está funcionando
+echo does not reset the exit_status
+echar un vistazo a https://man7.org/linux/man-pages/man2/waitpid.2.html y reescribir como los built-in salen.
 
 Resueltos:
 export "" OR export $ ## not a valid identifier

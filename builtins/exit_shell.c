@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:27:22 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/03 12:12:46 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/04 20:00:50 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,8 @@ void	free_cmds(t_cmds **cmds)
 		free_cmds(&cmds[0]->next);
 	if (cmds[0]->cmd)
 		ft_free_split(cmds[0]->cmd);
-//	if (cmds[0]->fd_in == PIPED)
 	if (cmds[0]->fd_in == NOSET)
 		close(cmds[0]->pipe[IN]);
-//	if (cmds[0]->fd_in == PIPED)
 	if (cmds[0]->fd_in == NOSET)
 		close(cmds[0]->pipe[OUT]);
 	if (cmds[0]->fd_in >= 0)
@@ -108,10 +106,10 @@ int	exit_shell(t_mini_data *data, char **cmd, pid_t pid) //redo it
 {
 	if (!pid)
 	{
-		if (data->cmd_num > 1)
-			data->err = KEEPGESTAT;
+//		if (data->cmd_num > 1)
+//			data->err = KEEPGESTAT;
 		free_stuff(data);
-		exit(data->err);
+		exit(g_exit_status);
 	}
 	if (pid && cmd && cmd[0] && data->cmd_num == 1)
 		write(2, "exit\n", 5);

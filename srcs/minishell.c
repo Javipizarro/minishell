@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/04 21:21:04 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/05 19:45:39 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	reset_data(t_mini_data *data)
 		free_cmds(&data->cmds);
 	data->cmds = NULL;
 	data->cmd_num = 0;
-	data->err = 0;
+	data->err_print = 0;
 }
 
 
@@ -53,8 +53,8 @@ int	main(int argc, char *argv[], char *envp[])
 		data.line = readline(SHNAME "> " );
 		if (!data.line)
 			ctrl_d(&data);
-		data.err = parser(&data);
-		if (!data.err)
+		data.err_print = parser(&data);
+		if (!data.err_print)
 		{
 			signal_handler(&data, EXEC, 0);
 			executer(&data, &data.cmds);
@@ -78,6 +78,10 @@ verificar las variables con espacios, a lo mejor hay que rodearlas con "" o ''
 ctrl \ echar un ojo, no está funcionando
 echo does not reset the exit_status
 echar un vistazo a https://man7.org/linux/man-pages/man2/waitpid.2.html y reescribir como los built-in salen.
+signal_handler en HEREDOC debe volver a General o a EXEC
+revisar ambiguous redirect  export var="hol a"; ls > $var
+ls | > text ## da too many arg, no deber'ia dar error por comando vacío
+
 
 Resueltos:
 export "" OR export $ ## not a valid identifier
@@ -114,6 +118,7 @@ echo $var"algo" ## debe imprimir el contenido de la variable y algo detrás
 export var="ls | grep mini" ## ejecutar $var
 export var="ls -la" ; $var ## should execute ls with -la as an argument
 ls -la >text | grep mini | wc ## para solucionarlo abrir pipe para que lea el siguiente comando
+Hacer HOME a partir de PWD
 */
 
 

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:37:10 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/04 19:54:16 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/05 21:14:41 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	*get_cmd_path(char *cmd, t_mini_data *data)
 
 		if (path)
 			return (path);
-		data->err = manage_errors(NULL, NOTFILE, cmd);
+		data->err_print = manage_errors(NULL, NOTFILE, cmd);
 		return (NULL);
 	}
 //	cwd = getcwd(NULL, 0);	
@@ -110,7 +110,7 @@ char	*get_cmd_path(char *cmd, t_mini_data *data)
 	ft_free_split(system_paths);
 	if (path)
 		return (path);
-	data->err = manage_errors(NULL, CMDERR, cmd);
+	data->err_print = manage_errors(NULL, CMDERR, cmd);
 	return (NULL);
 }
 
@@ -123,7 +123,7 @@ int	external(t_cmds *cmd, t_mini_data *data)
 	char	*path;
 	
 	path = get_cmd_path(cmd->cmd[0], data);
-	if (data->err)
+	if (data->err_print)
 		return (CMDERR);
 	execve(path, cmd->cmd, data->envp);
 	return (0);

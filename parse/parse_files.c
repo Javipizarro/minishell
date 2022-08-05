@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:36:05 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/28 19:45:41 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/05 19:45:39 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*add_home_to_path(t_mini_data *data, char *path)
 	home = search_env("HOME", &data->env);
 	if (!home[0])
 	{
-		data->err = manage_errors(NULL, HOMELESS, NULL);
+		data->err_print = manage_errors(NULL, HOMELESS, NULL);
 		return (path);
 	}
 	abs_path = ft_strjoin(home[0]->var[1], &path[1]);
@@ -57,7 +57,7 @@ void	expand_path(char **path, t_mini_data *data)
 			var_to_expand = extract_env_var_name(*path, i);
 			if (!expand_var(path, &i, var_to_expand, data->env))
 			{
-				data->err = manage_errors(NULL, AMBRED, var_to_expand);
+				data->err_print = manage_errors(NULL, AMBRED, var_to_expand);
 				free(var_to_expand);
 				return;
 			}
@@ -89,23 +89,23 @@ void	open_file(char token, char *path, t_cmds *cmd, t_mini_data *data)
 		cmd->fd_out = open(path, O_WRONLY | O_CREAT | O_APPEND, S_IRWXU);
 	if (token == TOKIN && cmd->fd_in < 0)
 //	 && !cmd->only_vars)
-		data->err = manage_errors(NULL, NOTFILE, path);
+		data->err_print = manage_errors(NULL, NOTFILE, path);
 //	else if (token == TOKIN && cmd->fd_in < 0 && cmd->only_vars)
-//		data->err = manage_errors(NULL, AMBRED, path);
+//		data->err_print = manage_errors(NULL, AMBRED, path);
 	else if ((token == TOKOUT || token == TOKAPPN)
 	&& cmd->fd_out < 0)
 //	 && !cmd->only_vars)
-		data->err = manage_errors(NULL, NOTFILE, path);
+		data->err_print = manage_errors(NULL, NOTFILE, path);
 //	else if ((token == TOKOUT || token == TOKAPPN)
 //	&& cmd->fd_out < 0 && cmd->only_vars)
-//		data->err = manage_errors(NULL, AMBRED, path);
+//		data->err_print = manage_errors(NULL, AMBRED, path);
 }
 
 /*
 **	Finds redirection tokens, stores them into the cmd structure.
 **	Opens the files pointed by the redirection tokens the way they have
 **	to be oppened, and stores their fds into the cmd structure.
-**	Fills data->err if there is any.
+**	Fills data->err_print if there is any.
 */
 
 int	parse_files(char *line, t_cmds *cmd, t_mini_data *data)
@@ -133,19 +133,19 @@ int	parse_files(char *line, t_cmds *cmd, t_mini_data *data)
 		return (0);
 	path = get_file_path(&line[i], data);
 	if (token == TOKHERE)
-		data->err = heredoc(data, &path);
+		data->err_print = heredoc(data, &path);
 	else
 		expand_path(&path, data);
-	if (data->err)
+	if (data->err_print)
 		return(0);
 	if (path[0] == '~')
 			path = add_home_to_path(data, path);
-	if (data->err)
+	if (data->err_print)
 		return (0);
 	open_file(token, path, cmd, data);
 	free(path);
 	path = NULL;
-	if (data->err)
+	if (data->err_print)
 		return (0);
 	return (1);
 }

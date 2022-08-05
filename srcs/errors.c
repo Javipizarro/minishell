@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 17:53:13 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/04 19:52:06 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/05 17:42:21 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,11 @@ int	set_error_exit(int error)
 
 int	manage_errors(char *cmd, int error, char *culprit)
 {
-	int	error_exit;
+//	int	error_exit;
 
 	print_error(cmd, error, culprit);
-//	set_builtin_exit_status(error);
-	error_exit = set_error_exit(error);
-//	return(error);
-	return(error_exit);
+	set_builtin_exit_status(error);
+	return(error);
+//	error_exit = set_error_exit(error);
+//	return(error_exit);
 }

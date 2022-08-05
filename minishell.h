@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/04 20:01:36 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/05 20:59:52 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,8 @@ typedef struct s_mini_data
 	char			*line;
 	t_cmds			*cmds;
 	int				cmd_num;
-	int				err;
+	int				err_print;
+	int				err_exit;
 	struct termios	termattr;
 }				t_mini_data;
 

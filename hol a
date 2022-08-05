@@ -1,0 +1,14 @@
+cmd = ls cmd->fd_in = -1
+cmd = ls cmd->fd_out = 3
+Makefile
+README.md
+builtins
+env
+hol a
+libft
+minishell
+minishell.h
+parse
+srcs
+text
+var

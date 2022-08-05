@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 14:06:26 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/03 19:16:20 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/05 19:45:39 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int	ch_home_dir(t_mini_data *data, char *new_wd)
 	if (!new_wd)
 		return(chdir(home[0]->var[1]));
 	abs_wd = ft_strjoin(home[0]->var[1], &new_wd[1]);
-	data->err = chdir(abs_wd);
+	data->err_print = chdir(abs_wd);
 	free(abs_wd);
 	abs_wd = NULL;
-	return (data->err);
+	return (data->err_print);
 }
 
 /*
@@ -50,15 +50,15 @@ int	cd(t_mini_data *data, char **cmd, pid_t pid)
 		return (CONTINUE);
 	cwd = getcwd(NULL, 0);
 	if (!cmd[1] || cmd[1][0] == '~')
-		data->err = ch_home_dir(data, cmd[1]);
+		data->err_print = ch_home_dir(data, cmd[1]);
 	else
-		data->err = chdir(cmd[1]);
-	if (!data->err)
+		data->err_print = chdir(cmd[1]);
+	if (!data->err_print)
 		set_env_value("OLDPWD", &cwd, data->env);
 	free (cwd);
-	if (data->err == HOMELESS)	
+	if (data->err_print == HOMELESS)	
 		return (manage_errors(cmd[0], HOMELESS, NULL));
-	if (data->err < 0)	
+	if (data->err_print < 0)	
 		return (manage_errors(cmd[0], NOTFILE, cmd[1]));	//Needs the culprit
 	cwd = getcwd(NULL, 0);
 	set_env_value("PWD", &cwd, data->env);

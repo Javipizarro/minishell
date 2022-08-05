@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:49:33 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/03 18:43:33 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/05 19:45:39 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,9 +145,9 @@ int	export(char **cmd, t_mini_data *data, pid_t pid)
 	{
 		while (cmd[++i])
 		{
-			data->err = export_env(cmd[i], &data->env);
-			if (data->err)
-				manage_errors(cmd[0], data->err, NULL);
+			data->err_print = export_env(cmd[i], &data->env);
+			if (data->err_print)
+				manage_errors(cmd[0], data->err_print, NULL);
 		}
 		reset_envp(data);
 	}	

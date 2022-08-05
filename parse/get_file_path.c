@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 12:20:24 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/21 13:35:56 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/05 19:45:39 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*get_file_path(char *line, t_mini_data *data)
 	path = ft_calloc(sizeof(char), i + 1);
 	ft_memcpy(path, line, i);
 	ft_memcpy(line, &line[i], ft_strlen(&line[i]) + 1);
-	if (data->err)
+	if (data->err_print)
 		return(path);
 	return(path);
 }

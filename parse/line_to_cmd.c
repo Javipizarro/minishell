@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:53:09 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/28 19:58:03 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/05 19:45:39 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,15 @@ void	line_to_cmds(t_mini_data *data, t_cmds	**cmd)
 		*cmd = new_cmd();
 		while(parse_files(line_cmds[i], *cmd, data))
 			continue;
-		if (data->err == AMBRED || data->err == NOTFILE)
+		if (data->err_print == AMBRED || data->err_print == NOTFILE)
 		{
 			cmd[0]->avoid = 1;
 			continue;
 		}
-		if (data->err)
+		if (data->err_print)
 			break;
 		parse_cmd(&line_cmds[i], *cmd, data);
-		if (data->err)
+		if (data->err_print)
 			break;
 		cmd = &cmd[0]->next;
 	}

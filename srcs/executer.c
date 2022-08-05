@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:23:54 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/04 19:50:54 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/05 19:45:39 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,25 +104,25 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 	i = 0;
 	while (cmds[0])
 	{
-		data->err = piper(*cmds);
-		if(data->err)
+		data->err_print = piper(*cmds);
+		if(data->err_print)
 			break;
 		pid = fork();
 		if (pid < 0)
 		{
-			data->err = manage_errors(NULL, FORKING, NULL);
+			data->err_print = manage_errors(NULL, FORKING, NULL);
 			break;
 		}
 		if (!pid)
-			data->err = set_inoutputs(cmds[0], i);
-		if(!data->err)
-			data->err = check_empty_cmd(cmds[0]);
-		if(!data->err)
-			data->err = builtiner(cmds[0]->cmd, data, pid);
-		if (!pid && !data->err)
-			data->err = external(cmds[0], data);
+			data->err_print = set_inoutputs(cmds[0], i);
+		if(!data->err_print)
+			data->err_print = check_empty_cmd(cmds[0]);
+		if(!data->err_print)
+			data->err_print = builtiner(cmds[0]->cmd, data, pid);
+		if (!pid && !data->err_print)
+			data->err_print = external(cmds[0], data);
 //////
-//		printf("-1:%i error = %i, g_exit_status = %i\n", i, data->err, g_exit_status);
+//		printf("-1:%i error = %i, g_exit_status = %i\n", i, data->err_print, g_exit_status);
 		close_fds(cmds[0], pid, i);
 		if (!pid)
 			exit_shell(data, NULL, pid);
@@ -133,36 +133,36 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 	while (++i < data->cmd_num)
 	{
 //////
-//		printf("0:%i error = %i, g_exit_status = %i\n", i, data->err, g_exit_status);
-//		if (!data->err)
+//		printf("0:%i error = %i, g_exit_status = %i\n", i, data->err_print, g_exit_status);
+//		if (!data->err_print)
 //		{
 //////
-//		printf("1:%i error = %i, g_exit_status = %i\n", i, data->err, g_exit_status);
+//		printf("1:%i error = %i, g_exit_status = %i\n", i, data->err_print, g_exit_status);
 
-			wait(&data->err);
-////
-			printf("data->err = %i\n", data->err);
-			set_exit_status(data->err);
+			wait(&data->err_print);
+////->
+			printf("data->err_print = %i\n", data->err_print);
+			set_exit_status(data->err_print);
 
 //////
-//		printf("1:%i error = %i, g_exit_status = %i\n", i, data->err, g_exit_status);
+//		printf("1:%i error = %i, g_exit_status = %i\n", i, data->err_print, g_exit_status);
 //		}
 //		else
 //		{
 //////
-//		printf("2:%i error = %i, g_exit_status = %i\n", i, data->err, g_exit_status);
-//			wait(&data->err);
+//		printf("2:%i error = %i, g_exit_status = %i\n", i, data->err_print, g_exit_status);
+//			wait(&data->err_print);
 //////
-//		printf("2:%i error = %i, g_exit_status = %i\n", i, data->err, g_exit_status);
+//		printf("2:%i error = %i, g_exit_status = %i\n", i, data->err_print, g_exit_status);
 //		}
-//		printf("data->err after wait = %i\n", data->err);
-//		if (data->err == 2)
-//			data->err = manage_errors(NULL, CMD_INTER, NULL);
-//		else if (data->err < CMD_INTER)
-//			data->err = manage_errors(NULL, data->err, NULL);
+//		printf("data->err_print after wait = %i\n", data->err_print);
+//		if (data->err_print == 2)
+//			data->err_print = manage_errors(NULL, CMD_INTER, NULL);
+//		else if (data->err_print < CMD_INTER)
+//			data->err_print = manage_errors(NULL, data->err_print, NULL);
 //		else
-//			data->err = manage_errors(NULL, data->err / 256, NULL);
-//		if (data->err == 256)
+//			data->err_print = manage_errors(NULL, data->err_print / 256, NULL);
+//		if (data->err_print == 256)
 //			g_exit_status = 1;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/05 20:59:52 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/06 18:40:35 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,10 @@ int		external(t_cmds *cmd, t_mini_data *data);
 char	*extract_env_var_name(char *line, int pos);
 char	*get_file_path(char *line, t_mini_data *data);
 void	free_cmds(t_cmds **cmds);
+void	free_stuff(t_mini_data *data);
 int		heredoc(t_mini_data *data, char *path[]);
 void 	init_mini_data(t_mini_data *data);
+void	kill_son(t_mini_data *data);
 void	line_to_cmds(t_mini_data *data, t_cmds	**cmd);
 int		manage_errors(char *cmd_name, int error, char *culprit);
 int		parse_files(char *line, t_cmds *cmd, t_mini_data *data);

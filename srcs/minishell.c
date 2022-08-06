@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/05 19:45:39 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/06 18:48:18 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ Cambiar los write por ft_putstr_fd
 */
 
 /*Tests to pass:
+export con variable empezando por n'umero -> not valid iden
+investigar para qué y cómo estoy usando el KEEPGESTAT
 ls | no ##
 no | ls ##
 $HOME hola ## is a directory

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 17:53:13 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/05 17:42:21 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/06 19:17:00 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,30 +94,53 @@ void	print_error(char *cmd_name, int error, char *culprit)
 	write(2, "\n", 1);
 }
 
-int	set_error_exit(int error)
+/*
+**	Returns the 'err_exit' value depending on the 'err_print' one.
+**	'err_exit' is the error value that a process will return when exeuted
+**	by the execve() function.
+*/
+
+int	set_error_exit(int err_print)
 {
-	if (error == CONTINUE)
+	if (!err_print)
 		return (0);
-	else if (error >= QUOTERR && error <= TOOMARG)
-		return (CMDPROB);
-	else
-		return (error);
+	if (err_print == CONTINUE)
+		return (128);
+	else if (err_print == CMDINTERR)
+		return (2);
+	else if (err_print == CMDERR)
+		return (127 * 256);
+	else if (err_print == NOINTARG)
+		return (255 * 256);
+//	else if (err_print == QUOTERR || err_print == TOKERR || err_print == AMBRED
+//	|| err_print == NOTFILE || err_print == PIPING || err_print == DUPING
+//	|| err_print == FORKING || err_print == IDENERR || err_print == HOMELESS
+//	|| err_print == TOOMARG)
+
+	return (256);
 }
 
 
 
 /*
 **	Manages the errors printing the corresponding message and setting the
-**	g_exit_status global varible.
+**
 */
 
-int	manage_errors(char *cmd, int error, char *culprit)
+int	manage_errors(char *cmd, int err_print, char *culprit)
 {
-//	int	error_exit;
+	int	err_exit;
+	
+(void)cmd;
+(void)culprit;
 
-	print_error(cmd, error, culprit);
-	set_builtin_exit_status(error);
-	return(error);
-//	error_exit = set_error_exit(error);
-//	return(error_exit);
+//	perror("error");
+	print_error(cmd, err_print, culprit);
+//	set_builtin_exit_status(error);
+//	return(error);
+	err_exit = set_error_exit(err_print);
+	printf("ERROR: %d\n", err_exit);
+//////
+//	printf("err_exit returne by manage_errors = %i\n", err_exit);
+	return(err_exit);
 }

@@ -6,68 +6,11 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:27:22 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/04 20:00:50 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/06 18:36:34 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-/*
-**	Liberates the cmds chain.
-*/
-
-void	free_cmds(t_cmds **cmds)
-{
-	if (cmds[0]->next)
-		free_cmds(&cmds[0]->next);
-	if (cmds[0]->cmd)
-		ft_free_split(cmds[0]->cmd);
-	if (cmds[0]->fd_in == NOSET)
-		close(cmds[0]->pipe[IN]);
-	if (cmds[0]->fd_in == NOSET)
-		close(cmds[0]->pipe[OUT]);
-	if (cmds[0]->fd_in >= 0)
-		close(cmds[0]->fd_in);
-	if (cmds[0]->fd_out >= 0)
-		close(cmds[0]->fd_out);
-	cmds[0]->tok_in = 0;
-	cmds[0]->tok_out = 0;
-	free(cmds[0]);
-	cmds[0] = NULL;
-}
-
-/*
-**	Liberates the env chain.
-*/
-
-void	free_env(t_env **env)
-{
-	if (env[0]->next)
-		free_env(&env[0]->next);
-	ft_free_split(env[0]->var);
-	free(env[0]);
-	env[0] = NULL;
-}
-
-/*
-**	Frees everything to exit without leaks.
-*/
-
-void	free_stuff(t_mini_data *data)
-{
-	if (data->line)
-	{
-		free(data->line);
-		data->line = NULL;
-	}
-	if (data->cmds)
-		free_cmds(&data->cmds);
-	ft_free_split(data->envp);
-	data->envp = NULL;
-	rl_clear_history();
-	free_env(&data->env);
-
-}
 
 /*
 **	Checks whether the exit arguments are correct and whether according to
@@ -104,13 +47,14 @@ int	process_exit_arguments(char **cmd)
 
 int	exit_shell(t_mini_data *data, char **cmd, pid_t pid) //redo it
 {
-	if (!pid)
-	{
+//	if (!pid)
+//	{
 //		if (data->cmd_num > 1)
-//			data->err = KEEPGESTAT;
-		free_stuff(data);
-		exit(g_exit_status);
-	}
+//			data->err_exit = KEEPGESTAT;
+//		free_stuff(data);
+//		return(data->err_exit);
+//		//exit(data->err_exit);
+//	}
 	if (pid && cmd && cmd[0] && data->cmd_num == 1)
 		write(2, "exit\n", 5);
 	if (pid && cmd && cmd[0] && process_exit_arguments(cmd))

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:49:33 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/10 18:04:06 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/16 13:42:35 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int	export(char **cmd, t_mini_data *data, pid_t pid)
 	int	var_error;
 
 	i = 0;
-	var_error = 0;
+	var_error = CONTINUE;
 	if (!cmd[1] && !pid)
 	{
 		arrange_n_print(&data->env);

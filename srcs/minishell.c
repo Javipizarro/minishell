@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/06 18:48:18 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/16 18:23:44 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,23 +69,18 @@ Cambiar los write por ft_putstr_fd
 */
 
 /*Tests to pass:
-export con variable empezando por n'umero -> not valid iden
-investigar para qué y cómo estoy usando el KEEPGESTAT
-ls | no ##
-no | ls ##
-$HOME hola ## is a directory
-Figure out whrere the 13 error comes from
+cmd > notfile ## g_exit -> 1
 export var="text -la" ;  ls > $var ## should show an ambiguous redirection
-verificar las variables con espacios, a lo mejor hay que rodearlas con "" o ''
-ctrl \ echar un ojo, no está funcionando
-echo does not reset the exit_status
-echar un vistazo a https://man7.org/linux/man-pages/man2/waitpid.2.html y reescribir como los built-in salen.
-signal_handler en HEREDOC debe volver a General o a EXEC
 revisar ambiguous redirect  export var="hol a"; ls > $var
-ls | > text ## da too many arg, no deber'ia dar error por comando vacío
+verificar las variables con espacios, a lo mejor hay que rodearlas con "" o ''
 
 
 Resueltos:
+ls | no ## g_exit == 1
+no | ls ## g_exit == 0
+ls | > text ## da too many arg, no deber'ia dar error por comando vacío
+$HOME hola ## is a directory -> error 126
+export con variable empezando por n'umero -> not valid iden
 export "" OR export $ ## not a valid identifier
 Look over the g_exit_status, when it changes to 1, does't return to 0 after a correct command
 export no debe cortar al no encontrar una variable, cambiar el sistema de errores.

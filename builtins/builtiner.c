@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 12:10:43 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/10 17:23:38 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/16 15:11:34 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	builtiner(char **cmd, t_mini_data *data, pid_t pid)
 		return (exit_shell(data, cmd, pid));
 	else if (!ft_strcmp(cmd[0], "export"))
 		return (export(cmd, data, pid));
-	else if (!ft_strcmp(cmd[0], "pwd"))
+	else if (!ft_strcmp(cmd[0], "pwd") || !ft_strcmp(cmd[0], "/bin/pwd" ))
 		return(pwd(cmd, pid));
 	else if (!ft_strcmp(cmd[0], "unset"))
 		return (unset(cmd, data, pid));

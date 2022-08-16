@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:23:54 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/10 18:43:38 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/16 14:38:31 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 			data->err_exit = check_empty_cmd(cmds[0]);
 		if(!data->err_exit)
 			data->err_exit = builtiner(cmds[0]->cmd, data, pid);
+
 		if (!pid && !data->err_exit)
 		{
 			printf("Soy un externo\n");

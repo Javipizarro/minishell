@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/10 17:42:55 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/16 19:03:24 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ unsigned char	g_exit_status;
 #define IDENERR 10
 #define	HOMELESS 11
 #define TOOMARG 12
+#define ISDIRFILE 13
+#define ISDIRCMD 126
 #define CMDERR 127
 #define CMD_INTER 130
 #define NOINTARG 255
@@ -119,6 +121,7 @@ void	turn_off_echoctl(void);
 t_env	*add_env_link(char **env_var, int definition);
 int		builtiner(char **cmd, t_mini_data *data, pid_t pid);
 int		cd(t_mini_data *data, char **cmd, pid_t pid);
+int		chek_dir(char *path);
 int		check_open_quotes(char *line);
 int		echo(char **cmd, pid_t pid);
 int		env(char **envp, pid_t pid);
@@ -126,7 +129,7 @@ void	erase_quotes(char *line);
 void	executer(t_mini_data *data, t_cmds **cmds);
 int		exit_shell(t_mini_data *data, char **cmd, pid_t pid);
 int		expand_env_var(char **line, int *i, t_env **env);
-int		expand_var(char **line, int *pos, const char *var_name, t_env *env);
+char	*expand_var(char **line, int *pos, const char *var_name, t_env *env);
 int		export(char **cmd, t_mini_data *data, pid_t pid);
 int		export_env(char *env_var, t_env **env);
 int		external(t_cmds *cmd, t_mini_data *data);

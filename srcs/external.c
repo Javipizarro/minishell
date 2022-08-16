@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:37:10 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/06 19:17:29 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/16 17:35:58 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,29 +74,17 @@ char	*get_cmd_path(char *cmd, t_mini_data *data)
 {
 	int		i;
 	char	**system_paths;
-//	char	*cwd;
 	char 	*path;
 
 
-	if (cmd[0] == '.')
+	if (cmd[0] == '.' || cmd[0] == '/')
 	{
 		path = (test_path(NULL, cmd));
-//////			
-//			printf("path after test_path(NULL, cmd) = %s\n", path);
-
 		if (path)
 			return (path);
 		data->err_print = manage_errors(NULL, NOTFILE, cmd);
 		return (NULL);
 	}
-//	cwd = getcwd(NULL, 0);	
-//	path = test_path(cwd,cmd);
-//////		
-//		printf("path after test_path(cwd, cmd) = %s\n", path);
-//	free(cwd);
-//	cwd = NULL;
-//	if (path)
-//		return (path);
 	i = -1;
 	system_paths = get_system_paths(data->env);
 	if (!system_paths)
@@ -122,6 +110,8 @@ int	external(t_cmds *cmd, t_mini_data *data)
 {
 	char	*path;
 	
+	if (chek_dir(cmd->cmd[0]))
+		return(manage_errors(NULL, ISDIRCMD, cmd->cmd[0]));
 	path = get_cmd_path(cmd->cmd[0], data);
 	if (data->err_print)
 		return (CMDERR);

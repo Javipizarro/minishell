@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 17:53:13 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/10 19:33:20 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/16 18:45:49 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ char	*select_main_msg(int error)
 		return ("numeric argument required");
 	else if (error == TOOMARG)
 		return ("too many arguments");
+	else if (error == ISDIRCMD || error == ISDIRFILE)
+		return ("is a directory");
 	return (NULL);
 }
 
@@ -96,6 +98,8 @@ int	set_error_exit(int err_print)
 		return (CMDINTERR);
 	else if (err_print == NOINTARG)
 		return (NOINTARG);
+	else if (err_print == ISDIRCMD)
+		return (ISDIRCMD);
 //	else if (err_print == QUOTERR || err_print == TOKERR || err_print == AMBRED
 //	|| err_print == NOTFILE || err_print == PIPING || err_print == DUPING
 //	|| err_print == FORKING || err_print == IDENERR || err_print == HOMELESS

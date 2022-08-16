@@ -6,28 +6,12 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 17:53:13 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/06 19:17:00 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/10 19:33:20 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
-/*
-**	Sets the global variable g_exit_status according to the error found if any.
-*/
-//// Esta puede desaparecer
-void	set_builtin_exit_status(int error)
-{
-	if (error == KEEPGESTAT)
-		return;
-	else if (!error || error == CONTINUE)
-		g_exit_status = 0;
-	else if (error < 100)
-		g_exit_status = 1;
-	else
-		g_exit_status = error;
-}
 
 /*
 **	Depending on the error received, it returns the main part of the message
@@ -105,42 +89,31 @@ int	set_error_exit(int err_print)
 	if (!err_print)
 		return (0);
 	if (err_print == CONTINUE)
-		return (128);
-	else if (err_print == CMDINTERR)
-		return (2);
+		return (CONTINUE);
 	else if (err_print == CMDERR)
-		return (127 * 256);
+		return (CMDERR);
+	else if (err_print == CMDINTERR)
+		return (CMDINTERR);
 	else if (err_print == NOINTARG)
-		return (255 * 256);
+		return (NOINTARG);
 //	else if (err_print == QUOTERR || err_print == TOKERR || err_print == AMBRED
 //	|| err_print == NOTFILE || err_print == PIPING || err_print == DUPING
 //	|| err_print == FORKING || err_print == IDENERR || err_print == HOMELESS
 //	|| err_print == TOOMARG)
-
-	return (256);
+	return (1);
 }
 
 
 
 /*
 **	Manages the errors printing the corresponding message and setting the
-**
 */
 
 int	manage_errors(char *cmd, int err_print, char *culprit)
 {
 	int	err_exit;
 	
-(void)cmd;
-(void)culprit;
-
-//	perror("error");
 	print_error(cmd, err_print, culprit);
-//	set_builtin_exit_status(error);
-//	return(error);
 	err_exit = set_error_exit(err_print);
-	printf("ERROR: %d\n", err_exit);
-//////
-//	printf("err_exit returne by manage_errors = %i\n", err_exit);
 	return(err_exit);
 }

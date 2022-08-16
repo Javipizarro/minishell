@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:23:54 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/06 18:53:57 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/10 18:43:38 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 		}
 		if (!pid)
 			data->err_exit = set_inoutputs(cmds[0], i);
+////	Figure out if check_empty_cmd is needed.			
 		if(!data->err_exit)
 			data->err_exit = check_empty_cmd(cmds[0]);
 		if(!data->err_exit)
@@ -125,26 +126,14 @@ void	executer(t_mini_data *data, t_cmds	**cmds)
 			data->err_exit = external(cmds[0], data);
 		}
 		close_fds(cmds[0], pid, i);
-		if(!pid)
-			kill_son(data);
-
-//		if (!pid)
-//			exit_shell(data, NULL, pid);
-
+		kill_son(data, pid);
 		cmds = &cmds[0]->next;
 		i++;
 	}
 	i = -1;
 	while (++i < data->cmd_num)
 	{
-
 			wait(&data->err_exit);
-//////
-//			perror("perror dice: ");
-//			printf("data->err_exit after wait = %i\n", data->err_exit);
 			set_exit_status(data->err_exit);
-//////
-//			printf("g_exit_status after set_exit_status = %i\n", data->err_exit);
-
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:49:33 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/06 19:26:41 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/10 18:04:06 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int	export_env(char *var_def, t_env **env)
 	char	**env_var;
 
 	i = -1;
-	if (!var_def[0] || var_def[0] == '=' || !ft_strcmp("$", var_def))
+	if (!var_def[0] || var_def[0] == '=' || !ft_strcmp("$", var_def)
+	|| ft_isdigit(var_def[0]))
 		return (IDENERR);
 	while (var_def[++i] && (ft_isalnum(var_def[i]) || var_def[i] == '_'))
 		continue;
@@ -146,12 +147,12 @@ int	export(char **cmd, t_mini_data *data, pid_t pid)
 		arrange_n_print(&data->env);
 		return(manage_errors(cmd[0], CONTINUE, NULL));
 	}
-	else if (cmd[1] && pid)
+	else if (cmd[1])
 	{
 		while (cmd[++i])
 		{
 			data->err_print = export_env(cmd[i], &data->env);
-			if (data->err_print)
+			if (data->err_print && !pid)
 				var_error = manage_errors(cmd[0], data->err_print, cmd[i]);
 		}
 		reset_envp(data);

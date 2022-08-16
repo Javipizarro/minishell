@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:38:01 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/06 18:40:35 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:42:55 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ unsigned char	g_exit_status;
 #define	TOKHERE '<' + 1
 #define TOKAPPN '>' + 1
 
-#define CONTINUE 1
+//#define KEEPGESTAT -1
+//#define CONTINUE 1
 #define CMDINTERR 2
 #define QUOTERR 3
 #define TOKERR 4
@@ -60,13 +61,12 @@ unsigned char	g_exit_status;
 #define IDENERR 10
 #define	HOMELESS 11
 #define TOOMARG 12
-#define KEEPGESTAT 14
-//#define CMDERR 127
-#define CMDERR 32512
-//#define CMD_INTER 130
+#define CMDERR 127
+#define CMD_INTER 130
 #define NOINTARG 255
+#define CONTINUE 256
 ////
-#define CMDPROB 256
+//#define CMDPROB 256
 
 #define	IN 1
 #define	OUT 0
@@ -137,7 +137,7 @@ void	free_cmds(t_cmds **cmds);
 void	free_stuff(t_mini_data *data);
 int		heredoc(t_mini_data *data, char *path[]);
 void 	init_mini_data(t_mini_data *data);
-void	kill_son(t_mini_data *data);
+void	kill_son(t_mini_data *data, pid_t pid);
 void	line_to_cmds(t_mini_data *data, t_cmds	**cmd);
 int		manage_errors(char *cmd_name, int error, char *culprit);
 int		parse_files(char *line, t_cmds *cmd, t_mini_data *data);

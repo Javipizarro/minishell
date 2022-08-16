@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 19:31:20 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/03 19:15:34 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:48:38 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	echo(char **cmd, pid_t pid)
 	char	flag;
 
 	if (pid)
-		return (manage_errors(cmd[0], CONTINUE, NULL));
+		return (CONTINUE);
 	i = 0;
 	flag = 0;
 	while (is_a_n_flag(cmd[++i]))
@@ -57,5 +57,5 @@ int	echo(char **cmd, pid_t pid)
 	}
 	if (!flag)
 		write(STDOUT_FILENO, "\n", 1);
-	return (manage_errors(cmd[0], CONTINUE, NULL));
+	return (CONTINUE);
 }

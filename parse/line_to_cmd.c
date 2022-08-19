@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 10:53:09 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/16 18:37:59 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/19 18:28:49 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 **	Returns a pointer to it.
 */
 
-t_cmds	*new_cmd()
+t_cmds	*new_cmd(void)
 {
 	t_cmds	*new;
 
@@ -42,7 +42,7 @@ t_cmds	*new_cmd()
 
 char	**split_by_pipes(char *line)
 {
-	int i;
+	int		i;
 	char	quo;
 
 	i = -1;
@@ -63,7 +63,7 @@ char	**split_by_pipes(char *line)
 
 void	line_to_cmds(t_mini_data *data, t_cmds	**cmd)
 {
-	int	i;
+	int		i;
 	char	**line_cmds;
 
 	line_cmds = split_by_pipes(data->line);
@@ -72,20 +72,18 @@ void	line_to_cmds(t_mini_data *data, t_cmds	**cmd)
 	{
 		data->cmd_num++;
 		*cmd = new_cmd();
-		while(!parse_files(line_cmds[i], *cmd, data))
-			continue;
+		while (!parse_files(line_cmds[i], *cmd, data))
+			continue ;
 		if (data->err_print == AMBRED || data->err_print == NOTFILE
-		|| data->err_print == ISDIRFILE)
+			|| data->err_print == ISDIRFILE)
 		{
 			set_exit_status(256);
 			cmd[0]->avoid = 1;
-			continue;
+			continue ;
 		}
-		else if (data->err_print)
-			break;
 		parse_cmd(&line_cmds[i], *cmd, data);
 		if (data->err_print)
-			break;
+			break ;
 		cmd = &cmd[0]->next;
 	}
 	ft_free_split(line_cmds);

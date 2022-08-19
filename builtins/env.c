@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 13:44:43 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/10 17:45:31 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/19 18:54:57 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int	env(char **envp, pid_t pid)
 {
-	int i;
+	int	i;
 
 	if (pid)
 		return (CONTINUE);
@@ -29,5 +29,5 @@ int	env(char **envp, pid_t pid)
 		write(STDOUT_FILENO, "\n", 1);
 		i++;
 	}
-	return(CONTINUE);
+	return (CONTINUE);
 }

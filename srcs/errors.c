@@ -6,17 +6,25 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 17:53:13 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/16 18:45:49 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/19 16:15:05 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
 /*
-**	Depending on the error received, it returns the main part of the message
+**	Depending on the error received, they return the main part of the message
 **	to print as an error.
 */
+
+char	*select_main_msg2(int error)
+{
+	if (error == ISDIRCMD)
+		return ("is a directory");
+	else if (error == ISDIRFILE)
+		return ("Is a directory");
+	return (NULL);
+}
 
 char	*select_main_msg(int error)
 {
@@ -44,9 +52,7 @@ char	*select_main_msg(int error)
 		return ("numeric argument required");
 	else if (error == TOOMARG)
 		return ("too many arguments");
-	else if (error == ISDIRCMD || error == ISDIRFILE)
-		return ("is a directory");
-	return (NULL);
+	return (select_main_msg2(error));
 }
 
 /*
@@ -58,10 +64,10 @@ void	print_error(char *cmd_name, int error, char *culprit)
 	char	*main_msg;
 
 	if (!error || error == CONTINUE)
-		return;
+		return ;
 	main_msg = select_main_msg(error);
 	if (!main_msg)
-		return;
+		return ;
 	write(2, SHNAME, ft_strlen(SHNAME));
 	write(2, ": ", 2);
 	if (cmd_name && cmd_name[0])
@@ -100,14 +106,8 @@ int	set_error_exit(int err_print)
 		return (NOINTARG);
 	else if (err_print == ISDIRCMD)
 		return (ISDIRCMD);
-//	else if (err_print == QUOTERR || err_print == TOKERR || err_print == AMBRED
-//	|| err_print == NOTFILE || err_print == PIPING || err_print == DUPING
-//	|| err_print == FORKING || err_print == IDENERR || err_print == HOMELESS
-//	|| err_print == TOOMARG)
 	return (1);
 }
-
-
 
 /*
 **	Manages the errors printing the corresponding message and setting the
@@ -116,8 +116,8 @@ int	set_error_exit(int err_print)
 int	manage_errors(char *cmd, int err_print, char *culprit)
 {
 	int	err_exit;
-	
+
 	print_error(cmd, err_print, culprit);
 	err_exit = set_error_exit(err_print);
-	return(err_exit);
+	return (err_exit);
 }

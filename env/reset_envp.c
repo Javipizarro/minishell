@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/07 20:31:23 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/14 20:01:59 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/19 18:33:32 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int	count_env(t_env **env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (env[0] && ++i)
@@ -60,7 +60,7 @@ void	reset_envp(t_mini_data *data)
 		ft_free_split(data->envp);
 	i = 0;
 	env_quan = count_env(&data->env);
-	data->envp = ft_calloc(sizeof(char**), env_quan + 1);
+	data->envp = ft_calloc(sizeof(char **), env_quan + 1);
 	env_var = data->env;
 	while (i < env_quan && env_var)
 	{

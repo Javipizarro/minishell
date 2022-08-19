@@ -6,12 +6,11 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 19:31:20 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/10 17:48:38 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/19 18:55:28 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 /*
 **	Recognizes whether the 'str' string refers to a 'n' flag or it's a
@@ -21,7 +20,7 @@
 
 int	is_a_n_flag(char *str)
 {
-	int i;
+	int	i;
 
 	if (!str || str[0] != '-')
 		return (0);
@@ -40,7 +39,7 @@ int	is_a_n_flag(char *str)
 
 int	echo(char **cmd, pid_t pid)
 {
-	int	i;
+	int		i;
 	char	flag;
 
 	if (pid)

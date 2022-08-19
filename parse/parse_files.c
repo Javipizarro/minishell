@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:36:05 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/16 19:36:13 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/19 18:05:13 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,42 +36,43 @@ char	*add_home_to_path(t_mini_data *data, char *path)
 }
 
 /*
+**	Manages the exit of the expand_path in the case of an ambiguous redirection.
+*/
+
+int	amb_rd(t_mini_data *data, char **var_to_expand, char **var_val, char **path)
+{
+	data->err_print = manage_errors(NULL, AMBRED, *var_to_expand);
+	set_exit_status(256);
+	free(*var_to_expand);
+	free(*var_val);
+	free(*path);
+	return (1);
+}
+
+/*
 **	Expands the variables in path, and verifies whether everything is correct.
 */
 
 int	expand_path(char **path, t_mini_data *data)
 {
-	int	i;
+	int		i;
 	char	quo;
 	char	*var_to_expand;
 	char	*var_val;
-	
+
 	i = -1;
 	quo = 0;
 	while (path[0][++i])
 	{
 		quotes_status(path[0][i], &quo);
 		if (quo == '\'')
-			continue;
+			continue ;
 		if (path[0][i] == '$')
 		{
 			var_to_expand = extract_env_var_name(*path, i);
 			var_val = expand_var(path, &i, var_to_expand, data->env);
-		//////
-		//	printf("despues de expand_var\n");
-		//	sleep(10);
 			if (!var_val || !var_val[0] || (ft_charpos(var_val, ' ') && !quo))
-			{
-				data->err_print = manage_errors(NULL, AMBRED, var_to_expand);
-				set_exit_status(256);
-				free(var_to_expand);
-				free(var_val);
-		////
-		//	printf("despues de expand_var\n");
-		//	sleep(10);
-
-				return (1);
-			}
+				return (amb_rd(data, &var_to_expand, &var_val, path));
 			free(var_to_expand);
 			free(var_val);
 			i--;
@@ -103,7 +104,7 @@ void	open_file(char token, char *path, t_cmds *cmd, t_mini_data *data)
 	if (token == TOKIN && cmd->fd_in < 0)
 		data->err_print = manage_errors(NULL, NOTFILE, path);
 	else if ((token == TOKOUT || token == TOKAPPN)
-	&& cmd->fd_out < 0)
+		&& cmd->fd_out < 0)
 		data->err_print = manage_errors(NULL, NOTFILE, path);
 }
 
@@ -116,46 +117,24 @@ void	open_file(char token, char *path, t_cmds *cmd, t_mini_data *data)
 
 int	parse_files(char *line, t_cmds *cmd, t_mini_data *data)
 {
-	int i;
-	char	quo;
+	int		i;
 	char	token;
 	char	*path;
 
-	i = -1;
-	quo = 0;
-	path = NULL;
-	token = 0;
-	while (line[++i])
-	{
-		quotes_status(line[i], &quo);
-		if (quo)
-			continue;
-		if (line[i] == '<' || line[i] == '>')
-			token = tokenizer(&line[i], cmd);
-		if (token)
-			break;
-	}
-	if (!token)
+	if (!next_token(line, cmd, &token, &i))
 		return (1);
 	path = get_file_path(&line[i], data);
 	if (token == TOKHERE)
 		data->err_print = heredoc(data, &path);
 	else if (expand_path(&path, data))
-	{
-		free(path);
 		return (1);
-	}
-//	if (data->err_print)
-//		return(1);
 	if (path[0] == '~')
 			path = add_home_to_path(data, path);
-//	if (data->err_print)
-//		return (1);
 	if (chek_dir(path))
 	{
 		data->err_print = ISDIRFILE;
 		free(path);
-		return(manage_errors(NULL, ISDIRFILE, path));
+		return (manage_errors(NULL, ISDIRFILE, path));
 	}
 	open_file(token, path, cmd, data);
 	free(path);

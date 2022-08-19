@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:34:33 by mtorrado          #+#    #+#             */
-/*   Updated: 2022/08/16 17:35:51 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/19 16:16:11 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	chek_dir(char *path)
 	if (!lstat(path, &info))
 	{
 		if (S_ISDIR(info.st_mode))
-			return(1);
+			return (1);
 	}
-	return(0);
+	return (0);
 }

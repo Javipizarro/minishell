@@ -6,11 +6,15 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 06:37:03 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/16 18:23:44 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/19 14:36:13 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+/*
+**	Manages the Crl + D signal.
+*/
 
 void	ctrl_d(t_mini_data *data)
 {
@@ -36,6 +40,9 @@ void	reset_data(t_mini_data *data)
 	data->err_print = 0;
 }
 
+/*
+**	Initializes the minishell and runs the main loop.
+*/
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -47,7 +54,7 @@ int	main(int argc, char *argv[], char *envp[])
 	set_env_list(envp, &data);
 	backup_termattr(&data.termattr);
 	signal_handler(&data, GENERAL, 0);
-	while(1)
+	while (1)
 	{
 		reset_data(&data);
 		data.line = readline(SHNAME "> " );
@@ -61,74 +68,5 @@ int	main(int argc, char *argv[], char *envp[])
 			signal_handler(&data, GENERAL, 0);
 		}
 	}
-	return(0);
+	return (0);
 }
-
-/*
-Cambiar los write por ft_putstr_fd
-*/
-
-/*Tests to pass:
-cmd > notfile ## g_exit -> 1
-export var="text -la" ;  ls > $var ## should show an ambiguous redirection
-revisar ambiguous redirect  export var="hol a"; ls > $var
-verificar las variables con espacios, a lo mejor hay que rodearlas con "" o ''
-
-
-Resueltos:
-ls | no ## g_exit == 1
-no | ls ## g_exit == 0
-ls | > text ## da too many arg, no deber'ia dar error por comando vacío
-$HOME hola ## is a directory -> error 126
-export con variable empezando por n'umero -> not valid iden
-export "" OR export $ ## not a valid identifier
-Look over the g_exit_status, when it changes to 1, does't return to 0 after a correct command
-export no debe cortar al no encontrar una variable, cambiar el sistema de errores.
-unset leaves leaks
-export var ## leaks
-ls | nocmd | wc ## Should show:	0	0	0
-"" OR $ ## command not found
-export | wc ## no funciona
-cd $HOME/Documents  ## needs to go to Users/(user)/Documents
-ls > "" ## No such file or directory
-export a=""; ls > $a ## ambiguous redirect
-ls > $ ## creates a file "$" and fills it with the ls
-$not_defined_var ## nothing, just a new line
-echo bonjour > $test ## var test not defined -> ambiguous redirect
-file_name_in_current_dir ## with a file named file_name_in_current_dir -> command not found
-export var ="cat Makefile | grep >"  ##  should export var and export ="cat Makefile | grep >" -> not a valid identifier
-cat algo_que_no_exista ## should yield a $? == 1
-Incluir la parte de la línea que causó el error.
-Ctrl + D  ## must print the exit word in the same line, when it's empty
-Ctrl + C  ## do not print ^C but when a command is active it does, unless it is in heredoc.
-exit hola ## should print a "numeric argument required" and yield a $? == 255
-exit -10 ## shouldn't print anything and yield a $? == 246
-exit +10 ## shouldn't print anything and yield a $? == 10
-cd a b c d  ## should print a: No such file or directory
-Ctrl + C (with something written) ## shoudn't print ^C (not very important);
-exit 0 | exit 1 ## Should yield a $? == 1 (not exiting)
-exit 1 | exit 0 ## Should yield a $? == 0 (not exiting)
-echo hola | cd .. ## cd should not change directory when piped
-$% ## should print $%
-$^ ## should print $^
-echo $var"algo" ## debe imprimir el contenido de la variable y algo detrás
-export var="ls | grep mini" ## ejecutar $var
-export var="ls -la" ; $var ## should execute ls with -la as an argument
-ls -la >text | grep mini | wc ## para solucionarlo abrir pipe para que lea el siguiente comando
-Hacer HOME a partir de PWD
-*/
-
-
-/* More stuff:
-Check wheter the built-ins support absolute path
-
-try to perform the heredoc on a pipe instead of on a file
-
-manage $? on every cmd execution
-
-print the error on the execution of the cmd not at the end of then all
-
-show the cause of an error when printing it:
-	-when command not found:
-	-when not a file or directory
-*/

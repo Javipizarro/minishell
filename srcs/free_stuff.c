@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 18:37:02 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/06 18:37:37 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/19 14:48:58 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@ void	free_cmds(t_cmds **cmds)
 		free_cmds(&cmds[0]->next);
 	if (cmds[0]->cmd)
 		ft_free_split(cmds[0]->cmd);
-	// if (cmds[0]->fd_in == PIPED)
-	// 	close(cmds[0]->pipe[IN]);
-	// if (cmds[0]->fd_out == PIPED)
-	// 	close(cmds[0]->pipe[OUT]);
 	if (cmds[0]->fd_in >= 0)
 		close(cmds[0]->fd_in);
 	if (cmds[0]->fd_out >= 0)
@@ -66,5 +62,4 @@ void	free_stuff(t_mini_data *data)
 	data->envp = NULL;
 	rl_clear_history();
 	free_env(&data->env);
-
 }

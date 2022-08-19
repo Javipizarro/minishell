@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 16:51:09 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/16 19:13:18 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/19 18:07:41 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 void	expand_vars(char **line, t_env *env)
 {
-	int i;
+	int		i;
 	char	quo;
 	char	*var_to_expand;
 
@@ -29,7 +29,7 @@ void	expand_vars(char **line, t_env *env)
 	{
 		quotes_status(line[0][i], &quo);
 		if (quo == '\'')
-			continue;
+			continue ;
 		if (line[0][i] == '$')
 		{
 			var_to_expand = extract_env_var_name(*line, i);
@@ -46,21 +46,20 @@ void	expand_vars(char **line, t_env *env)
 
 void	spaces_to_31(char *line)
 {
-	int	i;
+	int		i;
 	char	quo;
 
 	i = -1;
 	quo = 0;
-	while(line[++i])
+	while (line[++i])
 	{
 		quotes_status(line[i], &quo);
 		if (quo)
-			continue;
+			continue ;
 		if (line[i] == ' ')
 			line[i] = 31;
 	}
 }
-
 
 /*
 **	Receives the cmd stripped of files redirections, spands it, stripts it
@@ -69,7 +68,7 @@ void	spaces_to_31(char *line)
 
 void	parse_cmd(char **line, t_cmds *cmd, t_mini_data *data)
 {
-	int i;
+	int	i;
 
 	trim_spaces(*line);
 	expand_vars(line, data->env);

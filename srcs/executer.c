@@ -6,12 +6,11 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:23:54 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/16 14:38:31 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/19 19:32:10 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 /*
 **	Checks whether the command is empty and returns a corresponding error to
@@ -70,25 +69,19 @@ int	set_inoutputs(t_cmds *cmd, int i)
 }
 
 /*
-**	Closes the fds that are not needed anymore.
+**
 */
 
-void	close_fds(t_cmds *cmd, pid_t pid, int i)
+void	execute_cmd(t_mini_data *data, t_cmds **cmds, pid_t pid, int i)
 {
-	if (i)
-		close(cmd->pipe[OUT]);
-	if (cmd->next)
-		close(cmd->next->pipe[IN]);
-	if (cmd->next && !pid)
-		close(cmd->next->pipe[OUT]);
-	if (cmd->fd_in >= 0)
-	{
-		if (cmd->tok_in == TOKHERE && pid)
-			unlink(".heredoc");
-		close(cmd->fd_in);
-	}
-	if (cmd->fd_out >= 0)
-		close(cmd->fd_out);
+	if (!pid)
+		data->err_exit = set_inoutputs(cmds[0], i);
+	if (!data->err_exit)
+		data->err_exit = check_empty_cmd(cmds[0]);
+	if (!data->err_exit)
+		data->err_exit = builtiner(cmds[0]->cmd, data, pid);
+	if (!pid && !data->err_exit)
+		data->err_exit = external(cmds[0], data);
 }
 
 /*
@@ -99,42 +92,25 @@ void	close_fds(t_cmds *cmd, pid_t pid, int i)
 void	executer(t_mini_data *data, t_cmds	**cmds)
 {
 	pid_t	pid;
-	int i;
-	
+	int		i;
+
 	i = 0;
 	while (cmds[0])
 	{
 		data->err_exit = piper(*cmds);
-		if(data->err_exit)
-			break;
+		if (data->err_exit)
+			break ;
 		pid = fork();
 		if (pid < 0)
 		{
 			data->err_exit = manage_errors(NULL, FORKING, NULL);
-			break;
+			break ;
 		}
-		if (!pid)
-			data->err_exit = set_inoutputs(cmds[0], i);
-////	Figure out if check_empty_cmd is needed.			
-		if(!data->err_exit)
-			data->err_exit = check_empty_cmd(cmds[0]);
-		if(!data->err_exit)
-			data->err_exit = builtiner(cmds[0]->cmd, data, pid);
-
-		if (!pid && !data->err_exit)
-		{
-			printf("Soy un externo\n");
-			data->err_exit = external(cmds[0], data);
-		}
+		execute_cmd(data, cmds, pid, i);
 		close_fds(cmds[0], pid, i);
 		kill_son(data, pid);
 		cmds = &cmds[0]->next;
 		i++;
 	}
-	i = -1;
-	while (++i < data->cmd_num)
-	{
-			wait(&data->err_exit);
-			set_exit_status(data->err_exit);
-	}
+	waiter(data);
 }

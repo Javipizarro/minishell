@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 23:53:20 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/06/04 15:11:47 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/19 17:22:19 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 void	erase_quotes(char *line)
 {
-	int i;
+	int		i;
 	char	quo;
 
 	i = -1;
@@ -61,10 +61,10 @@ void	quotes_status(char c, char *quo)
 
 int	check_open_quotes(char *line)
 {
-	int i;
+	int		i;
 	char	quo;
 
-	i  = 0;
+	i = 0;
 	quo = 0;
 	while (line[i])
 	{

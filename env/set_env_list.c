@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env1.c                                             :+:      :+:    :+:   */
+/*   set_env_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 17:24:49 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/14 19:52:09 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/19 18:32:10 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ void	check_basic_env(t_env **env)
 
 void	shlvl_up(t_env **env)
 {
-	int lvl;
+	int	lvl;
 
 	env = search_env("SHLVL", env);
 	if (!env[0])
-		return;
+		return ;
 	lvl = ft_atoi(env[0]->var[1]);
 	lvl++;
 	free(env[0]->var[1]);
@@ -64,7 +64,7 @@ void	shlvl_up(t_env **env)
 
 void	set_env_list(char *envp[], t_mini_data *data)
 {
-	int 	i;
+	int	i;
 
 	i = -1;
 	while (envp[++i])

@@ -6,11 +6,26 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 09:56:11 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/05 19:45:39 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/19 16:28:47 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+/*
+**	Checks the beginning and the end of the line, looking for incorrect tokens.
+**	Returns 1 if there are and 0 if there are not.
+*/
+
+int	check_edges(char *line)
+{
+	int	i;
+
+	i = ft_strlen(line) - 1;
+	if (line[0] == '|' || line[i] == '|' || line[i] == '>' || line[i] == '<')
+		return (1);
+	return (0);
+}
 
 /*
 **	Checks whether there are any wrong place token.
@@ -18,12 +33,11 @@
 
 int	check_tokens(char *line)
 {
-	int	i;
-	char quo;
-	char token;
+	int		i;
+	char	quo;
+	char	token;
 
-	i = ft_strlen(line) - 1;
-	if (line[0] == '|' || line[i] == '|' || line[i] == '>' || line[i] == '<')
+	if (check_edges(line))
 		return (1);
 	i = -1;
 	quo = 0;
@@ -35,18 +49,16 @@ int	check_tokens(char *line)
 		{
 			if (token && line[i] != ' ')
 				token = 0;
-			continue;
+			continue ;
 		}
 		if ((line[i] == '<' || line[i] == '>') && line[i] == line[i + 1])
 			i++;
 		if (token && (line[i] == '|' || token != '|'))
 			return (1);
-		else
-			token = line[i];
+		token = line[i];
 	}
 	return (0);
 }
-
 
 /*
 **	Trims all the unnecessary spaces from the line for parsing it.
@@ -54,7 +66,7 @@ int	check_tokens(char *line)
 
 void	trim_spaces(char *line)
 {
-	int i;
+	int		i;
 	char	quo;
 
 	i = 0;
@@ -70,14 +82,13 @@ void	trim_spaces(char *line)
 		if (!quo && line[i] == ' ' && line[i + 1] == ' ')
 		{
 			ft_memcpy(&line[i], &line[i + 1], ft_strlen(&line[i]));
-			continue;
+			continue ;
 		}
 		i++;
 	}
 	while (line[--i] == ' ')
 		line[i] = 0;
 }
-
 
 /*
 **	From the info in 'data->line', it arranges the commands in it

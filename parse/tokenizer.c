@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:36:05 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/04 14:36:42 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/19 17:25:56 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ char	get_in_token(char *line)
 
 char	tokenizer(char *line, t_cmds *cmd)
 {
-	int i;
-	char token;
+	int		i;
+	char	token;
 
 	if (line[0] != '<' && line[0] != '>')
 		return (0);
@@ -81,4 +81,28 @@ char	tokenizer(char *line, t_cmds *cmd)
 		i++;
 	ft_memcpy(line, &line[i], ft_strlen(&line[i]) + 1);
 	return (token);
+}
+
+/*
+**	Searches the next token from the i position in line and returns it.
+*/
+
+char	next_token(char *line, t_cmds *cmd, char *token, int *i)
+{
+	char	quo;
+
+	*i = -1;
+	quo = 0;
+	*token = 0;
+	while (line[++*i])
+	{
+		quotes_status(line[*i], &quo);
+		if (quo)
+			continue ;
+		if (line[*i] == '<' || line[*i] == '>')
+			*token = tokenizer(&line[*i], cmd);
+		if (*token)
+			break ;
+	}
+	return (*token);
 }

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 13:24:39 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/21 18:07:27 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/19 14:30:50 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,3 @@ t_env	**search_env(const char *env_name, t_env **env)
 			env = &env[0]->next;
 	return (env);
 }
-

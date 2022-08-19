@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 15:37:10 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/08/16 17:35:58 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/19 15:05:06 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	**get_system_paths(t_env *env)
 
 char	*test_path(char *root, char *cmd)
 {
-	int	fd;
+	int		fd;
 	char	*temp;
 	char	*path;
 
@@ -64,6 +64,32 @@ char	*test_path(char *root, char *cmd)
 }
 
 /*
+**	Loops through the PATH environment variable trying
+**	the command with each path.
+**	Returns the path if it is found or NULL if it is not.
+*/
+
+char	*test_env_path(char *cmd, t_mini_data *data)
+{
+	int		i;
+	char	*path;
+	char	**system_paths;
+
+	system_paths = get_system_paths(data->env);
+	if (!system_paths)
+		return (NULL);
+	i = -1;
+	while (system_paths[++i])
+	{
+		path = test_path(system_paths[i], cmd);
+		if (path)
+			break ;
+	}
+	ft_free_split(system_paths);
+	return (path);
+}
+
+/*
 **	Tries the cmd as it is, if this does not work, tries the different
 **	possible paths resulting from combining the root_paths in the "PATH="
 **	environment variable, and the cmd.
@@ -72,10 +98,7 @@ char	*test_path(char *root, char *cmd)
 
 char	*get_cmd_path(char *cmd, t_mini_data *data)
 {
-	int		i;
-	char	**system_paths;
-	char 	*path;
-
+	char	*path;
 
 	if (cmd[0] == '.' || cmd[0] == '/')
 	{
@@ -85,17 +108,7 @@ char	*get_cmd_path(char *cmd, t_mini_data *data)
 		data->err_print = manage_errors(NULL, NOTFILE, cmd);
 		return (NULL);
 	}
-	i = -1;
-	system_paths = get_system_paths(data->env);
-	if (!system_paths)
-		return (NULL);
-	while (system_paths[++i])
-	{
-		path = test_path(system_paths[i], cmd);
-		if (path)
-			break;
-	}
-	ft_free_split(system_paths);
+	path = test_env_path(cmd, data);
 	if (path)
 		return (path);
 	data->err_print = manage_errors(NULL, CMDERR, cmd);
@@ -109,9 +122,9 @@ char	*get_cmd_path(char *cmd, t_mini_data *data)
 int	external(t_cmds *cmd, t_mini_data *data)
 {
 	char	*path;
-	
+
 	if (chek_dir(cmd->cmd[0]))
-		return(manage_errors(NULL, ISDIRCMD, cmd->cmd[0]));
+		return (manage_errors(NULL, ISDIRCMD, cmd->cmd[0]));
 	path = get_cmd_path(cmd->cmd[0], data);
 	if (data->err_print)
 		return (CMDERR);

@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 19:51:31 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/14 19:52:01 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/19 18:31:37 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ t_env	*set_env_value(char *var_name, char *var_val[], t_env *env)
 	else
 		env->var[1] = ft_strdup("");
 	var_val[0] = temp;
-	return(env);
+	return (env);
 }

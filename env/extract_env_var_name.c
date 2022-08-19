@@ -6,7 +6,7 @@
 /*   By: jpizarro <jpizarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 12:55:52 by jpizarro          #+#    #+#             */
-/*   Updated: 2022/07/27 19:08:34 by jpizarro         ###   ########.fr       */
+/*   Updated: 2022/08/19 18:34:10 by jpizarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@
 
 char	*extract_env_var_name(char *line, int pos)
 {
-	int end;
-	char *var_name;
+	int		end;
+	char	*var_name;
 
 	end = pos + 1;
 	if ((line[end] == '?' || line[end] == '%' || line[end] == '^')
-	&& !(ft_isalnum(line[end + 1]) || line[end + 1] == '_'))
+		&& !(ft_isalnum(line[end + 1]) || line[end + 1] == '_'))
 		end++;
 	else
 		while (line[end] && (ft_isalnum(line[end]) || line[end] == '_'))
